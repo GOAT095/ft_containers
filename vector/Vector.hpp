@@ -5,20 +5,23 @@
 
 namespace ft
 {
-    template <typname T>
-    T   *allocate_memory_vector(std::acllocator<T> allocat, size_t n)
-    {
+    template <typename T>
+    T   *allocate_memory_vector(std::allocator<T> alloc, size_t n)
+    {   
+        T *array;
         try{
-            T *array;
-            array = allocat.allocate(n)
+            
+            array = alloc.allocate(n);
         }
         catch(std::bad_alloc &e)
         {
-            std::cout << e.what() << "\n";
+            std::cerr << e.what() << "\n";
         }
         return (array);
-
     }
-
-
+    template <typename T, std::allocator<T> alloc>
+    void deallocate_memory( T* p, std::size_t n)
+    {
+        alloc.deallocate(p, n);
+    }
 }
