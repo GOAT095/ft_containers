@@ -5,23 +5,37 @@
 
 namespace ft
 {
-    template <typename T>
-    T   *allocate_memory_vector(std::allocator<T> alloc, size_t n)
-    {   
-        T *array;
-        try{
-            
-            array = alloc.allocate(n);
-        }
-        catch(std::bad_alloc &e)
-        {
-            std::cerr << e.what() << "\n";
-        }
-        return (array);
-    }
-    template <typename T, std::allocator<T> alloc>
-    void deallocate_memory( T* p, std::size_t n)
+    
+    template < class T, class Alloc = allocator<T>
+    class Vector
     {
-        alloc.deallocate(p, n);
+        public:
+            typedef Alloc allocator_type;
+            typedef T value_type;
+
+
+            explicit vector (const allocator_type& alloc = allocator_type()): al(alloc), arr(NULL),size(0),capacity(0)
+            {
+                
+            }
+            explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+            {
+                
+            }
+            template <class InputIterator> vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+            {
+
+            }
+            vector (const vector& x)
+            {
+
+            }
+
+        private:
+            allocator_type al;
+            value_type *arr;
+            size_t size;
+            size_t capacity;
+
     }
 }
