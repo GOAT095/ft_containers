@@ -20,11 +20,14 @@ namespace ft
             }
             explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
             {
-                
+                al.allocate(n);
+                for (int i = 0; i < n; i++)
+                    arr[i] = val;
+                size = n, capacity = n;
             }
             template <class InputIterator> vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
             {
-
+                
             }
             vector (const vector& x)
             {
