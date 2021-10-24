@@ -11,7 +11,7 @@ namespace ft
             typedef Alloc allocator_type;
             typedef T value_type;
             typedef size_t size_type;
-            typedef iterator std::random_access_iterator_tag<T>;
+            typedef ft::iterator<value_type> iterator;
 
             /* constructors  */
             explicit vector (const allocator_type& alloc = allocator_type()): al(alloc), arr(NULL),size(0),capacity(0)
