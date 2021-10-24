@@ -2,11 +2,8 @@
 
 #include <iostream>
 #include <memory>
-#include <STL>
-#include 
 namespace ft
 {
-    
     template < class T, class Alloc = std::allocator<T> >
     class Vector
     {
@@ -57,7 +54,7 @@ namespace ft
                 if (capacity != 0)
                 {
                     for(size_type i = 0; i < size; i++)
-                        al.destroy(*arr[i]);
+                        al.destroy(&arr[i]);
                 }
                 //normal behavior
                 for(size_type i = 0; i < x.size; i++)
@@ -71,6 +68,11 @@ namespace ft
 			        al.destroy(&arr[i]);
 		        al.deallocate(arr, capacity);
             }
+            iterator begin()
+            {
+                return (arr[0]);
+            }
+
         private:
             allocator_type al;
             value_type *arr;
