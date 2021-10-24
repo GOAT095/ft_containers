@@ -20,7 +20,6 @@ namespace ft
             }
             explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): al(alloc)
             {
-                //need to use construct so it doesnt use = op
                 arr = al.allocate(n);
                 for (size_type i = 0; i < n; i++)
                     al.construct(arr[i], val);

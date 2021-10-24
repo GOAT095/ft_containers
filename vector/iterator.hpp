@@ -29,7 +29,25 @@ namespace ft
       {
         this->p = copy.p;
       }
+      //table
+        //bools
+          bool operator==(iterator const& it1, iterator const& it2)	{ return (it1._p == it2._p);	}
+          bool operator!=(iterator const& it1, iterator const& it2)	{ return (it1._p != it2._p);	}
+          bool operator<(iterator const& it1, iterator const& it2)		{ return (it1._p < it2._p);		}
+          bool operator>(iterator const& it1, iterator const& it2)		{ return (it1._p > it2._p);		}
+          bool operator<= (iterator const& it1, iterator const& it2)	{ return (it1._p <= it2._p);	}
+          bool operator>= (iterator const& it1, iterator const& it2)	{ return (it1._p >= it2._p);	}
+        
+          iterator &operator +=(const &uint64 n) {return iterator(this->p + n); }
+          Iterator& operator++() {++_ptr; return *this;}
+          T &operator*() const { return *p; }
+          T *operator->() const {return p;}
+          T &operator[](Distance rhs) const {return (p[rhs]);}
     private:
       T *p;
+    
+    friend inline iterator operator+(difference_type lhs, const iterator& rhs) {return iterator(lhs+rhs._ptr);}
+    friend inline iterator operator-(difference_type lhs, const iterator& rhs) {return iterator(lhs-rhs._ptr);}
   };
+   
 };
