@@ -46,8 +46,8 @@ namespace ft
     private:
       T *p;
     
+   
+  };
     friend  iterator operator+(difference_type lhs, const iterator& rhs) {return iterator(lhs+rhs.p);}
     friend  iterator operator-(difference_type lhs, const iterator& rhs) {return iterator(lhs-rhs.p);}
-  };
-   
 };

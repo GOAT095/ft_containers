@@ -1,5 +1,5 @@
 #pragma once
-
+#include "iterator.hpp"
 #include <iostream>
 #include <memory>
 namespace ft
@@ -14,18 +14,18 @@ namespace ft
             typedef ft::iterator<value_type> iterator;
 
             /* constructors  */
-            explicit vector (const allocator_type& alloc = allocator_type()): al(alloc), arr(NULL),size(0),capacity(0)
+            explicit Vector (const allocator_type& alloc = allocator_type()): al(alloc), arr(NULL),size(0),capacity(0)
             {
                 
             }
-            explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): al(alloc)
+            explicit Vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): al(alloc)
             {
                 arr = al.allocate(n);
                 for (size_type i = 0; i < n; i++)
                     al.construct(arr[i], val);
                 size = n; capacity = n;
             }
-            template <class InputIterator> vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):al(alloc)
+            template <class InputIterator> Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):al(alloc)
             {
                 arr = allocate(last - first);
                 capacity = last - first;
@@ -38,7 +38,7 @@ namespace ft
                     i++;
                 }
             }
-            vector (const vector& x)
+            Vector (const Vector& x)
             {
                 arr = nullptr;
                 size = 0;
@@ -47,7 +47,7 @@ namespace ft
             }
             /*end contructors*/
 
-            Vector &operator= (const vector& x)
+            Vector &operator= (const Vector& x)
             {
                 //from copy constructor
                 if (capacity != 0)
@@ -69,7 +69,7 @@ namespace ft
             }
             iterator begin()
             {
-                return (arr[0]);
+                return (iterator(arr[0]));
             }
 
         private:
