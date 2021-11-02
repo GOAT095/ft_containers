@@ -33,8 +33,8 @@ namespace ft
           this->p = copy.p;
         }
         //table
-    bool operator==(const Iterator& rhs) const {return p == rhs.p;}      
-    bool operator!=(const Iterator& rhs) const {return p != rhs.p;}
+    friend bool operator==(const Iterator& lhs, const Iterator& rhs)  {return lhs.p == rhs.p;}      
+    friend bool operator!=(const Iterator& lhs, const Iterator& rhs)  {return lhs.p != rhs.p;}
 
     pointer& operator*() const {return *p;}
     pointer* operator->() const {return p;}
@@ -48,6 +48,8 @@ namespace ft
     //pre
     Iterator& operator++() {++p; return *this;}
     Iterator& operator--() {--p; return *this;}
+
+
 
     private:
       pointer p;
