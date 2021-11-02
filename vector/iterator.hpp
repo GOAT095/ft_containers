@@ -38,6 +38,17 @@ namespace ft
 
     pointer& operator*() const {return *p;}
     pointer* operator->() const {return p;}
+
+    // wtf is this one
+
+    //post
+    Iterator operator++(int) const {Iterator tmp(*this); ++p; return tmp;}
+    Iterator operator--(int) const {Iterator tmp(*this); --p; return tmp;}
+
+    //pre
+    Iterator& operator++() {++p; return *this;}
+    Iterator& operator--() {--p; return *this;}
+
     private:
       pointer p;
 
