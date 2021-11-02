@@ -57,6 +57,9 @@ namespace ft
     Iterator& operator+=(difference_type rhs) {p += rhs; return *this;}
     Iterator& operator-=(difference_type rhs) {p -= rhs; return *this;}
 
+    //arithmetic operators + and -
+    Iterator operator+(difference_type rhs) const {return Iterator(p+rhs);}
+
     // brackets
     pointer& operator[](difference_type rhs) const {return p[rhs];}
 

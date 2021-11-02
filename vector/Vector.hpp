@@ -12,7 +12,7 @@ namespace ft
             typedef Alloc allocator_type;
             typedef T value_type;
             typedef size_t size_type;
-            typedef ft::iterator<value_type> iterator;
+            // typedef ft::Iterator iterator;
 
             /* constructors  */
             explicit Vector (const allocator_type& alloc = allocator_type()): al(alloc), arr(NULL),size(0),capacity(0)
@@ -68,9 +68,9 @@ namespace ft
 			        al.destroy(&arr[i]);
 		        al.deallocate(arr, capacity);
             }
-            iterator begin()
+            Iterator begin()
             {
-                return (iterator(arr[0]));
+                return (Iterator(&arr[0]));
             }
 
         private:
