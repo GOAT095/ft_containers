@@ -35,6 +35,10 @@ namespace ft
         //table
     friend bool operator==(const Iterator& lhs, const Iterator& rhs)  {return lhs.p == rhs.p;}      
     friend bool operator!=(const Iterator& lhs, const Iterator& rhs)  {return lhs.p != rhs.p;}
+    friend bool operator>(const Iterator& lhs, const Iterator& rhs)  {return lhs.p > rhs.p;}
+    friend bool operator<(const Iterator& lhs, const Iterator& rhs)  {return lhs.p < rhs.p;}
+    friend bool operator>=(const Iterator& lhs, const Iterator& rhs)  {return lhs.p >= rhs.p;}
+    friend bool operator<=(const Iterator& lhs, const Iterator& rhs)  {return lhs.p <= rhs.p;}
 
     pointer& operator*() const {return *p;}
     pointer* operator->() const {return p;}
@@ -49,7 +53,12 @@ namespace ft
     Iterator& operator++() {++p; return *this;}
     Iterator& operator--() {--p; return *this;}
 
+    //additin and sub
+    Iterator& operator+=(difference_type rhs) {p += rhs; return *this;}
+    Iterator& operator-=(difference_type rhs) {p -= rhs; return *this;}
 
+    // brackets
+    pointer& operator[](difference_type rhs) const {return p[rhs];}
 
     private:
       pointer p;
