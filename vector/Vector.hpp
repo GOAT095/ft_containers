@@ -12,7 +12,12 @@ namespace ft
             typedef Alloc allocator_type;
             typedef T value_type;
             typedef size_t size_type;
-            // typedef ft::Iterator iterator;
+            typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type value_type;
+            typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type  difference_type;
+             typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
+             typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
+            typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
+            typedef Iterator<T> iterator;
 
             /* constructors  */
             explicit Vector (const allocator_type& alloc = allocator_type()): al(alloc), arr(NULL),size(0),capacity(0)
@@ -68,9 +73,9 @@ namespace ft
 			        al.destroy(&arr[i]);
 		        al.deallocate(arr, capacity);
             }
-            Iterator begin()
+            iterator begin()
             {
-                return (Iterator(&arr[0]));
+                return (iterator(&arr[0]));
             }
 
         private:

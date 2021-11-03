@@ -1,3 +1,4 @@
+#pragma once
 
 #include <cstddef>
 #include <iostream>
@@ -7,7 +8,7 @@ namespace ft
   template <class Category, class T, class Distance = ptrdiff_t,
           class Pointer = T*, class Reference = T&>
       struct iterator {
-        typedef T         value_type;
+        // typedef T         value_type;
         typedef Distance  difference_type;
         typedef Pointer   pointer;
         typedef Reference reference;
@@ -16,11 +17,12 @@ namespace ft
   template <class T>
   class Iterator {
     public:
-      typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type value_type;
-      typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type  difference_type;
-      typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
-      typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
-      typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
+          typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type value_type;
+            typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type  difference_type;
+             typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
+             typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
+            typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
+            typedef Iterator<T> iterator;
       //default
         Iterator():p(nullptr){};
       //pointer
