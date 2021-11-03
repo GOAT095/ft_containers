@@ -10,12 +10,12 @@ namespace ft
     {
         public:
             typedef Alloc allocator_type;
-            typedef T value_type;
+            // typedef T value_type;
             typedef size_t size_type;
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type value_type;
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type  difference_type;
-             typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
-             typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
+            typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
+            typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
             typedef Iterator<T> iterator;
 
@@ -28,7 +28,7 @@ namespace ft
             {
                 arr = al.allocate(n);
                 for (size_type i = 0; i < n; i++)
-                    al.construct(arr[i], val);
+                    al.construct(&arr[i], val);
                 size = n; capacity = n;
             }
             template <class InputIterator> Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):al(alloc)
@@ -39,7 +39,7 @@ namespace ft
                 size_type i = 0;
                 while(last != first)
                 {
-                    al.construct(arr[i], *first);
+                    al.construct(&arr[i], *first);
                     first++;
                     i++;
                 }
@@ -63,7 +63,7 @@ namespace ft
                 }
                 //normal behavior
                 for(size_type i = 0; i < x.size; i++)
-                    al.construct(arr[i], x.arr[i]);
+                    al.construct(&arr[i], x.arr[i]);
                 size = x.size;
                 capacity = x.capacity;
             }
