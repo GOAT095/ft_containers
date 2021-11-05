@@ -7,10 +7,14 @@ int main (void)
     ft::Vector<int> myvector(5);
     for(int i = 0; i < 5; i++)
         myvector[i] = i;
-    // ft::Vector<int>::iterator it =  myvector.begin();
-    // for(int i = 0; i < 5; i++)
-    //     printf("%d", *it);it++;
-    ft::Vector<int>::iterator it =  myvector.end();
-    printf("%d", *it);
+    ft::Vector<int>::iterator it =  myvector.begin();
+    for(int i = 0; i < 5; i++)
+    {   std::cout << *it; it++;}
+    ft::Vector<int>::iterator it2 =  myvector.end();
+    std::cout << *(--it2) << std::endl;
+
+    // working fine as expected !
+
+    
     return 0;
 }

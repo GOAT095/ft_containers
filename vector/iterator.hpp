@@ -65,7 +65,9 @@ namespace ft
 
     // brackets
     pointer& operator[](difference_type rhs)  {return p[rhs];}
-
+    operator Iterator<const T>() const {
+                return (Iterator<const T>(this->p));
+            }
     private:
       pointer p;
 

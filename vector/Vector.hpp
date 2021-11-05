@@ -76,7 +76,7 @@ namespace ft
             iterator begin() {return (iterator(arr));}
             iterator end() {return (iterator(arr + size));}
 
-        reference& operator[](difference_type rhs) {return (*(arr + rhs));}
+        reference operator[](size_type rhs) {return (*(arr + rhs));}
 
         private:
             allocator_type al;
