@@ -15,6 +15,10 @@ int main (void)
 
     // working fine as expected !
 
-    
+    std::cout << myvector.size() << std::endl;
+    std::cout << myvector.max_size() << std::endl;;
+    std::cout << myvector.capacity() << std::endl;;
+
+    //working fine
     return 0;
 }
