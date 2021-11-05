@@ -73,10 +73,9 @@ namespace ft
 			        al.destroy(&arr[i]);
 		        al.deallocate(arr, capacity);
             }
-            iterator begin()
-            {
-                return (iterator(arr));
-            }
+            iterator begin() {return (iterator(arr));}
+            iterator end() {return (iterator(arr + size));}
+
         reference& operator[](difference_type rhs) {return (*(arr + rhs));}
 
         private:
