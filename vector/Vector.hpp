@@ -20,35 +20,35 @@ namespace ft
             typedef Iterator<T> iterator;
 
             /* constructors  */
-            explicit Vector (const allocator_type& alloc = allocator_type()): al(alloc), arr(NULL),size(0),capacity(0)
+            explicit Vector (const allocator_type& alloc = allocator_type()): al(alloc), _arr(NULL),_size(0),_capacity(0)
             {
                 
             }
             explicit Vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): al(alloc)
             {
-                arr = al.allocate(n);
+                _arr = al.allocate(n);
                 for (size_type i = 0; i < n; i++)
-                    al.construct(&arr[i], val);
-                size = n; capacity = n;
+                    al.construct(&_arr[i], val);
+                _size = n; _capacity = n;
             }
             template <class InputIterator> Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):al(alloc)
             {
-                arr = allocate(last - first);
-                capacity = last - first;
-                size = capacity;
+                _arr = allocate(last - first);
+                _capacity = last - first;
+                _size = _capacity;
                 size_type i = 0;
                 while(last != first)
                 {
-                    al.construct(&arr[i], *first);
+                    al.construct(&_arr[i], *first);
                     first++;
                     i++;
                 }
             }
             Vector (const Vector& x)
             {
-                arr = nullptr;
-                size = 0;
-                capacity = 0;
+                _arr = nullptr;
+                _size = 0;
+                _capacity = 0;
                 *this = x;
             }
             /*end contructors*/
@@ -56,39 +56,39 @@ namespace ft
             Vector &operator= (const Vector& x)
             {
                 //from copy constructor
-                if (capacity != 0)
+                if (_capacity != 0)
                 {
-                    for(size_type i = 0; i < size; i++)
-                        al.destroy(&arr[i]);
+                    for(size_type i = 0; i < _size; i++)
+                        al.destroy(&_arr[i]);
                 }
                 //normal behavior
-                for(size_type i = 0; i < x.size; i++)
-                    al.construct(&arr[i], x.arr[i]);
-                size = x.size;
-                capacity = x.capacity;
+                for(size_type i = 0; i < x._size; i++)
+                    al.construct(&_arr[i], x._arr[i]);
+                _size = x._size;
+                _capacity = x._capacity;
             }
             ~Vector(void)
             {
-                for(size_type i = 0; i < size; ++i)
-			        al.destroy(&arr[i]);
-		        al.deallocate(arr, capacity);
+                for(size_type i = 0; i < _size; ++i)
+			        al.destroy(&_arr[i]);
+		        al.deallocate(_arr, _capacity);
             }
-        iterator begin() {return (iterator(arr));}
-        iterator end() {return (iterator(arr + size));}
+        iterator begin() {return (iterator(_arr));}
+        iterator end() {return (iterator(_arr + _size));}
         
         //operator []
-        reference operator[](size_type rhs) {return (*(arr + rhs));}
-        const reference operator[] (size_type rhs) const{return (*(arr + rhs));}
+        reference operator[](size_type rhs) {return (*(_arr + rhs));}
+        const reference operator[] (size_type rhs) const{return (*(_arr + rhs));}
         
         //size
-        size_type size() const{return this->size;}
-        // size_type max_size() const{return al.max_size();}
-
+        size_type size() const{return this->_size;}
+        size_type max_size() const{return al.max_size();}
+        size_type capacity() const{return this->_capacity;};
         private:
             allocator_type al;
-            value_type *arr;
-            size_type size;
-            size_type capacity;
+            value_type *_arr;
+            size_type _size;
+            size_type _capacity;
 
     };
 };
