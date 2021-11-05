@@ -77,7 +77,7 @@ namespace ft
             iterator end() {return (iterator(arr + size));}
 
         reference operator[](size_type rhs) {return (*(arr + rhs));}
-
+        const reference operator[] (size_type rhs) const{return (*(arr + rhs));}
         private:
             allocator_type al;
             value_type *arr;
