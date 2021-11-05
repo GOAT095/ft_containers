@@ -75,8 +75,9 @@ namespace ft
             }
             iterator begin()
             {
-                return (iterator(&arr[0]));
+                return (iterator(arr));
             }
+        reference& operator[](difference_type rhs) {return (*(arr + rhs));}
 
         private:
             allocator_type al;
