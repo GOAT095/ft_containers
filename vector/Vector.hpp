@@ -73,11 +73,17 @@ namespace ft
 			        al.destroy(&arr[i]);
 		        al.deallocate(arr, capacity);
             }
-            iterator begin() {return (iterator(arr));}
-            iterator end() {return (iterator(arr + size));}
-
+        iterator begin() {return (iterator(arr));}
+        iterator end() {return (iterator(arr + size));}
+        
+        //operator []
         reference operator[](size_type rhs) {return (*(arr + rhs));}
         const reference operator[] (size_type rhs) const{return (*(arr + rhs));}
+        
+        //size
+        size_type size() const{return this->size;}
+        // size_type max_size() const{return al.max_size();}
+
         private:
             allocator_type al;
             value_type *arr;
