@@ -57,19 +57,33 @@ namespace ft
 
         reference	operator*() const {return (*_it);}
 
-        reverse_iterator operator+ (difference_type n) const{
-            return(reverse_iterator(_it - n);
-
-        }    
+        reverse_iterator operator+ (difference_type n) const{return(reverse_iterator(_it - n);}
+        reverse_iterator operator- (difference_type n) const{return(reverse_iterator(_it + n);}
 
         reverse_iterator&	operator++() {--_it; return *this;}
         //post inc
         reverse_iterator	operator++(int) {
-				reverse_iterator tmp = *this;
+		    reverse_iterator tmp = *this;
 				_it--;
 				return (tmp);
-			}
+		}
+        reverse_iterator&	operator--() {++_it; return *this;}
+        //post inc
+        reverse_iterator	operator++(int) {
+		    reverse_iterator tmp = *this;
+				_it++;
+				return (tmp);
+		}
+        
         reverse_iterator& operator+= (difference_type n){_it -= n ; return *this;}
+        reverse_iterator& operator-= (difference_type n){_it += n ; return *this;}
+
+        //must return reference to the pointer so it doesnt create another one
+        pointer operator->() const{return &(*_it);}
+
+        reference operator[] (difference_type n) const{return (_it[n]);}
+
+
 
         private:
             iterator_type _it;
