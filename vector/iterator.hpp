@@ -15,33 +15,33 @@ namespace ft
         typedef Category  iterator_category;
       };
   template <class T>
-  class Iterator {
+  class MyIterator {
     public:
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type value_type;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type  difference_type;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
-          typedef Iterator<T> iterator;
+          typedef MyIterator<T> iterator;
       //default
-        Iterator():p(nullptr){};
+        MyIterator():p(nullptr){};
       //pointer
-        Iterator(const pointer &ptr) : p(ptr){};
+        MyIterator(const pointer &ptr) : p(ptr){};
       //copy
-        Iterator(const Iterator& copy){*this = copy;}
+        MyIterator(const MyIterator& copy){*this = copy;}
       //oprator =
-        Iterator &operator = (const Iterator &copy)
+        MyIterator &operator = (const MyIterator &copy)
         {
           this->p = copy.p;
           return(*this);
         }
         //table
-    friend bool operator==(const Iterator& lhs, const Iterator& rhs)  {return lhs.p == rhs.p;}      
-    friend bool operator!=(const Iterator& lhs, const Iterator& rhs)  {return lhs.p != rhs.p;}
-    friend bool operator>(const Iterator& lhs, const Iterator& rhs)  {return lhs.p > rhs.p;}
-    friend bool operator<(const Iterator& lhs, const Iterator& rhs)  {return lhs.p < rhs.p;}
-    friend bool operator>=(const Iterator& lhs, const Iterator& rhs)  {return lhs.p >= rhs.p;}
-    friend bool operator<=(const Iterator& lhs, const Iterator& rhs)  {return lhs.p <= rhs.p;}
+    friend bool operator==(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p == rhs.p;}      
+    friend bool operator!=(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p != rhs.p;}
+    friend bool operator>(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p > rhs.p;}
+    friend bool operator<(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p < rhs.p;}
+    friend bool operator>=(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p >= rhs.p;}
+    friend bool operator<=(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p <= rhs.p;}
 
     reference operator*() const {return *p;}
     pointer operator->() const {return p;}
@@ -49,24 +49,24 @@ namespace ft
     // wtf is this one
 
     //post
-    Iterator operator++(int)  {Iterator tmp(*this); ++p; return tmp;}
-    Iterator operator--(int)  {Iterator tmp(*this); --p; return tmp;}
+    MyIterator operator++(int)  {MyIterator tmp(*this); ++p; return tmp;}
+    MyIterator operator--(int)  {MyIterator tmp(*this); --p; return tmp;}
 
     //pre
-    Iterator& operator++() {++p; return *this;}
-    Iterator& operator--() {--p; return *this;}
+    MyIterator& operator++() {++p; return *this;}
+    MyIterator& operator--() {--p; return *this;}
 
     //additin and sub
-    Iterator& operator+=(difference_type rhs) {p += rhs; return *this;}
-    Iterator& operator-=(difference_type rhs) {p -= rhs; return *this;}
+    MyIterator& operator+=(difference_type rhs) {p += rhs; return *this;}
+    MyIterator& operator-=(difference_type rhs) {p -= rhs; return *this;}
 
     //arithmetic operators + and -
-    Iterator operator+(difference_type rhs)  {return Iterator(p+rhs);}
+    MyIterator operator+(difference_type rhs)  {return MyIterator(p+rhs);}
 
     // brackets
     pointer& operator[](difference_type rhs)  {return p[rhs];}
-    operator Iterator<const T>() const {
-                return (Iterator<const T>(this->p));
+    operator MyIterator<const T>() const {
+                return (MyIterator<const T>(this->p));
             }
     private:
       pointer p;
