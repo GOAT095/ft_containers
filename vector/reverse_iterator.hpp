@@ -83,8 +83,25 @@ namespace ft
 
         reference operator[] (difference_type n) const{return (_it[n]);}
 
-
-
+        //relational operators
+        template <class Iterator>
+        friend bool operator== (const reverse_iterator<Iterator>& lhs,
+                   const reverse_iterator<Iterator>& rhs){return (lhs._it == rhs._it);}
+        friend bool operator!= (const reverse_iterator<Iterator>& lhs,
+                   const reverse_iterator<Iterator>& rhs){return (lhs._it != rhs._it);}
+        template <class Iterator>
+        friend bool operator<  (const reverse_iterator<Iterator>& lhs,
+                   const reverse_iterator<Iterator>& rhs){return (lhs._it < rhs._it);}
+        template <class Iterator>
+        friend bool operator>  (const reverse_iterator<Iterator>& lhs,
+                   const reverse_iterator<Iterator>& rhs){return (lhs._it > rhs._it);}
+        template <class Iterator>
+        friend bool operator<= (const reverse_iterator<Iterator>& lhs,
+                   const reverse_iterator<Iterator>& rhs){return (lhs._it <= rhs._it);}
+        template <class Iterator>
+        friend bool operator<= (const reverse_iterator<Iterator>& lhs,
+                   const reverse_iterator<Iterator>& rhs){return (lhs._it >= rhs._it);}
+        
         private:
             iterator_type _it;
 
