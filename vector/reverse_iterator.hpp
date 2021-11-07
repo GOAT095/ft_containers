@@ -22,26 +22,37 @@ namespace ft
     };
 
     template <class T> class iterator_traits<const T*>{
-        typedef typename ptrdiff_t	     difference_type;
-        typedef typename T	             value_type;
-        typedef const    T*		         pointer;
-        typedef const    T&		         reference;
+        typedef typename ptrdiff_t	                     difference_type;
+        typedef typename T	                             value_type;
+        typedef const    T*		                         pointer;
+        typedef const    T&		                         reference;
         typedef typename std::random_access_iterator_tag iterator_category;
     };
 
     template <class iterator>
     class reverse_iterator
     {
+       public: 
         //for subtracting 
-        typedef          ptrdiff_t							    difference_type;
+        typedef typename iterator_traits<Iterator>::difference_type			difference_type;
         // The type of the element the iterator can point to.  
-        typedef typename iterator_traits<Iterator>::value_type	value_type;
+        typedef typename iterator_traits<Iterator>::value_type	            value_type;
         // The type of a pointer to an element the iterator can point to.
-        typedef typename ft::iterator::pointer					pointer;
+        typedef typename iterator_traits<Iterator>::pointer					pointer;
         // The type of a reference to an element the iterator can point to.
-        typedef typename iterator::reference				    reference;
+        typedef typename iterator_traits<Iterator>::reference               reference;
         //the iterator category (random_access, output, input ...)
-        typedef typename iterator::iterator_category		    iterator_category;
+        typedef typename iterator_traits<Iterator>::iterator_category	    iterator_category;
+
+        typedef typename iterator::iterator_type                iterator_type;
+
+        reverse_iterator(): _it(iterator_type())){}
+
+        explicit reverse_iterator(iterator_type &it) : _it(--it) {
+
+        };
+        private:
+            iterator_type _it;
 
     };
 }

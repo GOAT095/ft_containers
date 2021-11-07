@@ -12,6 +12,17 @@
         "memory": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__node_handle": "cpp",
+        "__string": "cpp",
+        "algorithm": "cpp",
+        "complex": "cpp",
+        "memory_resource": "cpp",
+        "initializer_list": "cpp",
+        "locale": "cpp",
+        "optional": "cpp",
+        "stack": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }

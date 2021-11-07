@@ -22,7 +22,7 @@ namespace ft
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
-          typedef MyIterator<T> iterator;
+          // typedef MyIterator<T> iterator;
       //default
         MyIterator():p(nullptr){};
       //pointer
