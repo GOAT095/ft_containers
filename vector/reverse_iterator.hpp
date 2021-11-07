@@ -48,9 +48,9 @@ namespace ft
 
         reverse_iterator(): _it(iterator_type())){}
 
-        explicit reverse_iterator(iterator_type &it) : _it(--it) {
-
-        };
+        explicit reverse_iterator(iterator_type &it) : _it(it) {}
+        
+        reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = rev_it._it;}
         private:
             iterator_type _it;
 
