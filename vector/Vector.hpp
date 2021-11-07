@@ -84,6 +84,7 @@ namespace ft
         size_type size() const{return this->_size;}
         size_type max_size() const{return al.max_size();}
         size_type capacity() const{return this->_capacity;};
+
         private:
             allocator_type al;
             value_type *_arr;
