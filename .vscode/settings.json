@@ -23,6 +23,7 @@
         "optional": "cpp",
         "stack": "cpp",
         "type_traits": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "__functional_03": "cpp"
     }
 }

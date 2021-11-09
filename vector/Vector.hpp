@@ -1,5 +1,6 @@
 #pragma once
 #include "iterator.hpp"
+#include "reverse_iterator.hpp"
 #include <iostream>
 #include <memory>
 #include <cstddef>
@@ -75,6 +76,9 @@ namespace ft
             }
         iterator begin() {return (iterator(_arr));}
         iterator end() {return (iterator(_arr + _size));}
+
+        reverse_iterator rbeging(){return(reverse_iterator(begin()));}
+        reverse_iterator rend(){return(reverse_iterator(end()));}
         
         //operator []
         reference operator[](size_type rhs) {return (*(_arr + rhs));}
@@ -83,7 +87,42 @@ namespace ft
         //size
         size_type size() const{return this->_size;}
         size_type max_size() const{return al.max_size();}
-        size_type capacity() const{return this->_capacity;};
+        size_type capacity() const{return this->_capacity;}
+
+        //better to start with reserve to use is for other functions
+        void		reserve(size_type n) {
+			if (n > _capacity) 
+            {
+				value_type tmp = al.allocate(n);
+				for (size_type i = 0; i < _size ; i++)
+                {
+					al.construct(&tmp[i], _arr[i]);
+					al.destroy(&_arr[i]);
+				}
+                //check if 0 do not deallocate
+				if (_capacity != 0)
+					al.deallocate(_arr, _capacity);
+				_arr = tmp;
+				_capacity = n;
+			}
+		}
+        void 		resize(size_type n, value_type val = value_type()) {
+			if (n <= _size)
+            {
+				for (size_type i = n + 1; i < _size ; i++)
+					al.destroy(&_arr[i]);
+				_size = n;
+			} 
+            else 
+            {
+				//reserve for new capacity
+                if (n > _capacity)
+					reserve(n);
+				for (size_type i = _size; i < n; i++)
+					al.construct(&_arr[i], val);
+				_size = n;
+			}
+		}
 
         private:
             allocator_type al;
