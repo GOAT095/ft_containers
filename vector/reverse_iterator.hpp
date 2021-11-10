@@ -34,24 +34,25 @@ namespace ft
     {
        public: 
         //for subtracting 
-        typedef typename iterator_traits<Iterator>::difference_type			difference_type;
+        typedef typename iterator_traits<iterator>::difference_type			difference_type;
         // The type of the element the iterator can point to.  
-        typedef typename iterator_traits<Iterator>::value_type	            value_type;
+        typedef typename iterator_traits<iterator>::value_type	            value_type;
         // The type of a pointer to an element the iterator can point to.
-        typedef typename iterator_traits<Iterator>::pointer					pointer;
+        typedef typename iterator_traits<iterator>::pointer					pointer;
         // The type of a reference to an element the iterator can point to.
-        typedef typename iterator_traits<Iterator>::reference               reference;
+        typedef typename iterator_traits<iterator>::reference               reference;
         //the iterator category (random_access, output, input ...)
-        typedef typename iterator_traits<Iterator>::iterator_category	    iterator_category;
+        typedef typename iterator_traits<iterator>::iterator_category	    iterator_category;
 
         typedef typename iterator::iterator_type                iterator_type;
 
-        reverse_iterator(): _it(iterator_type())){}
+        reverse_iterator(): _it(iterator_type()){}
 
         explicit reverse_iterator(iterator_type &it) : _it(it) {}
 
-        //base is next element to the iterator    
-        iterator_type base() const{iterator_type tmp; tmp = this->_it; return ++tmp;}
+        //base is next element to the iterator    -- coz its the normal iterator not the reverse 
+        //so next to reverse is (++) is (--)for the normal one(iterator_type)
+        iterator_type base() const{iterator_type tmp; tmp = this->_it; return --tmp;}
         template <class Iter>
         reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = rev_it.base();}
 
@@ -99,8 +100,7 @@ namespace ft
             iterator_type _it;
 
     };
-      //relational operators 
-
+    //relational operators
         template <class Iterator>
         bool operator== (const reverse_iterator<Iterator>& lhs,
                    const reverse_iterator<Iterator>& rhs){return (lhs.base() == rhs.base());}

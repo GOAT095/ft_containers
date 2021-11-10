@@ -36,12 +36,8 @@ namespace ft
           return(*this);
         }
         //table
-    friend bool operator==(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p == rhs.p;}      
-    friend bool operator!=(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p != rhs.p;}
-    friend bool operator>(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p > rhs.p;}
-    friend bool operator<(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p < rhs.p;}
-    friend bool operator>=(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p >= rhs.p;}
-    friend bool operator<=(const MyIterator& lhs, const MyIterator& rhs)  {return lhs.p <= rhs.p;}
+    pointer GetPointer() const{return p;}
+  
 
     reference operator*() const {return *p;}
     pointer operator->() const {return p;}
@@ -73,5 +69,16 @@ namespace ft
 
   };
   // Operators : mis
-
+    template <typename T>
+      bool operator==(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() == rhs.GetPointer();}
+    template <typename T>      
+      bool operator!=(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() != rhs.GetPointer();}
+    template <typename T>
+      bool operator>(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() > rhs.GetPointer();}
+    template <typename T>
+      bool operator<(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() < rhs.GetPointer();}
+    template <typename T>
+      bool operator>=(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() >= rhs.GetPointer();}
+    template <typename T>
+      bool operator<=(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() <= rhs.GetPointer();}
 }
