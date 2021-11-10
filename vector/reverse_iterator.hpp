@@ -29,6 +29,7 @@ namespace ft
         typedef typename std::random_access_iterator_tag iterator_category;
     };
 
+// ACHRAf102030!!
     template <class iterator>
     class reverse_iterator
     {
@@ -70,7 +71,7 @@ namespace ft
 		}
         reverse_iterator&	operator--() {++_it; return *this;}
         //post inc
-        reverse_iterator	operator++(int) {
+        reverse_iterator	operator--(int) {
 		    reverse_iterator tmp = *this;
 				_it++;
 				return (tmp);
