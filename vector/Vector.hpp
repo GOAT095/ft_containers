@@ -139,22 +139,30 @@ namespace ft
         reference operator[](size_type rhs) {return (*(_arr + rhs));}
         const reference operator[] (size_type rhs) const{return (*(_arr + rhs));}
 
-        // reference at (size_type n){
-            
-        // }
+        reference at (size_type n){
+            if (n < 0 || n >= _size)
+                throw std::string ("out of range\n");
+            return(*(_arr + n));
+        }
+        const_reference at (size_type n) const
+        {
+            if (n < 0 || n >= _size)
+                throw std::string ("out of range\n");
+            return(*(_arr + n));
+        }
 
         reference			front() {
-			return (this->_arr[0]);
+			return (_arr[0]);
 		}
 		const_reference		front() const{
-			return (this->_arr[0]);
+			return (_arr[0]);
 		}
 
         reference 			back(){
-			return (this->_arr[_size - 1]);
+			return (_arr[_size - 1]);
 		}
 		const_reference		back() const{
-			return (this->_arr[_size - 1]);
+			return (_arr[_size - 1]);
 		}
         private:
             allocator_type al;
