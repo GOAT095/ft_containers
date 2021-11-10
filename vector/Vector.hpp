@@ -20,8 +20,9 @@ namespace ft
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
             typedef MyIterator<T> iterator;
             typedef MyIterator<const T> const_iterator;
-            typedef reverse_iterator<iterator> reverse_iterator;
             typedef reverse_iterator<const_iterator> const_reverse_iterator;
+            typedef reverse_iterator<iterator> reverse_iterator;
+            
             /* constructors  */
             explicit Vector (const allocator_type& alloc = allocator_type()): al(alloc), _arr(NULL),_size(0),_capacity(0)
             {
@@ -79,8 +80,8 @@ namespace ft
         iterator begin() {return (iterator(_arr));}
         iterator end() {return (iterator(_arr + _size));}
 
-        // reverse_iterator rbeging(){return(reverse_iterator(begin()));}
-        // reverse_iterator rend(){return(reverse_iterator(end()));}
+        reverse_iterator rbeging(){return(reverse_iterator(begin()));}
+        reverse_iterator rend(){return(reverse_iterator(end()));}
         
         //operator []
         reference operator[](size_type rhs) {return (*(_arr + rhs));}
