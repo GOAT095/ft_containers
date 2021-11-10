@@ -79,11 +79,16 @@ namespace ft
 		        al.deallocate(_arr, _capacity);
             }
         iterator begin() {return (iterator(_arr));}
+        const_iterator begin() const{return (iterator(_arr));}
+
         iterator end() {return (iterator(_arr + _size));}
+        const_iterator end() const{return (iterator(_arr + _size));}
 
         reverse_iterator rbeging(){return(reverse_iterator(begin()));}
+        const_reverse_iterator rbegin() const{return(reverse_iterator(begin()));}
+
         reverse_iterator rend(){return(reverse_iterator(end()));}
-        
+        const_reverse_iterator rend() const{return(reverse_iterator(end()));}
         
         
         //size
@@ -144,7 +149,7 @@ namespace ft
                 throw std::string ("out of range\n");
             return(*(_arr + n));
         }
-        const_reference at (size_type n) const
+        const reference at (size_type n) const
         {
             if (n < 0 || n >= _size)
                 throw std::string ("out of range\n");
@@ -154,14 +159,14 @@ namespace ft
         reference			front() {
 			return (_arr[0]);
 		}
-		const_reference		front() const{
+		const reference		front() const{
 			return (_arr[0]);
 		}
 
         reference 			back(){
 			return (_arr[_size - 1]);
 		}
-		const_reference		back() const{
+		const reference		back() const{
 			return (_arr[_size - 1]);
 		}
         private:
