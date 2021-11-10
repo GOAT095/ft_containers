@@ -1,5 +1,6 @@
 #pragma once
 #include "iterator.hpp"
+#include <exception>
 #include "reverse_iterator.hpp"
 #include <iostream>
 #include <memory>
@@ -83,9 +84,7 @@ namespace ft
         reverse_iterator rbeging(){return(reverse_iterator(begin()));}
         reverse_iterator rend(){return(reverse_iterator(end()));}
         
-        //operator []
-        reference operator[](size_type rhs) {return (*(_arr + rhs));}
-        const reference operator[] (size_type rhs) const{return (*(_arr + rhs));}
+        
         
         //size
         size_type size() const{return this->_size;}
@@ -134,7 +133,29 @@ namespace ft
             _capacity = 0;
         }
         bool empty() const{return (_size);}
+        
+        //element access
+        //operator []
+        reference operator[](size_type rhs) {return (*(_arr + rhs));}
+        const reference operator[] (size_type rhs) const{return (*(_arr + rhs));}
 
+        // reference at (size_type n){
+            
+        // }
+
+        reference			front() {
+			return (this->_arr[0]);
+		}
+		const_reference		front() const{
+			return (this->_arr[0]);
+		}
+
+        reference 			back(){
+			return (this->_arr[_size - 1]);
+		}
+		const_reference		back() const{
+			return (this->_arr[_size - 1]);
+		}
         private:
             allocator_type al;
             value_type *_arr;

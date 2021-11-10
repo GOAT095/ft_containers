@@ -59,8 +59,9 @@ namespace ft
     //arithmetic operators + and -
     MyIterator operator+(difference_type rhs)  {return MyIterator(p+rhs);}
 
-    // brackets
+    // element access
     pointer& operator[](difference_type rhs)  {return p[rhs];}
+
     operator MyIterator<const T>() const {
                 return (MyIterator<const T>(this->p));
             }
