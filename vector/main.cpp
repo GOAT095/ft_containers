@@ -19,6 +19,8 @@ int main (void)
     std::cout << myvector.max_size() << std::endl;;
     std::cout << myvector.capacity() << std::endl;;
 
+    myvector.insert(it, 1111);
+
     //working fine
     return 0;
 }

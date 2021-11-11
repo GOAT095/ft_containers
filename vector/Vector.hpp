@@ -169,6 +169,47 @@ namespace ft
 		const reference		back() const{
 			return (_arr[_size - 1]);
 		}
+
+        //modifiers
+        // template <class InputIterator>   later
+        //     void assign (InputIterator first, InputIterator last)
+        //     {
+        //         diff = std::distance(first, last);
+        //     }
+
+        void push_back (const value_type& val)
+        {
+            if(_size == 0)
+                reserve(1);
+            if (_size == _capacity)
+            {
+                reserve(_capacity * 2);
+            }
+            al.construct(&_arr[_size], val);
+            _size++;
+        }
+
+        //inserts
+        iterator insert (iterator position, const value_type& val)
+        {
+            size_type dist = std::distance(begin(), position);
+            if (_size == 0)
+                reserve(1);
+            else if (_size + 1 > _capacity)
+                reserve(_capacity * 2);
+            if (_size == 0)
+				al.construct(&_arr[_size++], val);
+            else
+            {
+                for (size_type i = _size - 1 ; i > dist ; i--) {
+					al.construct(&_arr[i + 1], _arr[i]);
+				}
+                al.construct(&_arr[dist], val);
+                _size++;
+            }
+            return(begin() + dist);
+        }
+
         private:
             allocator_type al;
             value_type *_arr;
