@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <cstddef>
+
 namespace ft
 {
     template < class T, class Alloc = std::allocator<T> >
@@ -38,7 +39,7 @@ namespace ft
             }
             template <class InputIterator> Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):al(alloc)
             {
-                _arr = allocate(last - first);
+                _arr = al.allocate(last - first);
                 _capacity = last - first;
                 _size = _capacity;
                 size_type i = 0;
@@ -98,7 +99,7 @@ namespace ft
 
         //better to start with reserve to use is for other functions
         void		reserve(size_type n) {
-			if (n > _capacity) 
+			if (n > _capacity)
             {
 				value_type *tmp = al.allocate(n);
 				for (size_type i = 0; i < _size ; i++)
@@ -215,7 +216,7 @@ namespace ft
         {
             size_type start = begin() - position;
             if (_size == 0)
-                reserve(1);
+                reserve(n);
             else if (_size + n > _capacity)
                 reserve(_capacity + n);
             if (_size == 0)
@@ -223,13 +224,39 @@ namespace ft
 					al.construct(&_arr[i], val);
             else
             {
-                for (size_type i = _size - n ; i >= start ; i--)
+                for (size_type i = _size - 1 ; i >= start ; i--)
 					al.construct(&_arr[i + n], _arr[i]);
-                for (size_type i = 0; i < n;i++)
+                for (size_type i = 0; i < n; i++)
                     al.construct(&_arr[start + i], val);
             }
             _size += n;
         }
+        template <class InputIterator>
+        void insert (iterator position, InputIterator first, InputIterator last)
+        {
+            size_type dist = first - last;
+            if (_size == 0)
+                reserve(dist);
+            else if (_size + dist >= _capacity)
+                reserve(_capacity + dist);
+            if (_size == 0)
+            {
+                size_type i = 0;
+                while (first != last)
+                {
+                    al.construct(&_arr[i], *first);
+                    first++;
+                    i++;
+                }
+            }
+            else
+            {
+                for (size_type i = _size - 1 ; i >= start ; i--)
+					al.construct(&_arr[i + n], _arr[i]);
+            }
+            _size += dist;
+        }
+
 
         private:
             allocator_type al;
