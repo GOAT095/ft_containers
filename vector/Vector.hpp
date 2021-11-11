@@ -100,7 +100,7 @@ namespace ft
         void		reserve(size_type n) {
 			if (n > _capacity) 
             {
-				value_type tmp = al.allocate(n);
+				value_type *tmp = al.allocate(n);
 				for (size_type i = 0; i < _size ; i++)
                 {
 					al.construct(&tmp[i], _arr[i]);
@@ -192,7 +192,7 @@ namespace ft
         //inserts
         iterator insert (iterator position, const value_type& val)
         {
-            size_type dist = std::distance(begin(), position);
+            size_type dist = begin() - position;
             if (_size == 0)
                 reserve(1);
             else if (_size + 1 > _capacity)

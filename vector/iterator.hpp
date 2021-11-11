@@ -58,7 +58,7 @@ namespace ft
 
     //arithmetic operators + and -
     MyIterator operator+(difference_type rhs)  {return MyIterator(p+rhs);}
-
+    difference_type operator-(MyIterator rhs)  {return (rhs.p - p);}
     // element access
     pointer& operator[](difference_type rhs)  {return p[rhs];}
 
@@ -69,6 +69,8 @@ namespace ft
       pointer p;
 
   };
+
+  //difference_type operator-(difference_type rhs)  {return (rhs - p);}
   // Operators : mis
     template <typename T>
       bool operator==(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() == rhs.GetPointer();}

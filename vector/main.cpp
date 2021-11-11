@@ -5,22 +5,22 @@ int main (void)
 {
     // int i = 0;
     ft::Vector<int> myvector(5);
-    for(int i = 0; i < 5; i++)
-        myvector[i] = i;
+    //for(int i = 0; i < 5; i++)
+        myvector.push_back(8);
     ft::Vector<int>::iterator it =  myvector.begin();
-    for(int i = 0; i < 5; i++)
-    {   std::cout << *it; it++;}
-    ft::Vector<int>::iterator it2 =  myvector.end();
-    std::cout << *(--it2) << std::endl;
+    // for(int i = 0; i < 5; i++)
+    // {   std::cout << *it; it++;}
+    // ft::Vector<int>::iterator it2 =  myvector.end();
+    // std::cout << *(--it2) << std::endl;
 
     // working fine as expected !
 
     std::cout << myvector.size() << std::endl;
-    std::cout << myvector.max_size() << std::endl;;
+    // std::cout << myvector.max_size() << std::endl;;
     std::cout << myvector.capacity() << std::endl;;
-
+    
     myvector.insert(it, 1111);
-
+    std::cout << *it << std::endl;
     //working fine
     return 0;
 }
