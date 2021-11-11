@@ -190,6 +190,8 @@ namespace ft
         }
 
         //inserts
+
+        // this inserts in the position
         iterator insert (iterator position, const value_type& val)
         {
             size_type dist = begin() - position;
@@ -201,13 +203,32 @@ namespace ft
 				al.construct(&_arr[_size++], val);
             else
             {
-                for (size_type i = _size - 1 ; i > dist ; i--) {
+                for (size_type i = _size - 1 ; i > dist ; i--)
 					al.construct(&_arr[i + 1], _arr[i]);
-				}
                 al.construct(&_arr[dist], val);
                 _size++;
             }
             return(begin() + dist);
+        }
+        // this insert the value staring from the position n times
+        void insert (iterator position, size_type n, const value_type& val)
+        {
+            size_type start = begin() - position;
+            if (_size == 0)
+                reserve(1);
+            else if (_size + n > _capacity)
+                reserve(_capacity + n);
+            if (_size == 0)
+				for (size_type i = 0; i < n ; i++)
+					al.construct(&_arr[i], val);
+            else
+            {
+                for (size_type i = _size - n ; i >= start ; i--)
+					al.construct(&_arr[i + n], _arr[i]);
+                for (size_type i = 0; i < n;i++)
+                    al.construct(&_arr[start + i], val);
+            }
+            _size += n;
         }
 
         private:
