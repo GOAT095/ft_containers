@@ -195,7 +195,7 @@ namespace ft
         // this inserts in the position
         iterator insert (iterator position, const value_type& val)
         {
-            size_type dist = begin() - position;
+            size_type dist = position - begin();
             if (_size == 0)
                 reserve(1);
             else if (_size + 1 > _capacity)
@@ -214,8 +214,8 @@ namespace ft
         // this insert the value staring from the position n times
         void insert (iterator position, size_type n, const value_type& val)
         {
-            size_type start = begin() - position;
-            if (_size == 0)
+            size_type start =  position - begin();
+            if (_size == 0) 
                 reserve(n);
             else if (_size + n > _capacity)
                 reserve(_capacity + n);
@@ -231,10 +231,12 @@ namespace ft
             }
             _size += n;
         }
+        //this one puts the range between first and last starting from the position
         template <class InputIterator>
         void insert (iterator position, InputIterator first, InputIterator last)
         {
             size_type dist = first - last;
+            size_type start =  position - begin();
             if (_size == 0)
                 reserve(dist);
             else if (_size + dist >= _capacity)
@@ -251,8 +253,13 @@ namespace ft
             }
             else
             {
-                for (size_type i = _size - 1 ; i >= start ; i--)
-					al.construct(&_arr[i + n], _arr[i]);
+                for (size_type i = _size - 1 ; i >= start  ; i--)
+					al.construct(&_arr[i + dist], _arr[i]);
+                for (size_type i = 0; i < dist; i++)
+                {
+                    al.construct(&_arr[start + i], *first);
+                    first++;
+                }
             }
             _size += dist;
         }
