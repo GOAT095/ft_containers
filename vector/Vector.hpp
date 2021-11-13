@@ -272,6 +272,7 @@ namespace ft
         iterator		erase (iterator position)
         {
             size_type i = position - begin();
+            
 			for (i ; i < _size - 1 ; i++ )
 				al.construct(&_arr[i], _arr[i + 1]);
 			al.destroy(&_arr[_size - 1]);
@@ -284,9 +285,8 @@ namespace ft
 			size_type dist = last - first;
 			size_type start = first = begin();
 
-			for (size_type i = 0; i < dist ; i++ ) {
+			for (size_type i = 0; i < dist ; i++ )
 				al.construct(&_arr[start + i], _arr[--_size]);
-			}
 			for (size_type i = 0 ; i > dist ; i++)
 				al.destroy(&_arr[start + i]);
 			return (first);
