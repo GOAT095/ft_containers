@@ -268,7 +268,29 @@ namespace ft
             }
             _size += dist;
         }
+        //erase , this one erases an element
+        iterator		erase (iterator position)
+        {
+            size_type i = position - begin();
+			for (i ; i < _size - 1 ; i++ )
+				al.construct(&_arr[i], _arr[i + 1]);
+			al.destroy(&_arr[_size - 1]);
+			_size--;
+			return (position);
+		}
+        //this one erases all the elements from first to last
+        iterator 		erase (iterator first, iterator last) {
+			// TO-DO: Destroy elements from first to last.
+			size_type dist = last - first;
+			size_type start = first = begin();
 
+			for (size_type i = 0; i < dist ; i++ ) {
+				_alloc.construct(&_container[start + i], _container[--_size]);
+			}
+			for (size_type i = 0 ; i > dist ; i++)
+				_alloc.destroy(&_container[start + i]);
+			return (first);
+		}
 
         private:
             allocator_type al;
