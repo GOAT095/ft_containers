@@ -331,7 +331,7 @@ namespace ft
         {
             return(allocator_type());
         }
-
+        size_type Get_Size(){return this->_size;}
         private:
             allocator_type al;
             value_type *_arr;
@@ -339,4 +339,25 @@ namespace ft
             size_type _capacity;
 
     };
+
+    template <class T, class Alloc>
+    bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+    {
+        if (lhs.size() != rhs.size())
+            return (lhs.size() == rhs.size());
+        return (std::equal(lhs.begin(), lhs.end(), rhs.begin()));
+    }
+
+    template <class T, class Alloc>
+    bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+    {
+        return(!(lhs == rhs));
+    }
+
+    template <class T, class Alloc>
+    bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+    }
+    
 };
