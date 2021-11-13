@@ -172,12 +172,21 @@ namespace ft
 			return (_arr[_size - 1]);
 		}
 
-        //modifiers
-        // template <class InputIterator>   later
-        //     void assign (InputIterator first, InputIterator last)
-        //     {
-        //         diff = std::distance(first, last);
-        //     }
+        // modifiers
+        template <class InputIterator>
+        void assign (InputIterator first, InputIterator last)
+        {
+            size_type dis = last - first;
+            size_type position = 0;
+
+            if (dis > _size)
+                reserve(dis);
+            for (position = 0; first != last; first++)
+                al.construct(&_arr[position++], *first);
+            for (; position < _size; position++)
+                al.destroy(&_container[position]);
+            _size = dis;
+        }
 
         void push_back (const value_type& val)
         {
@@ -273,9 +282,12 @@ namespace ft
         {
             size_type i = position - begin();
             
-			for (i ; i < _size - 1 ; i++ )
+			while (i < _size - 1 )
+            {
 				al.construct(&_arr[i], _arr[i + 1]);
-			al.destroy(&_arr[_size - 1]);
+                i++;
+            }
+            al.destroy(&_arr[_size - 1]);
 			_size--;
 			return (position);
 		}
@@ -302,7 +314,7 @@ namespace ft
             std::swap(al, x.al);
         }
 
-        allocator_type get_allocator() const
+        allocator_type getalator() const
         {
             return(allocator_type());
         }
