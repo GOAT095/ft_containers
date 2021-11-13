@@ -292,6 +292,21 @@ namespace ft
 			return (first);
 		}
 
+        //swap changes content of this container by the content of x so we just use std::swap that is offered
+        void swap (Vector& x)
+        {
+            std::swap(_arr, x._arr);
+            std::swap(_size, x._size);
+            std::swap(_capacity, x._capacity);
+            //this is not needed since vectors have the same type
+            std::swap(al, x.al);
+        }
+
+        allocator_type get_allocator() const
+        {
+            return(allocator_type());
+        }
+
         private:
             allocator_type al;
             value_type *_arr;
