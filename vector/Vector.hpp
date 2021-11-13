@@ -138,12 +138,13 @@ namespace ft
             _size = 0;
             _capacity = 0;
         }
-        bool empty() const{return (_size);}
+        //returns true if empty
+        bool empty() const{return (_size==0);}
         
         //element access
         //operator []
-        reference operator[](size_type rhs) {return (*(_arr + rhs));}
-        const reference operator[] (size_type rhs) const{return (*(_arr + rhs));}
+        reference operator[](size_type rhs) {return _arr[rhs];}
+        const reference operator[] (size_type rhs) const{return _arr[rhs];}
 
         reference at (size_type n){
             if (n < 0 || n >= _size)
@@ -189,6 +190,10 @@ namespace ft
             al.construct(&_arr[_size], val);
             _size++;
         }
+        void pop_back() {
+			al.destroy(&_arr[_size - 1]);
+			_size--;
+		}
 
         //inserts
 
