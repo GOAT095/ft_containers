@@ -317,7 +317,7 @@ namespace ft
             std::swap(al, x.al);
         }
 
-        allocator_type getalator() const
+        allocator_type get_allocator() const
         {
             return(allocator_type());
         }
