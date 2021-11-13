@@ -184,7 +184,7 @@ namespace ft
             for (position = 0; first != last; first++)
                 al.construct(&_arr[position++], *first);
             for (; position < _size; position++)
-                al.destroy(&_container[position]);
+                al.destroy(&_arr[position]);
             _size = dis;
         }
 
