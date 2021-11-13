@@ -190,6 +190,16 @@ namespace ft
                 al.destroy(&_arr[position]);
             _size = dis;
         }
+        // if n  < size dont deallocate leaves the old capacity
+        void 			assign (size_type n, const value_type& val)
+        {
+			if (n > _size)
+				reserve(n);
+			_size = n;
+			for (size_type i = 0; i < _size ; i++)
+				al.construct(&_arr[i], val);
+		}
+
 
         void push_back (const value_type& val)
         {
