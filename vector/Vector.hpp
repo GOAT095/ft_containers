@@ -355,24 +355,24 @@ namespace ft
     }
 
     template <class T, class Alloc>
-    bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
-        return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+        return (std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
     }
     template <class T, class Alloc>
-    bool operator> (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    bool operator> (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
-        return(!(lhs < rhs))
+        return(!(lhs < rhs));
     }
     template <class T, class Alloc>
-    bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
         if (lhs < rhs || lhs == rhs)
             return(true);
         return (false);
     }
     template <class T, class Alloc>
-    bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
         if (lhs > rhs || lhs == rhs)
             return(true);
