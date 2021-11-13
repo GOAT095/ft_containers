@@ -173,6 +173,9 @@ namespace ft
 		}
 
         // modifiers
+        //assigns the range between first and last to this container in the same order 
+        // and destroys old content if its outside the distance of the range
+        // size get updated to the distance between range so it fits
         template <class InputIterator>
         void assign (InputIterator first, InputIterator last)
         {
