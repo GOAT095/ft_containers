@@ -22,7 +22,7 @@ namespace ft
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
           typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
-          // typedef MyIterator<T> iterator;
+          typedef MyIterator<T> iterator;
       //default
         MyIterator():p(nullptr){};
       //pointer
@@ -59,19 +59,23 @@ namespace ft
     MyIterator operator+(difference_type rhs)  {return MyIterator(p+rhs);}
     MyIterator operator-(difference_type rhs)  {return MyIterator(p-rhs);}
 
-    difference_type operator+(MyIterator rhs)  {return (rhs.p + p);}
-    difference_type operator-(MyIterator rhs)  {return (rhs.p - p);}
+    difference_type operator-(MyIterator rhs)  {return (p - rhs.p);}
+    
     // element access
     reference& operator[](difference_type rhs)  {return p[rhs];}
 
     operator MyIterator<const T>() const {
                 return (MyIterator<const T>(this->p));
             }
+    friend  MyIterator::difference_type operator+( MyIterator::difference_type n,MyIterator rhs)
+    {
+        return(rhs.p + n);
+    }
+
     private:
       pointer p;
 
   };
-
   // Operators : mis
     template <typename T>
       bool operator==(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() == rhs.GetPointer();}
