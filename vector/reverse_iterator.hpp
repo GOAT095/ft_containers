@@ -16,20 +16,20 @@ namespace ft
 
     template <class T> class iterator_traits<T*>{
         public:
-            typedef  ptrdiff_t	     difference_type;
-            typedef  T	             value_type;
-            typedef  T*		         pointer;
-            typedef  T&		         reference;
-            typedef  typename std::random_access_iterator_tag iterator_category;
+        typedef  ptrdiff_t	     difference_type;
+        typedef  T	             value_type;
+        typedef  T*		         pointer;
+        typedef  T&		         reference;
+        typedef  typename std::random_access_iterator_tag iterator_category;
     };
 
     template <class T> class iterator_traits<const T*>{
         public:
-            typedef  ptrdiff_t	                     difference_type;
-            typedef  T	                             value_type;
-            typedef  T*		                         pointer;
-            typedef const    T&		                         reference;
-            typedef typename std::random_access_iterator_tag iterator_category;
+        typedef  ptrdiff_t	                     difference_type;
+        typedef  T	                             value_type;
+        typedef  const  T*		                         pointer;
+        typedef  const  T&		                         reference;
+        typedef typename std::random_access_iterator_tag iterator_category;
     };
 
 
@@ -48,15 +48,13 @@ namespace ft
         //the iterator category (random_access, output, input ...)
         typedef typename iterator_traits<iterator>::iterator_category	    iterator_category;
 
-        typedef typename iterator::iterator_type                iterator_type;
+        reverse_iterator(): _it(iterator()){}
 
-        reverse_iterator(): _it(iterator_type()){}
-
-        explicit reverse_iterator(iterator_type &it) : _it(it) {}
+        explicit reverse_iterator(iterator &it) : _it(it) {}
 
         //base is next element to the iterator    -- coz its the normal iterator not the reverse 
-        //so next to reverse is (++) is (--)for the normal one(iterator_type)
-        iterator_type base() const{iterator_type tmp; tmp = this->_it; return --tmp;}
+        //so next to reverse is (++) but (--)for the normal one(iterator_type)
+        iterator base() const{iterator tmp; tmp = this->_it; return --tmp;}
         template <class Iter>
         reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = rev_it.base();}
 
@@ -95,7 +93,7 @@ namespace ft
                 return (reverse_iterator<const iterator>(this->_it));
             }
         private:
-            iterator_type _it;
+            iterator _it;
 
     };
     //relational operators

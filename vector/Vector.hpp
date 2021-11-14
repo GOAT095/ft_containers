@@ -13,7 +13,6 @@ namespace ft
     {
         public:
             typedef Alloc allocator_type;
-            // typedef T value_type;
             typedef size_t size_type;
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type value_type;
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type  difference_type;
