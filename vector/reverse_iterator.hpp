@@ -45,7 +45,7 @@ namespace ft
         //the iterator category (random_access, output, input ...)
         typedef typename iterator_traits<iterator>::iterator_category	    iterator_category;
 
-        //typedef typename iterator::iterator_type                iterator_type;
+        typedef typename iterator::iterator_type                iterator_type;
 
         reverse_iterator(): _it(iterator_type()){}
 

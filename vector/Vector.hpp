@@ -267,10 +267,10 @@ namespace ft
         {
             size_type dist = first - last;
             size_type start =  position - begin();
-            if (_size + n > _capacity)
+            if (_size + dist > _capacity)
             {
-                if (n > _size)
-                    reserve(_size + n);
+                if (dist > _size)
+                    reserve(_size + dist);
                 else
                     reserve(_capacity * 2);
 			}
