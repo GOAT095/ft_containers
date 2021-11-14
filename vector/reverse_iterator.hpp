@@ -6,11 +6,11 @@
 namespace ft
 {
     template <class Iterator> class iterator_traits{
-        typedef typename Iterator::difference_type   difference_type;
-        typedef typename Iterator::value_type        value_type;
-        typedef typename Iterator::pointer	         pointer;
-        typedef typename Iterator::reference	     reference;
-        typedef typename Iterator::iterator_category iterator_category;
+            typedef typename Iterator::difference_type   difference_type;
+            typedef typename Iterator::value_type        value_type;
+            typedef typename Iterator::pointer	         pointer;
+            typedef typename Iterator::reference	     reference;
+            typedef typename Iterator::iterator_category iterator_category;
     };
 
     template <class T> class iterator_traits<T*>{
@@ -45,7 +45,7 @@ namespace ft
         //the iterator category (random_access, output, input ...)
         typedef typename iterator_traits<iterator>::iterator_category	    iterator_category;
 
-        typedef typename iterator::iterator_type                iterator_type;
+        //typedef typename iterator::iterator_type                iterator_type;
 
         reverse_iterator(): _it(iterator_type()){}
 

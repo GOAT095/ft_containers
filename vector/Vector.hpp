@@ -242,10 +242,13 @@ namespace ft
         void insert (iterator position, size_type n, const value_type& val)
         {
             size_type start =  position - begin();
-            if (_size == 0) 
-                reserve(n);
-            else if (_size + n > _capacity)
-                reserve(_capacity + n);
+            if (_size + n > _capacity)
+            {
+				if (n > _size)
+					reserve(_size + n);
+				else
+					reserve(_capacity * 2);
+            }
             if (_size == 0)
 				for (size_type i = 0; i < n ; i++)
 					al.construct(&_arr[i], val);
@@ -264,10 +267,13 @@ namespace ft
         {
             size_type dist = first - last;
             size_type start =  position - begin();
-            if (_size == 0)
-                reserve(dist);
-            else if (_size + dist >= _capacity)
-                reserve(_capacity + dist);
+            if (_size + n > _capacity)
+            {
+                if (n > _size)
+                    reserve(_size + n);
+                else
+                    reserve(_capacity * 2);
+			}
             if (_size == 0)
             {
                 size_type i = 0;
