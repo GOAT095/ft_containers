@@ -50,11 +50,11 @@ namespace ft
 
         reverse_iterator(): _it(iterator()){}
 
-        explicit reverse_iterator(iterator &it) : _it(it) {}
+        explicit reverse_iterator(iterator it) : _it(it) {}
 
         //base is next element to the iterator    -- coz its the normal iterator not the reverse 
         //so next to reverse is (++) but (--)for the normal one(iterator_type)
-        iterator base() const{iterator tmp; tmp = this->_it; return --tmp;}
+        iterator base() const{return _it;}
         template <class Iter>
         reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = rev_it.base();}
 

@@ -68,9 +68,9 @@ namespace ft
     operator MyIterator<const T>() const {
                 return (MyIterator<const T>(this->p));
             }
-    friend  MyIterator::difference_type operator+( MyIterator::difference_type n,MyIterator rhs)
+    friend  MyIterator operator+( MyIterator::difference_type n,MyIterator rhs)
     {
-        return(rhs.p + n);
+        return(MyIterator(rhs.p + n));
     }
 
     private:
