@@ -42,7 +42,6 @@ namespace ft
     reference operator*() const {return *p;}
     pointer operator->() const {return p;}
 
-    // wtf is this one
 
     //post
     MyIterator operator++(int)  {MyIterator tmp(*this); ++p; return tmp;}
@@ -58,9 +57,12 @@ namespace ft
 
     //arithmetic operators + and -
     MyIterator operator+(difference_type rhs)  {return MyIterator(p+rhs);}
+    MyIterator operator-(difference_type rhs)  {return MyIterator(p-rhs);}
+
+    difference_type operator+(MyIterator rhs)  {return (rhs.p + p);}
     difference_type operator-(MyIterator rhs)  {return (rhs.p - p);}
     // element access
-    pointer& operator[](difference_type rhs)  {return p[rhs];}
+    reference& operator[](difference_type rhs)  {return p[rhs];}
 
     operator MyIterator<const T>() const {
                 return (MyIterator<const T>(this->p));
@@ -70,7 +72,6 @@ namespace ft
 
   };
 
-  //difference_type operator-(difference_type rhs)  {return (rhs - p);}
   // Operators : mis
     template <typename T>
       bool operator==(const MyIterator<T>& lhs, const MyIterator<T>& rhs)  {return lhs.GetPointer() == rhs.GetPointer();}
