@@ -1,5 +1,6 @@
 #pragma once
 #include "iterator.hpp"
+#include "utils.hpp"
 #include <exception>
 #include "reverse_iterator.hpp"
 #include <iostream>
@@ -350,7 +351,7 @@ namespace ft
     {
         if (lhs.size() != rhs.size())
             return (lhs.size() == rhs.size());
-        return (std::equal(lhs.begin(), lhs.end(), rhs.begin()));
+        return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
     }
 
     template <class T, class Alloc>
@@ -362,7 +363,7 @@ namespace ft
     template <class T, class Alloc>
     bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
-        return (std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+        return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
     }
     template <class T, class Alloc>
     bool operator> (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
