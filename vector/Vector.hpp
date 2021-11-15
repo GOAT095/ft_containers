@@ -322,7 +322,7 @@ namespace ft
 				al.construct(&_arr[start + i], _arr[--_size]);
 			for (size_type i = 0 ; i > dist ; i++)
 				al.destroy(&_arr[start + i]);
-			return (last);
+			return (first);
 		}
 
         //swap changes content of this container by the content of x so we just use std::swap that is offered
