@@ -86,7 +86,7 @@ namespace ft
         //must return reference to the pointer so it doesnt create another one
         pointer operator->() const{return &(*_it);}
 
-        reference operator[] (difference_type n) const{return (_it[n]);}
+        reference operator[] (difference_type n) const{return (base()[-n-1]);}
         
 
         operator reverse_iterator<const iterator>() const {
@@ -121,7 +121,7 @@ namespace ft
                    const reverse_iterator<Iterator>& rhs){return (lhs.base() > rhs.base());}
         template <class Iterator>
         bool operator<= (const reverse_iterator<Iterator>& lhs,
-                   const reverse_iterator<Iterator>& rhs){return (lhs.base() <= rhs._it);}
+                   const reverse_iterator<Iterator>& rhs){return (lhs.base() <= rhs.base());}
         template <class Iterator>
         bool operator>= (const reverse_iterator<Iterator>& lhs,
                    const reverse_iterator<Iterator>& rhs){return (lhs.base() >= rhs.base());}

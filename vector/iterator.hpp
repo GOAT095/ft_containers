@@ -57,8 +57,8 @@ namespace ft
     MyIterator& operator-=(difference_type rhs) {p -= rhs; return *this;}
 
     //arithmetic operators + and -
-    MyIterator operator+(difference_type rhs)  {return MyIterator(p+rhs);}
-    MyIterator operator-(difference_type rhs)  {return MyIterator(p-rhs);}
+    MyIterator operator+(difference_type rhs)  const{return MyIterator(p+rhs);}
+    MyIterator operator-(difference_type rhs)  const{return MyIterator(p-rhs);}
 
     difference_type operator-(MyIterator rhs)  {return (p - rhs.p);}
     

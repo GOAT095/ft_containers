@@ -38,7 +38,7 @@ namespace ft
                 _size = n; _capacity = n;
             }
             template <class InputIterator> Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
-            ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = InputIterator()):al(alloc)
+            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = InputIterator()):al(alloc)
             {
                 _arr = al.allocate(last - first);
                 _capacity = last - first;
@@ -73,6 +73,7 @@ namespace ft
                     al.construct(&_arr[i], x._arr[i]);
                 _size = x._size;
                 _capacity = x._capacity;
+                return (*this);
             }
             ~Vector(void)
             {
@@ -86,11 +87,11 @@ namespace ft
         iterator end() {return (iterator(_arr + _size));}
         const_iterator end() const{return (iterator(_arr + _size));}
 
-        reverse_iterator rbeging(){return(reverse_iterator(begin()));}
-        const_reverse_iterator rbegin() const{return(reverse_iterator(begin()));}
+        reverse_iterator rbegin(){return(reverse_iterator(end()));}
+        const_reverse_iterator rbegin() const{return(const_reverse_iterator(end()));}
 
-        reverse_iterator rend(){return(reverse_iterator(end()));}
-        const_reverse_iterator rend() const{return(reverse_iterator(end()));}
+        reverse_iterator rend(){return(reverse_iterator(begin()));}
+        const_reverse_iterator rend() const{return(const_reverse_iterator(begin()));}
         
         
         //size
@@ -315,7 +316,7 @@ namespace ft
         iterator 		erase (iterator first, iterator last) {
 			// TO-DO: Destroy elements from first to last.
 			size_type dist = last - first;
-			size_type start = first = begin();
+			size_type start = first - begin();
 
 			for (size_type i = 0; i < dist ; i++ )
 				al.construct(&_arr[start + i], _arr[--_size]);
