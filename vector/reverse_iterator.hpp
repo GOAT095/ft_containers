@@ -55,6 +55,7 @@ namespace ft
         //base is next element to the iterator    -- coz its the normal iterator not the reverse 
         //so next to reverse is (++) but (--)for the normal one(iterator_type)
         iterator base() const{return _it + 1; }
+
         template <class Iter>
         reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = --rev_it.base();}
 

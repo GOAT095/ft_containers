@@ -63,12 +63,13 @@ namespace ft
             Vector &operator= (const Vector& x)
             {
                 //from copy constructor if it came not empty
-                if (_capacity != 0)
-                {
-                    for(size_type i = 0; i < _size; i++)
-                        al.destroy(&_arr[i]);
-                }
+                // if (_capacity != 0)
+                // {
+                //     for(size_type i = 0; i < _capacity; i++)
+                //         al.destroy(&_arr[i]);
+                // }
                 //normal behavior
+                reserve(x._capacity);
                 for(size_type i = 0; i < x._size; i++)
                     al.construct(&_arr[i], x._arr[i]);
                 _size = x._size;
