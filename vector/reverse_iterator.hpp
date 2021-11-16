@@ -59,9 +59,9 @@ namespace ft
         reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = --rev_it.base();}
 
         
-
-        reverse_iterator operator+ (difference_type n) const{return(reverse_iterator(_it - n));}
-        reverse_iterator operator- (difference_type n) const{return(reverse_iterator(_it + n));}
+        // +1 is because the reverse_iterators constructor does a --_it
+        reverse_iterator operator+ (difference_type n) const{ return(reverse_iterator(_it - n + 1));}
+        reverse_iterator operator- (difference_type n) const{ return(reverse_iterator(_it + n + 1));}
 
         
 

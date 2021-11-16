@@ -264,6 +264,7 @@ namespace ft
         {
             size_type dist = first - last;
             size_type start =  position - begin();
+
             if (_size + dist > _capacity)
             {
                 if (dist > _size)
@@ -281,15 +282,23 @@ namespace ft
                     i++;
                 }
             }
+            // (void) start;
             else
             {
                 for (size_type i = _size - 1 ; i >= start  ; i--)
 					al.construct(&_arr[i + dist], _arr[i]);
-                for (size_type i = 0; i < dist; i++)
+                size_type i = 0;
+                while (first != last)
                 {
                     al.construct(&_arr[start + i], *first);
                     first++;
+                    i++;
                 }
+                // for (size_type i = 0; i < dist; i++)
+                // {
+                //     al.construct(&_arr[start + i], *first);
+                //     first++;
+                // }
             }
             _size += dist;
         }
