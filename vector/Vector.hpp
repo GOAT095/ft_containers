@@ -62,7 +62,7 @@ namespace ft
 
             Vector &operator= (const Vector& x)
             {
-                //from copy constructor
+                //from copy constructor if it came not empty
                 if (_capacity != 0)
                 {
                     for(size_type i = 0; i < _size; i++)
