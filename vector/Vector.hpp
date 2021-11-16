@@ -62,12 +62,6 @@ namespace ft
 
             Vector &operator= (const Vector& x)
             {
-                //from copy constructor if it came not empty
-                // if (_capacity != 0)
-                // {
-                //     for(size_type i = 0; i < _capacity; i++)
-                //         al.destroy(&_arr[i]);
-                // }
                 //normal behavior
                 reserve(x._capacity);
                 for(size_type i = 0; i < x._size; i++)
@@ -151,13 +145,13 @@ namespace ft
 
         reference at (size_type n){
             if (n < 0 || n >= _size)
-                throw std::string ("out of range\n");
+                throw std::out_of_range("out of range\n");
             return(*(_arr + n));
         }
         const reference at (size_type n) const
         {
             if (n < 0 || n >= _size)
-                throw std::string ("out of range\n");
+                throw std::out_of_range ("out of range\n");
             return(*(_arr + n));
         }
 

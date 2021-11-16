@@ -54,12 +54,11 @@ namespace ft
 
         //base is next element to the iterator    -- coz its the normal iterator not the reverse 
         //so next to reverse is (++) but (--)for the normal one(iterator_type)
-        iterator base() const{return _it + 1; }
-
+        iterator base() const{return this->_it + 1;}
         template <class Iter>
         reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = --rev_it.base();}
 
-        reference	operator*() const {return (*_it);}
+        
 
         reverse_iterator operator+ (difference_type n) const{return(reverse_iterator(_it - n));}
         reverse_iterator operator- (difference_type n) const{return(reverse_iterator(_it + n));}
@@ -70,22 +69,23 @@ namespace ft
         //post inc
         reverse_iterator	operator++(int) {
 		    reverse_iterator tmp = *this;
-				_it--;
+				--_it;
 				return (tmp);
 		}
         reverse_iterator&	operator--() {++_it; return *this;}
         //post dec
         reverse_iterator	operator--(int) {
 		    reverse_iterator tmp = *this;
-				_it++;
+				++_it;
 				return (tmp);
 		}
         
         reverse_iterator& operator+= (difference_type n){_it -= n ; return *this;}
         reverse_iterator& operator-= (difference_type n){_it += n ; return *this;}
 
+        reference	operator*() const {return (*_it);}
         //must return reference to the pointer so it doesnt create another one
-        pointer operator->() const{return &(*_it);}
+        pointer operator->() const{return &(operator*());}
 
         reference operator[] (difference_type n) const{return (base()[-n-1]);}
         
