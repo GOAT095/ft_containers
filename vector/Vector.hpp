@@ -133,7 +133,7 @@ namespace ft
             for (size_type i = 0; i < _size ; i++)
 				al.destroy(&_arr[i]);
             _size = 0;
-            _capacity = 0;
+            // _capacity = 0;
         }
         //returns true if empty
         bool empty() const{return (_size==0);}
@@ -265,6 +265,9 @@ namespace ft
             size_type dist = first - last;
             size_type start =  position - begin();
 
+            
+            // if (dist > this->max_size())
+            //     throw std::length_error("Length error: vector::_M_fill_insert");
             if (_size + dist > _capacity)
             {
                 if (dist > _size)
@@ -374,7 +377,7 @@ namespace ft
     template <class T, class Alloc>
     bool operator> (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
-        return(!(lhs < rhs));
+        return(rhs < lhs);
     }
     template <class T, class Alloc>
     bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
