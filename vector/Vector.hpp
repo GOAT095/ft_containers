@@ -335,20 +335,30 @@ namespace ft
             std::swap(_size, x._size);
             std::swap(_capacity, x._capacity);
             //this is not needed since vectors have the same type
-            std::swap(al, x.al);
+            // std::swap(al, x.al);
         }
 
         allocator_type get_allocator() const
         {
             return(allocator_type());
         }
-        size_type Get_Size(){return this->_size;}
+        size_type Get_Size(){return this->_size;} 
+        
+        template <class TT, class Allocc>
+        friend void swap (Vector<TT,Allocc>& x, Vector<TT,Allocc>& y);
+        // {
+        // std::swap(x._arr, y._arr);
+        // std::swap(x._size, y._size);
+        // std::swap(x._capacity, y._capacity);
+        // }
+
         private:
             allocator_type al;
             value_type *_arr;
             size_type _size;
             size_type _capacity;
-
+        
+       
     };
 
     template <class T, class Alloc>
@@ -389,4 +399,11 @@ namespace ft
             return(true);
         return (false);
     }
+        template <class T, class Alloc>
+        void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y)
+        {
+            std::swap(x._arr, y._arr);
+            std::swap(x._size, y._size);
+            std::swap(x._capacity, y._capacity);
+        }
 };
