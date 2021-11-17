@@ -262,17 +262,14 @@ namespace ft
         template <class InputIterator>
         void insert (iterator position, InputIterator first, InputIterator last)
         {
-            size_type dist = first - last;
+            size_type dist = last - first;
             size_type start =  position - begin();
 
-            
-            // if (dist > this->max_size())
-            //     throw std::length_error("Length error: vector::_M_fill_insert");
             if (_size + dist > _capacity)
             {
                 if (dist > _size)
                     reserve(_size + dist);
-                else
+                else 
                     reserve(_capacity * 2);
 			}
             if (_size == 0)
@@ -285,7 +282,6 @@ namespace ft
                     i++;
                 }
             }
-            // (void) start;
             else
             {
                 for (size_type i = _size - 1 ; i >= start  ; i--)
@@ -332,7 +328,7 @@ namespace ft
 			return (first);
 		}
 
-        //swap changes content of this container by the content of x so we just use std::swap that is offered
+        //swap changes content of this container by the content of x so we just use std::swap
         void swap (Vector& x)
         {
             std::swap(_arr, x._arr);
