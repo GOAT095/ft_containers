@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
+/*   Updated: 2021/11/19 19:15:03 by anassif          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #pragma once
 #include "iterator.hpp"
 #include "utils.hpp"
@@ -117,7 +130,7 @@ namespace ft
 				for (size_type i = n + 1; i < _size ; i++)
 					al.destroy(&_arr[i]);
 				_size = n;
-			} 
+			}
             else 
             {
 				//reserve for new capacity
@@ -342,15 +355,7 @@ namespace ft
         {
             return(allocator_type());
         }
-        size_type Get_Size(){return this->_size;} 
-        
-        template <class TT, class Allocc>
-        friend void swap (Vector<TT,Allocc>& x, Vector<TT,Allocc>& y);
-        // {
-        // std::swap(x._arr, y._arr);
-        // std::swap(x._size, y._size);
-        // std::swap(x._capacity, y._capacity);
-        // }
+        size_type Get_Size(){return this->_size;}
 
         private:
             allocator_type al;
@@ -402,8 +407,6 @@ namespace ft
         template <class T, class Alloc>
         void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y)
         {
-            std::swap(x._arr, y._arr);
-            std::swap(x._size, y._size);
-            std::swap(x._capacity, y._capacity);
+            x.swap(y);
         }
 };
