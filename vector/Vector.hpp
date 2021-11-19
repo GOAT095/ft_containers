@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/11/19 19:15:03 by anassif          ###   ########.fr       */
+/*   Updated: 2021/11/19 22:38:29 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ namespace ft
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer   pointer;
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference reference;
             typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category  iterator_category;
+            
             typedef MyIterator<T> iterator;
             typedef MyIterator<const T> const_iterator;
             typedef reverse_iterator<const_iterator> const_reverse_iterator;
