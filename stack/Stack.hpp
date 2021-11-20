@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:23 by anassif           #+#    #+#             */
-/*   Updated: 2021/11/20 00:45:25 by anassif          ###   ########.fr       */
+/*   Updated: 2021/11/20 02:44:27 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ namespace ft{
             typedef Container container_type;
             typedef T value_type;
             
-            explicit Stack (const container_type& ctnr = container_type());
+            explicit Stack (const container_type& ctnr = container_type())
+            {
+                _container = ctnr;
+            }
             
             bool empty() const{return (_container.size() == 0);}
             size_type size() const{return (_container.size());}
@@ -34,25 +37,31 @@ namespace ft{
             void push (const value_type& val){_container.push_back(val);}
             void pop(){_container.pop_back();}
             
-            
+    template <class TT, class Containerr>
+    friend bool operator== (const Stack<TT,Containerr>& lhs, const Stack<TT,Containerr>& rhs)
+    {return (lhs._container == rhs._container);}
+
+    template <class TT, class Containerr>
+    friend bool operator!= (const Stack<T,Containerr>& lhs, const Stack<TT,Containerr>& rhs)
+    {return (lhs._container != rhs._container);}
+    
+    template <class TT, class Containerr>
+    friend bool operator<  (const Stack<T,Containerr>& lhs, const Stack<TT,Containerr>& rhs)
+    {return (lhs._container < rhs._container);}  
+    
+    template <class TT, class Containerr>
+    friend bool operator<= (const Stack<T,Containerr>& lhs, const Stack<TT,Containerr>& rhs)
+    {return (lhs._container <= rhs._container);}  
+
+    template <class TT, class Containerr>
+    friend bool operator>  (const Stack<TT,Containerr>& lhs, const Stack<TT,Containerr>& rhs)
+     {return (lhs._container > rhs._container);}  
+
+    template <class TT, class Containerr>
+    friend bool operator>= (const Stack<T,Containerr>& lhs, const Stack<TT,Containerr>& rhs)
+    {return (lhs._container >= rhs._container);}  
         protected:
             container_type _container;
     };
-    template <class T, class Container>
-    bool operator== (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs);
-
-    template <class T, class Container>
-    bool operator!= (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs);
-        
-    template <class T, class Container>
-    bool operator<  (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs);
-
-    template <class T, class Container>
-    bool operator<= (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs);
-
-    template <class T, class Container>
-    bool operator>  (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs);
-
-    template <class T, class Container>
-    bool operator>= (const Stack<T,Container>& lhs, const Stack<T,Container>& rhs);
+   
 }
