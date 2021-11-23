@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/11/19 22:38:29 by anassif          ###   ########.fr       */
+/*   Updated: 2021/11/20 23:50:57 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,12 +217,11 @@ namespace ft
             if(_size == 0)
                 reserve(1);
             if (_size == _capacity)
-            {
                 reserve(_capacity * 2);
-            }
             al.construct(&_arr[_size], val);
             _size++;
         }
+        
         void pop_back() {
 			al.destroy(&_arr[_size - 1]);
 			_size--;
@@ -331,7 +330,7 @@ namespace ft
 		}
         //this one erases all the elements from first to last
         iterator 		erase (iterator first, iterator last) {
-			// TO-DO: Destroy elements from first to last.
+			
 			size_type dist = last - first;
 			size_type start = first - begin();
 
@@ -366,7 +365,7 @@ namespace ft
         
        
     };
-
+    //relational operators
     template <class T, class Alloc>
     bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
@@ -386,11 +385,13 @@ namespace ft
     {
         return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
     }
+    
     template <class T, class Alloc>
     bool operator> (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
         return(rhs < lhs);
     }
+    
     template <class T, class Alloc>
     bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
@@ -398,6 +399,7 @@ namespace ft
             return(true);
         return (false);
     }
+
     template <class T, class Alloc>
     bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
     {
@@ -405,9 +407,10 @@ namespace ft
             return(true);
         return (false);
     }
-        template <class T, class Alloc>
-        void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y)
-        {
-            x.swap(y);
-        }
+    // non member swap , to swap 2 vectors
+    template <class T, class Alloc>
+    void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y)
+    {
+        x.swap(y);
+    }
 };
