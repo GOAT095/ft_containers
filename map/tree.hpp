@@ -19,21 +19,22 @@ namespace ft{
     };
     template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key,T> > >
     class RedBlackTree {
-       public:
-        typedef Node *NodePtr;
+        
         private:
           NodePtr root;
           Alloc _al;
           Compare _compare;
           // Node *TNULL;
-
-  void initializeNULLNode(NodePtr node, NodePtr parent) {
-    node->data = 0;
-    node->parent = parent;
-    node->left = nullptr;
-    node->right = nullptr;
-    node->color = 0;
-  }
+        public:
+          typedef Node *NodePtr;
+        
+        void initializeNULLNode(NodePtr node, NodePtr parent) {
+          node->data = 0;
+          node->parent = parent;
+          node->left = nullptr;
+          node->right = nullptr;
+          node->color = 0;
+        }
 
 };
 
