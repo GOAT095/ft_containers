@@ -33,34 +33,67 @@ Node  *insert(Node *r,int data){
             r = n;
             return r;
         }
-        // else{
-        //     if(data < r->data)
-        //     r->left = insert(r->left,data);
-        //     else
-        //     r->right = insert(r->right,data);
-        // }
+        else{
+            if(data < r->data)
+            	r->left = insert(r->left, data);
+            else
+            	r->right = insert(r->right, data);
+        }
 		return r;
 }
-void printBT(const std::string& prefix, const Node* node, bool isLeft)
+struct Trunk
 {
-    if( node != nullptr )
+    Trunk *prev;
+    string str;
+ 
+    Trunk(Trunk *prev, string str)
     {
-        std::cout << prefix;
-
-        std::cout << (isLeft ? "├──" : "└──" );
-
-        // print the value of the node
-        std::cout << node->data << std::endl;
-
-        // enter the next tree level - left and right branch
-        printBT( prefix + (isLeft ? "│   " : "    "), node->right, false);
-        printBT( prefix + (isLeft ? "│   " : "    "), node->left, true);
+        this->prev = prev;
+        this->str = str;
     }
-}
-
-void printBT(const Node* node)
+};
+void showTrunks(Trunk *p)
 {
-    printBT("", node, false);    
+    if (p == nullptr) {
+        return;
+    }
+ 
+    showTrunks(p->prev);
+    cout << p->str;
+}
+void printTree(Node* root, Trunk *prev, bool isLeft)
+{
+    if (root == nullptr) {
+        return;
+    }
+ 
+    string prev_str = "    ";
+    Trunk *trunk = new Trunk(prev, prev_str);
+ 
+    printTree(root->right, trunk, true);
+ 
+    if (!prev) {
+        trunk->str = "———";
+    }
+    else if (isLeft)
+    {
+        trunk->str = ".———";
+        prev_str = "   |";
+    }
+    else {
+        trunk->str = "`———";
+        prev->str = prev_str;
+    }
+ 
+    showTrunks(trunk);
+    cout << root->data << endl;
+ 
+    if (prev) {
+        prev->str = prev_str;
+    }
+    trunk->str = "   |";
+ 
+    printTree(root->left, trunk, false);
 }
 
 int main()
@@ -98,7 +131,14 @@ int main()
 		/ \
 	NULL NULL
 	*/
-	Node *r = insert(r, 1);
-	printBT(r);
+	Node *r = NULL;
+	r = insert(r, 2);
+	r = insert(r, 1);
+	r = insert(r, 5);
+	r = insert(r, 6);
+	r = insert(r, 3);
+	r = insert(r, 4);
+	r = insert(r, 7);
+	printTree(r, nullptr, false);
 	return 0;
 }
