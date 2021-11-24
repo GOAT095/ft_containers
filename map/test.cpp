@@ -9,20 +9,38 @@ struct Node {
 	int data;
 	struct Node* left;
 	struct Node* right;
-
+	int height;
 	// val is the key or the value that
 	// has to be added to the data part
-	Node(int val)
-	{
-		data = val;
-
-		// Left and right child for node
-		// will be initialized to null
-		left = NULL;
-		right = NULL;
-	}
+	
 };
+Node *newNode(int val)
+{
+	Node* newNode = new Node();
+	newNode->data = val;
 
+	// Left and right child for node
+	// will be initialized to null
+	newNode->left = NULL;
+	newNode->right = NULL;
+	newNode->height = 1;
+	return (newNode);
+}
+Node  *insert(Node *r,int data){
+        
+		if(r==NULL){
+            Node *n = newNode(data);
+            r = n;
+            return r;
+        }
+        // else{
+        //     if(data < r->data)
+        //     r->left = insert(r->left,data);
+        //     else
+        //     r->right = insert(r->right,data);
+        // }
+		return r;
+}
 void printBT(const std::string& prefix, const Node* node, bool isLeft)
 {
     if( node != nullptr )
@@ -48,8 +66,8 @@ void printBT(const Node* node)
 int main()
 {
 
-	// /*create root*/
-	struct Node* root = new Node(1);
+	/*create root*/
+	// Node *root = newNode(1);
 	// /* following is the tree after above statement
 
 	// 		1
@@ -57,8 +75,8 @@ int main()
 	// 	NULL NULL
 	// */
 
-	// root->left = new Node(2);
-	// root->right = new Node(3);
+	// root->left = newNode(2);
+	// root->right = newNode(3);
 	// /* 2 and 3 become left and right children of 1
 	// 				1
 	// 			/ \
@@ -67,10 +85,10 @@ int main()
 	// 		NULL NULL NULL NULL
 	// */
 
-	// root->left->left = new Node(4);
-	// root->left->right = new Node(5);
-	// root->right->left = new Node(7);
-	// root->right->right = new Node(8);
+	// root->left->left = newNode(4);
+	// root->left->right = newNode(5);
+	// root->right->left = newNode(7);
+	// root->right->right = newNode(8);
 	/* 4 becomes left child of 2
 			1
 			/	 \
@@ -80,6 +98,7 @@ int main()
 		/ \
 	NULL NULL
 	*/
-	printBT(root);
+	Node *r = insert(r, 1);
+	printBT(r);
 	return 0;
 }
