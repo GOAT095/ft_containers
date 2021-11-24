@@ -9,32 +9,37 @@
 #define RED 1
 
 namespace ft{
-    template <typename key, typename value>
-    struct Node {
-    std::pair<key, value> *data;
-    Node *parent;
-    Node *left;
-    Node *right;
-    int color;
-    };
-    template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key,T> > >
-    class RedBlackTree {
+    // template <typename T>
+    // struct Node {
+    // T *data;
+    // Node *parent;
+    // Node *left;
+    // Node *right;
+    // };
+    template < class T, class Compare, class Alloc = std::allocator<T> >
+    class AVL {
         
+        typedef T value_type;
+        typedef Alloc allocator_type;
+        typedef Compare compare;
         private:
-          NodePtr root;
+          AVL *root;
           Alloc _al;
           Compare _compare;
+          T *data;
+          AVL *parent;
+          AVL *left;
+          AVL *right;
           // Node *TNULL;
         public:
-          typedef Node *NodePtr;
-        
-        void initializeNULLNode(NodePtr node, NodePtr parent) {
-          node->data = 0;
-          node->parent = parent;
-          node->left = nullptr;
-          node->right = nullptr;
-          node->color = 0;
+
+        explicit AVL(value_type val)
+        {
+          data = _al.allocate(1);
+          _al.construct(data, val);
+          root = parent = left = right =NULL;
         }
+        
 
 };
 
