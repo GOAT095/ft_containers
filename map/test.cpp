@@ -4,46 +4,18 @@
 #include <memory>
 #include <iostream>
 // using namespace std;
-
+// print tree
+// node stuff
 struct Node {
 	int data;
 	struct Node* left;
 	struct Node* right;
     struct Node* parent;
 	int height;
-	// val is the key or the value that
+	// val is the data or the value that
 	// has to be added to the data part
 	
 };
-
-
-Node *newNode(int val)
-{
-	Node* newNode = new Node();
-	newNode->data = val;
-
-	// Left and right child for node
-	// will be initialized to null
-	newNode->left = NULL;
-	newNode->right = NULL;
-	newNode->height = 1;
-	return (newNode);
-}
-Node  *insert(Node *r,int data){
-        
-		if(r==NULL){
-            Node *n = newNode(data);
-            r = n;
-            return r;
-        }
-        else{
-            if(data < r->data)
-            	r->left = insert(r->left, data);
-            else
-            	r->right = insert(r->right, data);
-        }
-		return r;
-}
 struct Trunk
 {
     Trunk *prev;
@@ -98,130 +70,128 @@ void printTree(Node* root, Trunk *prev, bool isLeft)
  
     printTree(root->left, trunk, false);
 }
-//
-// Function to perform inorder traversal on the BST
-void inorder(Node* root)
+//node stuff
+int max(int a, int b)
 {
-    if (root == nullptr) {
-        return;
-    }
+    return ((a > b)? a : b);
+}
+//height of node N
+int height(Node *N)
+{
+    if (N == NULL)
+        return 0;
+    return N->height;
+}
+// A utility function to right
+// rotate subtree rooted with y
+// See the diagram given above.
+Node *rightRotate(Node *y)
+{
+    Node *x = y->left;
+    Node *T2 = x->right;
  
-    inorder(root->left);
-    std::cout << root->data << " ";
-    inorder(root->right);
+    // Perform rotation
+    x->right = y;
+    y->left = T2;
+ 
+    // Update heights
+    y->height = max(height(y->left),
+                    height(y->right)) + 1;
+    x->height = max(height(x->left),
+                    height(x->right)) + 1;
+ 
+    // Return new root
+    return x;
+}
+// A utility function to left
+// rotate subtree rooted with x
+// See the diagram given above.
+Node *leftRotate(Node *x)
+{
+    Node *y = x->right;
+    Node *T2 = y->left;
+ 
+    // Perform rotation
+    y->left = x;
+    x->right = T2;
+ 
+    // Update heights
+    x->height = max(height(x->left),   
+                    height(x->right)) + 1;
+    y->height = max(height(y->left),
+                    height(y->right)) + 1;
+ 
+    // Return new root
+    return y;
 }
 
-// Helper function to find minimum value node in the subtree rooted at `curr`
-Node* getMinimumKey(Node* curr)
+int getBalance(Node *N)
 {
-    while (curr->left != nullptr) {
-        curr = curr->left;
-    }
-    return curr;
+    if (N == NULL)
+        return 0;
+    return height(N->left) - height(N->right);
 }
-// Iterative function to search in the subtree rooted at `curr` and set its parent.
-// Note that `curr` and `parent` is passed by reference to the function.
-void searchKey(Node* &curr, int key, Node* &parent)
+
+Node *newNode(int val)
 {
-    // traverse the tree and search for the key
-    while (curr != nullptr && curr->data != key)
-    {
-        // update the parent to the current node
-        parent = curr;
- 
-        // if the given key is less than the current node, go to the left subtree;
-        // otherwise, go to the right subtree
-        if (key < curr->data) {
-            curr = curr->left;
-        }
-        else {
-            curr = curr->right;
-        }
-    }
+	Node* newNode = new Node();
+	newNode->data = val;
+
+	// Left and right child for node
+	// will be initialized to null
+	newNode->left = NULL;
+	newNode->right = NULL;
+	newNode->height = 1;
+	return (newNode);
 }
-// Function to delete a node from a BST
-void deleteNode(Node*& root, int key)
-{
-    // pointer to store the parent of the current node
-    Node* parent = nullptr;
- 
-    // start with the root node
-    Node* curr = root;
- 
-    // search key in the BST and set its parent pointer
-    searchKey(curr, key, parent);
- 
-    // return if the key is not found in the tree
-    if (curr == nullptr) {
-        return;
+Node  *insert(Node *node,int data){
+        
+    //node is root here
+    if(node == NULL){
+        Node *n = newNode(data);
+        node = n;
+        return node;
     }
+    if(data < node->data)
+        node->left = insert(node->left, data);
+    else
+        node->right = insert(node->right, data);
+        /* 2. Update height of this ancestor node */
+    node->height = 1 + max(height(node->left),
+                        height(node->right));
  
-    // Case 1: node to be deleted has no children, i.e., it is a leaf node
-    if (curr->left == nullptr && curr->right == nullptr)
+    /* 3. Get the balance factor of this ancestor
+        node to check whether this node became
+        unbalanced */
+    int balance = getBalance(node);
+ 
+    // If this node becomes unbalanced, then
+    // there are 4 cases
+ 
+    // Left Left Case
+    if (balance > 1 && data < node->left->data)
+        return rightRotate(node);
+ 
+    // Right Right Case
+    if (balance < -1 && data > node->right->data)
+        return leftRotate(node);
+ 
+    // Left Right Case
+    if (balance > 1 && data > node->left->data)
     {
-        // if the node to be deleted is not a root node, then set its
-        // parent left/right child to null
-        if (curr != root)
-        {
-            if (parent->left == curr) {
-                parent->left = nullptr;
-            }
-            else {
-                parent->right = nullptr;
-            }
-        }
-        // if the tree has only a root node, set it to null
-        else {
-            root = nullptr;
-        }
- 
-        // deallocate the memory
-        free(curr);        // or delete curr;
+        node->left = leftRotate(node->left);
+        return rightRotate(node);
     }
  
-    // Case 2: node to be deleted has two children
-    else if (curr->left && curr->right)
+    // Right Left Case
+    if (balance < -1 && data < node->right->data)
     {
-        // find its inorder successor node
-        Node* successor = getMinimumKey(curr->right);
- 
-        // store successor value
-        int val = successor->data;
- 
-        // recursively delete the successor. Note that the successor
-        // will have at most one child (right child)
-        deleteNode(root, successor->data);
- 
-        // copy value of the successor to the current node
-        curr->data = val;
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
     }
- 
-    // Case 3: node to be deleted has only one child
-    else {
-        // choose a child node
-        Node* child = (curr->left)? curr->left: curr->right;
- 
-        // if the node to be deleted is not a root node, set its parent
-        // to its child
-        if (curr != root)
-        {
-            if (curr == parent->left) {
-                parent->left = child;
-            }
-            else {
-                parent->right = child;
-            }
-        }
- 
-        // if the node to be deleted is a root node, then set the root to the child
-        else {
-            root = child;
-        }
- 
-        // deallocate the memory
-        free(curr);
-    }
+		return node;
 }
+
 
 int main()
 {
@@ -235,7 +205,7 @@ int main()
 	r = insert(r, 4);
 	r = insert(r, 7);
 	printTree(r, nullptr, false);
-    deleteNode(r, 6);
-    printTree(r, nullptr, false);
+    // deleteNode(r, 2);
+    // printTree(r, nullptr, false);
 	return 0;
 }
