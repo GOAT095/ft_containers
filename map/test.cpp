@@ -89,13 +89,18 @@ int height(Node *N)
 // See the diagram given above.
 Node *rightRotate(Node *y)
 {
+    Node *tmp;
     Node *x = y->left;
-    Node *T2 = x->right;
+    Node *T2 = x? x->right : NULL;
  
     // Perform rotation
+    if (!x){return y;}
     x->right = y;
     y->left = T2;
- 
+
+    tmp = y->parent;
+    y->parent = x->parent;
+    x->parent = tmp;
     // Update heights
     y->height = max(height(y->left),
                     height(y->right)) + 1;
@@ -110,13 +115,17 @@ Node *rightRotate(Node *y)
 // See the diagram given above.
 Node *leftRotate(Node *x)
 {
+    Node *tmp;
     Node *y = x->right;
     Node *T2 = y->left;
  
     // Perform rotation
     y->left = x;
     x->right = T2;
- 
+    
+    tmp = y->parent;
+    y->parent = x->parent;
+    x->parent = tmp;
     // Update heights
     x->height = max(height(x->left),   
                     height(x->right)) + 1;
@@ -149,6 +158,10 @@ Node *newNode(int val)
 
 Node  *balance_tree(Node *node, int data)
 {
+    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
+    node->height = 1 + max(height(node->left),
+                           height(node->right));
+
     int balance = getBalance(node);
  
     // If this node becomes unbalanced, then
@@ -187,16 +200,14 @@ Node  *insert(Node *node,int data){
         return node;
     }
     if(data < node->data)
-        node->left = insert(node->left, data);
+    {    node->left = insert(node->left, data); node->left->parent = node;}
     else
-        node->right = insert(node->right, data);
-        /* 2. Update height of this ancestor node */
-    node->height = 1 + max(height(node->left),
-                        height(node->right));
+        {node->right = insert(node->right, data); node->right->parent = node;}
  
     /* 3. Get the balance factor of this ancestor
         node to check whether this node became
         unbalanced */
+    
     return (balance_tree(node, data));
 		return node;
 }
@@ -282,41 +293,9 @@ Node* deleteNode(Node* root, int data)
     // then return
     if (root == NULL)
     return root;
- 
-    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-    root->height = 1 + max(height(root->left),
-                           height(root->right));
-                           
-    // STEP 3: GET THE BALANCE FACTOR OF
-    // THIS NODE (to check whether this
-    // node became unbalanced)
-    // int balance = getBalance(root);
- 
-    // // If this node becomes unbalanced,
-    // // then there are 4 cases
- 
-    // // Left Left Case
-    // if (balance > 1 && getBalance(root->left) >= 0)
-    //     return rightRotate(root);
- 
-    // // Left Right Case
-    // if (balance > 1 && getBalance(root->left) < 0)
-    // {
-    //     root->left = leftRotate(root->left);
-    //     return rightRotate(root);
-    // }
- 
-    // // Right Right Case
-    // if (balance < -1 && getBalance(root->right) <= 0)
-    //     return leftRotate(root);
- 
-    // // Right Left Case
-    // if (balance < -1 && getBalance(root->right) > 0)
-    // {
-    //     root->right = rightRotate(root->right);
-    //     return leftRotate(root);
-    // }
-    return root;
+    
+    return (balance_tree(root, data));
+    // return root;
 }
 // void inorder(struct Node* root)
 // {
@@ -331,26 +310,28 @@ int main()
 {
 
 	Node *r = NULL;
-	r = insert(r, 2);
 	r = insert(r, 1);
-	r = insert(r, 5);
-    printTree(r, nullptr, false);
-	r = insert(r, 6);
-    printTree(r, nullptr, false);
+	r = insert(r, 2);
 	r = insert(r, 3);
-    printTree(r, nullptr, false);
 	r = insert(r, 4);
-    printTree(r, nullptr, false);
-	r = insert(r, 20);
-    printTree(r, nullptr, false);
-    r = insert(r, 7);
-    printTree(r, nullptr, false);
-    r = insert(r, 89);
+	r = insert(r, 5);
+    // // printTree(r, nullptr, false);
+	r = insert(r, 6);
+    // // printTree(r, nullptr, false);
+    // // printTree(r, nullptr, false);
+    // // printTree(r, nullptr, false);
+	// r = insert(r, 20);
+    // // printTree(r, nullptr, false);
+    // r = insert(r, 7);
+    // // printTree(r, nullptr, false);
+    // r = insert(r, 89);
     // r = insert(r, 9);
     // inorder(r);
 	printTree(r, nullptr, false);
-    // deleteNode(r, 1);
+    deleteNode(r, 2);
+    deleteNode(r, 3);
+    deleteNode(r, 1);
     // // inorder(r);
-    // printTree(r, nullptr, false);
+    printTree(r, nullptr, false);
 	return 0;
 }
