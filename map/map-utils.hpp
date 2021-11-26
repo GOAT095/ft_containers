@@ -19,6 +19,8 @@ namespace ft{
         pair& operator= (const pair& pr){first = pr.first; second = pr.second;}
 
         //relational op
+       
+    }; 
         template <class T1, class T2>
         bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
         { return lhs.first==rhs.first && lhs.second==rhs.second; }
@@ -42,5 +44,4 @@ namespace ft{
         template <class T1, class T2>
         bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
         { return !(lhs<rhs); }
-    };
 }
