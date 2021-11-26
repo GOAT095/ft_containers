@@ -4,7 +4,6 @@
 #include <memory>
 #include <iostream>
 // using namespace std;
-// print tree
 // node stuff
 struct Node {
 	int data;
@@ -224,60 +223,99 @@ Node * minValueNode(Node* node)
 Node* deleteNode(Node* root, int data)
 {
      
-    // base case
+    // STEP 1: PERFORM STANDARD BST DELETE
     if (root == NULL)
         return root;
  
-    // If the data to be deleted is
-    // smaller than the root's
-    // data, then it lies in left subtree
-    if (data < root->data)
+    // If the data to be deleted is smaller
+    // than the root's data, then it lies
+    // in left subtree
+    if ( data < root->data )
         root->left = deleteNode(root->left, data);
  
-    // If the data to be deleted is
-    // greater than the root's
-    // data, then it lies in right subtree
-    else if (data > root->data)
+    // If the data to be deleted is greater
+    // than the root's data, then it lies
+    // in right subtree
+    else if( data > root->data )
         root->right = deleteNode(root->right, data);
  
-    // if data is same as root's data, then This is the node
-    // to be deleted
-    else {
-        // node has no child
-        if (root->left==NULL and root->right==NULL)
-            return NULL;
-       
+    // if data is same as root's data, then
+    // This is the node to be deleted
+    else
+    {
         // node with only one child or no child
-        else if (root->left == NULL) {
-             Node* temp = root->right;
-            free(root);
-            return temp;
+        if( (root->left == NULL) ||
+            (root->right == NULL) )
+        {
+            Node *temp = root->left ?
+                         root->left :
+                         root->right;
+ 
+            // No child case
+            if (temp == NULL)
+            {
+                temp = root;
+                root = NULL;
+            }
+            else // One child case
+            *root = *temp; // Copy the contents of
+                           // the non-empty child
+            free(temp);
         }
-        else if (root->right == NULL) {
-             Node* temp = root->left;
-            free(root);
-            return temp;
+        else
+        {
+            // node with two children: Get the inorder
+            // successor (smallest in the right subtree)
+            Node* temp = minValueNode(root->right);
+ 
+            // Copy the inorder successor's
+            // data to this node
+            root->data = temp->data;
+ 
+            // Delete the inorder successor
+            root->right = deleteNode(root->right,
+                                     temp->data);
         }
- 
-        // node with two children: Get the inorder successor
-        // (smallest in the right subtree)
-         Node* temp = minValueNode(root->right);
- 
-        // Copy the inorder successor's content to this node
-        root->data = temp->data;
- 
-        // Delete the inorder successor
-        root->right = deleteNode(root->right, temp->data);
     }
+ 
+    // If the tree had only one node
+    // then return
+    if (root == NULL)
+    return root;
  
     // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
     root->height = 1 + max(height(root->left),
                            height(root->right));
- 
+                           
     // STEP 3: GET THE BALANCE FACTOR OF
     // THIS NODE (to check whether this
     // node became unbalanced)
-    // return (balance_tree(root, data));
+    // int balance = getBalance(root);
+ 
+    // // If this node becomes unbalanced,
+    // // then there are 4 cases
+ 
+    // // Left Left Case
+    // if (balance > 1 && getBalance(root->left) >= 0)
+    //     return rightRotate(root);
+ 
+    // // Left Right Case
+    // if (balance > 1 && getBalance(root->left) < 0)
+    // {
+    //     root->left = leftRotate(root->left);
+    //     return rightRotate(root);
+    // }
+ 
+    // // Right Right Case
+    // if (balance < -1 && getBalance(root->right) <= 0)
+    //     return leftRotate(root);
+ 
+    // // Right Left Case
+    // if (balance < -1 && getBalance(root->right) > 0)
+    // {
+    //     root->right = rightRotate(root->right);
+    //     return leftRotate(root);
+    // }
     return root;
 }
 // void inorder(struct Node* root)
@@ -296,17 +334,23 @@ int main()
 	r = insert(r, 2);
 	r = insert(r, 1);
 	r = insert(r, 5);
+    printTree(r, nullptr, false);
 	r = insert(r, 6);
+    printTree(r, nullptr, false);
 	r = insert(r, 3);
+    printTree(r, nullptr, false);
 	r = insert(r, 4);
+    printTree(r, nullptr, false);
 	r = insert(r, 20);
+    printTree(r, nullptr, false);
     r = insert(r, 7);
+    printTree(r, nullptr, false);
     r = insert(r, 89);
     // r = insert(r, 9);
     // inorder(r);
 	printTree(r, nullptr, false);
-    deleteNode(r, 1);
-    // inorder(r);
-    printTree(r, nullptr, false);
+    // deleteNode(r, 1);
+    // // inorder(r);
+    // printTree(r, nullptr, false);
 	return 0;
 }
