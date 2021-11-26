@@ -292,10 +292,10 @@ Node* deleteNode(Node* root, int data)
     // If the tree had only one node
     // then return
     if (root == NULL)
-    return root;
+        return root;
     
-    return (balance_tree(root, data));
-    // return root;
+    // return (balance_tree(root, data));
+    return root;
 }
 // void inorder(struct Node* root)
 // {
