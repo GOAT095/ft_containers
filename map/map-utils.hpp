@@ -20,7 +20,7 @@ namespace ft{
 
         //relational op
        
-    }; 
+    };
         template <class T1, class T2>
         bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
         { return lhs.first==rhs.first && lhs.second==rhs.second; }

@@ -11,8 +11,9 @@ namespace ft{
     class map
     {
         typedef T mapped_type;
-        typedef key;
+        typedef Key key_type;
         typedef Compare key_compare;
+        typedef Alloc allocator_type;
     };
 
 }
