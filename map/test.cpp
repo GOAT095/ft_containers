@@ -36,16 +36,16 @@ void showTrunks(Trunk *p)
     showTrunks(p->prev);
     std::cout << p->str;
 }
-void printTree(Node* node, Trunk *prev, bool isLeft)
+void printTree(Node* root, Trunk *prev, bool isLeft)
 {
-    if (node == nullptr) {
+    if (root == nullptr) {
         return;
     }
  
     std::string prev_str = "    ";
     Trunk *trunk = new Trunk(prev, prev_str);
  
-    printTree(node->right, trunk, true);
+    printTree(root->right, trunk, true);
  
     if (!prev) {
         trunk->str = "———";
@@ -61,14 +61,14 @@ void printTree(Node* node, Trunk *prev, bool isLeft)
     }
  
     showTrunks(trunk);
-    std::cout << node->data << std::endl;
+    std::cout << root->data << std::endl;
  
     if (prev) {
         prev->str = prev_str;
     }
     trunk->str = "   |";
  
-    printTree(node->left, trunk, false);
+    printTree(root->left, trunk, false);
 }
 //node stuff
 
@@ -86,7 +86,7 @@ int height(Node *N)
     return N->height;
 }
 // A utility function to right
-// rotate subtree nodeed with y
+// rotate subtree rooted with y
 // See the diagram given above.
 Node *rightRotate(Node *y)
 {
@@ -103,11 +103,11 @@ Node *rightRotate(Node *y)
     x->height = max(height(x->left),
                     height(x->right)) + 1;
  
-    // Return new node
+    // Return new root
     return x;
 }
 // A utility function to left
-// rotate subtree nodeed with x
+// rotate subtree rooted with x
 // See the diagram given above.
 Node *leftRotate(Node *x)
 {
@@ -124,7 +124,7 @@ Node *leftRotate(Node *x)
     y->height = max(height(y->left),
                     height(y->right)) + 1;
  
-    // Return new node
+    // Return new root
     return y;
 }
 
@@ -147,25 +147,9 @@ Node *newNode(int val)
 	newNode->height = 1;
 	return (newNode);
 }
-Node  *insert(Node *node,int data){
-        
-    //node is node here
-    if(node == NULL){
-        Node *n = newNode(data);
-        node = n;
-        return node;
-    }
-    if(data < node->data)
-        node->left = insert(node->left, data);
-    else
-        node->right = insert(node->right, data);
-        /* 2. Update height of this ancestor node */
-    node->height = 1 + max(height(node->left),
-                        height(node->right));
- 
-    /* 3. Get the balance factor of this ancestor
-        node to check whether this node became
-        unbalanced */
+
+Node  *balance_tree(Node *node, int data)
+{
     int balance = getBalance(node);
  
     // If this node becomes unbalanced, then
@@ -192,6 +176,29 @@ Node  *insert(Node *node,int data){
         node->right = rightRotate(node->right);
         return leftRotate(node);
     }
+    return (node);
+}
+
+Node  *insert(Node *node,int data){
+        
+    //node is root here
+    if(node == NULL){
+        Node *n = newNode(data);
+        node = n;
+        return node;
+    }
+    if(data < node->data)
+        node->left = insert(node->left, data);
+    else
+        node->right = insert(node->right, data);
+        /* 2. Update height of this ancestor node */
+    node->height = 1 + max(height(node->left),
+                        height(node->right));
+ 
+    /* 3. Get the balance factor of this ancestor
+        node to check whether this node became
+        unbalanced */
+    return (balance_tree(node, data));
 		return node;
 }
 //delete in a bst using AVL
@@ -212,92 +219,75 @@ Node * minValueNode(Node* node)
  
 // Recursive function to delete a node
 // with given data from subtree with
-// given node. It returns node of the
+// given root. It returns root of the
 // modified subtree.
-Node* deleteNode(Node* node, int data)
+Node* deleteNode(Node* root, int data)
 {
      
     // base case
-    if (node == NULL)
-        return node;
+    if (root == NULL)
+        return root;
  
     // If the data to be deleted is
-    // smaller than the node's
+    // smaller than the root's
     // data, then it lies in left subtree
-    if (data < node->data)
-        node->left = deleteNode(node->left, data);
+    if (data < root->data)
+        root->left = deleteNode(root->left, data);
  
     // If the data to be deleted is
-    // greater than the node's
+    // greater than the root's
     // data, then it lies in right subtree
-    else if (data > node->data)
-        node->right = deleteNode(node->right, data);
+    else if (data > root->data)
+        root->right = deleteNode(root->right, data);
  
-    // if data is same as node's data, then This is the node
+    // if data is same as root's data, then This is the node
     // to be deleted
     else {
         // node has no child
-        if (node->left==NULL and node->right==NULL)
+        if (root->left==NULL and root->right==NULL)
             return NULL;
        
         // node with only one child or no child
-        else if (node->left == NULL) {
-             Node* temp = node->right;
-            free(node);
+        else if (root->left == NULL) {
+             Node* temp = root->right;
+            free(root);
             return temp;
         }
-        else if (node->right == NULL) {
-             Node* temp = node->left;
-            free(node);
+        else if (root->right == NULL) {
+             Node* temp = root->left;
+            free(root);
             return temp;
         }
  
         // node with two children: Get the inorder successor
         // (smallest in the right subtree)
-         Node* temp = minValueNode(node->right);
+         Node* temp = minValueNode(root->right);
  
         // Copy the inorder successor's content to this node
-        node->data = temp->data;
+        root->data = temp->data;
  
         // Delete the inorder successor
-        node->right = deleteNode(node->right, temp->data);
+        root->right = deleteNode(root->right, temp->data);
     }
  
     // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-    node->height = 1 + max(height(node->left),
-                           height(node->right));
+    root->height = 1 + max(height(root->left),
+                           height(root->right));
  
-    /* 3. Get the balance factor of this ancestor
-        node to check whether this node became
-        unbalanced */
-    int balance = getBalance(node);
- 
-    // If this node becomes unbalanced, then
-    // there are 4 cases
- 
-    // Left Left Case
-    if (balance > 1 && data < node->left->data)
-        return rightRotate(node);
- 
-    // Right Right Case
-    if (balance < -1 && data > node->right->data)
-        return leftRotate(node);
- 
-    // Left Right Case
-    if (balance > 1 && data > node->left->data)
-    {
-        node->left = leftRotate(node->left);
-        return rightRotate(node);
-    }
- 
-    // Right Left Case
-    if (balance < -1 && data < node->right->data)
-    {
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
-    }
-    return node;
+    // STEP 3: GET THE BALANCE FACTOR OF
+    // THIS NODE (to check whether this
+    // node became unbalanced)
+    // return (balance_tree(root, data));
+    return root;
 }
+// void inorder(struct Node* root)
+// {
+//     if (root != NULL) {
+//         inorder(root->left);
+//         std::cout << root->data;
+//         inorder(root->right);
+//     }
+// }
 
 int main()
 {
@@ -312,9 +302,11 @@ int main()
 	r = insert(r, 20);
     r = insert(r, 7);
     r = insert(r, 89);
-    r = insert(r, 9);
+    // r = insert(r, 9);
+    // inorder(r);
 	printTree(r, nullptr, false);
     deleteNode(r, 1);
+    // inorder(r);
     printTree(r, nullptr, false);
 	return 0;
 }
