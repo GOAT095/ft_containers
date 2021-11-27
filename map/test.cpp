@@ -11,9 +11,6 @@ struct Node {
 	struct Node* right;
     struct Node* parent;
 	int height;
-	// val is the data or the value that
-	// has to be added to the data part
-	
 };
 struct Trunk
 {
@@ -158,7 +155,7 @@ Node *newNode(int val)
 
 Node  *balance_tree(Node *node, int data)
 {
-    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
+    //UPDATE HEIGHT OF THE CURRENT NODE
     node->height = 1 + max(height(node->left),
                            height(node->right));
 
@@ -237,7 +234,6 @@ Node* deleteNode(Node* root, int data)
     // STEP 1: PERFORM STANDARD BST DELETE
     if (root == NULL)
         return root;
- 
     // If the data to be deleted is smaller
     // than the root's data, then it lies
     // in left subtree
@@ -255,12 +251,9 @@ Node* deleteNode(Node* root, int data)
     else
     {
         // node with only one child or no child
-        if( (root->left == NULL) ||
-            (root->right == NULL) )
+        if( (root->left == NULL) || (root->right == NULL) )
         {
-            Node *temp = root->left ?
-                         root->left :
-                         root->right;
+            Node *temp = root->left ? root->left : root->right;
  
             // No child case
             if (temp == NULL)
@@ -284,8 +277,7 @@ Node* deleteNode(Node* root, int data)
             root->data = temp->data;
  
             // Delete the inorder successor
-            root->right = deleteNode(root->right,
-                                     temp->data);
+            root->right = deleteNode(root->right, temp->data);
         }
     }
  
@@ -294,7 +286,7 @@ Node* deleteNode(Node* root, int data)
     if (root == NULL)
         return root;
     
-    // return (balance_tree(root, data));
+    return (balance_tree(root, data));
     return root;
 }
 // void inorder(struct Node* root)
@@ -320,17 +312,17 @@ int main()
     // // printTree(r, nullptr, false);
     // // printTree(r, nullptr, false);
     // // printTree(r, nullptr, false);
-	// r = insert(r, 20);
+	r = insert(r, 20);
     // // printTree(r, nullptr, false);
     // r = insert(r, 7);
     // // printTree(r, nullptr, false);
-    // r = insert(r, 89);
-    // r = insert(r, 9);
+    r = insert(r, 89);
+    r = insert(r, 9);
     // inorder(r);
 	printTree(r, nullptr, false);
-    deleteNode(r, 2);
-    deleteNode(r, 3);
-    deleteNode(r, 1);
+    r = deleteNode(r, 2);
+    r = deleteNode(r, 3);
+    r = deleteNode(r, 1);
     // // inorder(r);
     printTree(r, nullptr, false);
 	return 0;
