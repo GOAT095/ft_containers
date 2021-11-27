@@ -18,6 +18,25 @@ namespace ft{
         typedef typename allocator_type::const_reference const_reference;
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
+        typedef	size_t                             size_type;
+        typedef	size_t                             difference_type;
+
+        //constractors and stuff
+        //empty
+        explicit map (const key_compare& comp = key_compare(),
+                    const allocator_type& alloc = allocator_type())
+        {
+            _size = 0;
+            al = alloc;
+            kc = comp;
+            _capacity = 0;
+        }
+
+        private:
+        size_t  _size;
+        size_t  _capacity;
+        Alloc   al;
+        key_compare kc;
     };
 
 }
