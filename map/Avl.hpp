@@ -53,8 +53,16 @@ class Node
             return (*this);
         }
         ~Node(){}
-
-
+        int max(int a, int b)
+        {
+            return ((a > b)? a : b);
+        }
+        int height(Node *N)
+        {
+            if (N == NULL)
+                return 0;
+            return N->height;
+        }
         Node*   rotateRight(Node* y)
         {
             Node* x = y->left;
@@ -69,8 +77,8 @@ class Node
             x->parent = y->parent;
             y->parent = x;
             // recalculate x and y heights
-            x->height = std::max(getHeight(x->left), getHeight(x->right)) + 1;
-            y->height = std::max(getHeight(y->left), getHeight(y->right)) + 1;
+            x->height = std::max(height(x->left), height(x->right)) + 1;
+            y->height = std::max(height(y->left), height(y->right)) + 1;
 
             // return new tree root
             return (x);
@@ -79,8 +87,6 @@ class Node
         Node*   rotateLeft(Node* x)
         {
             Node *y = x->right;
-            // if (!y)
-                // exit(0);
             Node *T2 = y->left;
 
             // Perform rotation
@@ -92,13 +98,9 @@ class Node
             y->parent = x->parent;
             x->parent = y;
 
-
             // Update heights
-            x->height = std::max(getHeight(x->left),
-                            getHeight(x->right)) + 1;
-            y->height = std::max(getHeight(y->left),
-                            getHeight(y->right)) + 1;
-
+            x->height = std::max(height(x->left), height(x->right)) + 1;
+            y->height = std::max(height(y->left), height(y->right)) + 1;
             // Return new root
             return y;
         }
