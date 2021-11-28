@@ -144,7 +144,7 @@ class Node
             return (node);
         }
         //insert function
-        Node  *insert(Node *node,value_type data){
+    Node  *insert(Node *node,value_type data){
         
         //node is root here
         if(node == NULL){
