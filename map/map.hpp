@@ -23,8 +23,7 @@ namespace ft{
 
         //constractors and stuff
         //empty
-        explicit map (const key_compare& comp = key_compare(),
-                    const allocator_type& alloc = allocator_type())
+        explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
         {
             _size = 0;
             al = alloc;
