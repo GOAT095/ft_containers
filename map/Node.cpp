@@ -1,4 +1,4 @@
-#pragma once
+// #pragma once
 #include "map-utils.hpp"
 
 template<typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
@@ -57,7 +57,7 @@ class Node
         {
             return ((a > b)? a : b);
         }
-        int height(Node *N)
+        int Getheight(Node *N)
         {
             if (N == NULL)
                 return 0;
@@ -67,7 +67,7 @@ class Node
         {
             if (N == NULL)
                 return 0;
-            return height(N->left) - height(N->right);
+            return (Getheight(N->left) - Getheight(N->right));
         }
         Node*   rotateRight(Node* y)
         {
@@ -83,8 +83,8 @@ class Node
             x->parent = y->parent;
             y->parent = x;
             // recalculate x and y heights
-            x->height = std::max(height(x->left), height(x->right)) + 1;
-            y->height = std::max(height(y->left), height(y->right)) + 1;
+            x->height = std::max(Getheight(x->left), Getheight(x->right)) + 1;
+            y->height = std::max(Getheight(y->left), Getheight(y->right)) + 1;
 
             // return new tree root
             return (x);
@@ -105,15 +105,15 @@ class Node
             x->parent = y;
 
             // Update heights
-            x->height = std::max(height(x->left), height(x->right)) + 1;
-            y->height = std::max(height(y->left), height(y->right)) + 1;
+            x->height = max(Getheight(x->left), Getheight(x->right)) + 1;
+            y->height = max(Getheight(y->left), Getheight(y->right)) + 1;
             // Return new root
             return y;
         }
         Node  *balance_tree(Node *node, value_type &data)
         {
             //UPDATE HEIGHT OF THE CURRENT NODE
-            node->height = 1 + max(height(node->left), height(node->right));
+            node->height = 1 + max(Getheight(node->left), Getheight(node->right));
 
             int balance = getBalance(node);
         
@@ -125,7 +125,7 @@ class Node
                 return rightRotate(node);
 
             // Right Right Case
-            if (balance < -1 && !key_compare(data.first, node->right->data))
+            if (balance < -1 && !key_compare(data.first, node->right->data.first))
                 return leftRotate(node);
         
             // Left Right Case
@@ -144,11 +144,11 @@ class Node
             return (node);
         }
         //insert function
-        Node  *insert(Node *node,value_type &data){
+        Node  *insert(Node *node,value_type data){
         
         //node is root here
         if(node == NULL){
-            Node *n = newNode(data);
+            Node n(data);
             node = n;
             return node;
         }
@@ -183,7 +183,7 @@ class Node
     // with given data from subtree with
     // given root. It returns root of the
     // modified subtree.
-    Node* deleteNode(Node* root, int data)
+    Node* deleteNode(Node* root, value_type data)
     {
         
         // STEP 1: PERFORM STANDARD BST DELETE
@@ -192,14 +192,14 @@ class Node
         // If the data to be deleted is smaller
         // than the root's data, then it lies
         // in left subtree
-        if ( data < root->data )
-            root->left = deleteNode(root->left, data);
+        if ( data.first < root->data.first )
+            root->left = deleteNode(root->left, data.first);
     
         // If the data to be deleted is greater
         // than the root's data, then it lies
         // in right subtree
-        else if( data > root->data )
-            root->right = deleteNode(root->right, data);
+        else if( data.first > root->data.first)
+            root->right = deleteNode(root->right, data.first);
     
         // if data is same as root's data, then
         // This is the node to be deleted
@@ -229,10 +229,10 @@ class Node
     
                 // Copy the inorder successor's
                 // data to this node
-                root->data = temp->data;
+                root->data.first = temp->data.first;
     
                 // Delete the inorder successor
-                root->right = deleteNode(root->right, temp->data);
+                root->right = deleteNode(root->right, temp->data.first);
             }
         }
     
@@ -241,7 +241,7 @@ class Node
         if (root == NULL)
             return root;
         
-        return (balance_tree(root, data));
+        return (balance_tree(root, data.first));
         return root;
     }
     
