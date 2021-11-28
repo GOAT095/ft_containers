@@ -187,41 +187,7 @@ Node  *balance_tree(Node *node, int data)
     }
     return (node);
 }
-AVL    *balanceTree(AVL* root, const value_type& key)
-        {
-            // update current node height
-            root->height = std::max(getHeight(root->left), getHeight(root->right)) + 1;
-            // calculate node balance
-            int balance = getBalance(root);
 
-            // heavy right side
-            if (balance < -1)
-            {
-                // right right
-                if (!key_compare(key.first, root->right->value->first))
-                    return rotateLeft(root);
-                // right left
-                else
-                {
-                    root->right = rotateRight(root->right);
-                    return (rotateLeft(root));
-                }
-            }
-            // heavy left side
-            if (balance > 1)
-            {
-                // left left
-                if (key_compare(key.first, root->left->value->first))
-                    return rotateRight(root);
-                // left right
-                else
-                {
-                    root->left = rotateLeft(root->left);
-                    return (rotateRight(root));
-                }
-            }
-            return root;
-        }
 Node  *insert(Node *node,int data){
         
     //node is root here

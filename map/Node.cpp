@@ -143,4 +143,111 @@ class Node
             }
             return (node);
         }
+        //insert function
+        Node  *insert(Node *node,value_type &data){
+        
+        //node is root here
+        if(node == NULL){
+            Node *n = newNode(data);
+            node = n;
+            return node;
+        }
+        if(data.first < node->data.first)
+        {    node->left = insert(node->left, data.first); node->left->parent = node;}
+        else
+            {node->right = insert(node->right, data.first); node->right->parent = node;}
+    
+        /* Get the balance factor of this ancestor
+            node to check whether this node became
+            unbalanced */
+        
+        return (balance_tree(node, data.first));
+            return node;
+    }
+    //delete in a bst using AVL
+    /* Given a non-empty binary search tree,
+    return the node with minimum data value
+    found in that tree. Note that the entire
+    tree does not need to be searched. */
+    Node * minValueNode(Node* node)
+    {
+        Node* current = node;
+    
+        /* loop down to find the leftmost leaf */
+        while (current->left != NULL)
+            current = current->left;
+    
+        return current;
+    }
+    // Recursive function to delete a node
+    // with given data from subtree with
+    // given root. It returns root of the
+    // modified subtree.
+    Node* deleteNode(Node* root, int data)
+    {
+        
+        // STEP 1: PERFORM STANDARD BST DELETE
+        if (root == NULL)
+            return root;
+        // If the data to be deleted is smaller
+        // than the root's data, then it lies
+        // in left subtree
+        if ( data < root->data )
+            root->left = deleteNode(root->left, data);
+    
+        // If the data to be deleted is greater
+        // than the root's data, then it lies
+        // in right subtree
+        else if( data > root->data )
+            root->right = deleteNode(root->right, data);
+    
+        // if data is same as root's data, then
+        // This is the node to be deleted
+        else
+        {
+            // node with only one child or no child
+            if( (root->left == NULL) || (root->right == NULL) )
+            {
+                Node *temp = root->left ? root->left : root->right;
+    
+                // No child case
+                if (temp == NULL)
+                {
+                    temp = root;
+                    root = NULL;
+                }
+                else // One child case
+                *root = *temp; // Copy the contents of
+                            // the non-empty child
+                free(temp);
+            }
+            else
+            {
+                // node with two children: Get the inorder
+                // successor (smallest in the right subtree)
+                Node* temp = minValueNode(root->right);
+    
+                // Copy the inorder successor's
+                // data to this node
+                root->data = temp->data;
+    
+                // Delete the inorder successor
+                root->right = deleteNode(root->right, temp->data);
+            }
+        }
+    
+        // If the tree had only one node
+        // then return
+        if (root == NULL)
+            return root;
+        
+        return (balance_tree(root, data));
+        return root;
+    }
+    
 };
+
+int main(){
+    Node<ft::pair<int, int> > r(ft::pair<int, int>(1,1));
+    r.insert(&r, ft::pair<int, int>(1,1));
+}
