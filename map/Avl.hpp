@@ -63,6 +63,47 @@ class Node
                 return 0;
             return N->height;
         }
+        int getBalance(Node *N)
+        {
+            if (N == NULL)
+                return 0;
+            return height(N->left) - height(N->right);
+        }
+
+        Node  *balance_tree(Node *node, value_type data)
+        {
+            //UPDATE HEIGHT OF THE CURRENT NODE
+            node->height = 1 + max(height(node->left), height(node->right));
+
+            int balance = getBalance(node);
+        
+            // If this node becomes unbalanced, then
+            // there are 4 cases
+        
+            // Left Left Case
+            if (balance > 1 && data < node->left->data)
+                return rightRotate(node);
+        
+            // Right Right Case
+            if (balance < -1 && data > node->right->data)
+                return leftRotate(node);
+        
+            // Left Right Case
+            if (balance > 1 && data > node->left->data)
+            {
+                node->left = leftRotate(node->left);
+                return rightRotate(node);
+            }
+        
+            // Right Left Case
+            if (balance < -1 && data < node->right->data)
+            {
+                node->right = rightRotate(node->right);
+                return leftRotate(node);
+            }
+            return (node);
+        }
+
         Node*   rotateRight(Node* y)
         {
             Node* x = y->left;
