@@ -3,30 +3,32 @@
 template<typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
 class Node
 {
+    
     public:
         typedef T value_type;
+        typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         // typedef Node node;
 
-        value_type   *value;
+        value_type   value;
         Node  *right;
         Node  *left;
         Node  *parent;
         Node  *root;
         int   height;
-        Alloc al;
+        node_allocator al;
         Compare key_compare;
 
         
         Node()
         {
             right = left = root = parent = NULL;
-            value = NULL;
+            // value = NULL;
             height = 0;
         }
         Node(const value_type& val)
         {
-            value = al.allocate(1);
-            al.construct(value, val);
+            // value = al.allocate(1);
+            value = val;
             right = left = NULL;
             height = 1;
             root = this;
@@ -44,10 +46,10 @@ class Node
             left = rhs.left;
             right = rhs.right;
             parent = rhs.parent;
-            if (value)
-                al.deallocate(value, 1);
-            value = al.allocate(1);
-            al.construct(value, *(rhs.value));
+            // if (value)
+            //     al.deallocate(value, 1);
+            // value = al.allocate(1);
+            value = rhs.value;
             height = rhs.height;
             return (*this);
         }
@@ -68,7 +70,7 @@ class Node
                 return 0;
             return (Getheight(N->left) - Getheight(N->right));
         }
-        Node*   rotateRight(Node* y)
+        Node*   rightRotate(Node* y)
         {
             Node* x = y->left;
             Node* T2 = x->right;
@@ -89,7 +91,7 @@ class Node
             return (x);
         }
 
-        Node*   rotateLeft(Node* x)
+        Node*   leftRotate(Node* x)
         {
             Node *y = x->right;
             Node *T2 = y->left;
@@ -109,7 +111,7 @@ class Node
             // Return new root
             return y;
         }
-        Node  *balance_tree(Node *node, value_type &data)
+        Node  *balance_tree(Node *node, value_type &value)
         {
             //UPDATE HEIGHT OF THE CURRENT NODE
             node->height = 1 + max(Getheight(node->left), Getheight(node->right));
@@ -120,22 +122,22 @@ class Node
             // there are 4 cases
         
             // Left Left Case
-            if (balance > 1 && key_compare(data.first, node->left->data->first))
+            if (balance > 1 && key_compare(value, node->left->value))
                 return rightRotate(node);
 
             // Right Right Case
-            if (balance < -1 && !key_compare(data.first, node->right->data.first))
+            if (balance < -1 && !key_compare(value, node->right->value))
                 return leftRotate(node);
         
             // Left Right Case
-            if (balance > 1 && !key_compare(data.first , node->left->data->first))
+            if (balance > 1 && !key_compare(value , node->left->value))
             {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
         
             // Right Left Case
-            if (balance < -1 && key_compare(data.first,node->right->data->first))
+            if (balance < -1 && key_compare(value,node->right->value))
             {
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
@@ -146,22 +148,22 @@ class Node
     Node  *insert(const value_type& value){
         
         
-        value_type data = value;
-        Node*    node = al.allocate(1);
+        
+        Node    *node = al.allocate(1);
         //node is root here
-        al.construct(node, data);
+        al.construct(node, value);
         if (!root)
             return node;
-        if(key_compare(data.first, root->value->first))
-        {    root->left = insert(root->left, data.first); root->left->parent = root;}
+        if(key_compare(root->value, node->value))
+        {    root->left = insert(value);    root->left->parent = root;}
         else
-            {root->right = insert(root->right, data.first); root->right->parent = root;}
+            {root->right = insert(value);  root->right->parent = root;}
     
         /* Get the balance factor of this ancestor
             node to check whether this node became
             unbalanced */
         
-        return (balance_tree(root, *(node->value)));
+        return (balance_tree(root, node->value));
             return root;
     }
     //delete in a bst using AVL
@@ -244,10 +246,37 @@ class Node
         return (balance_tree(root, data.first));
         return root;
     }
-    
+    void printBThelper(Node  *root, int level) // https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
+        {
+              if(root==NULL)
+                   return;
+              printBThelper(root->right, level+1);
+              if(level != 0){
+                  for(int i=0;i<level-1;i++)
+                      std::cout << "|\t";
+                  std::cout << "|-------" << root->value.first << " | ";
+                // root->color? std::cout << "Red" : std::cout <<"Black";
+                std::cout << std::endl;
+              }
+              else
+            {
+                  std::cout << root->value.first << " | ";
+                // root->color? std::cout << "Red" : std::cout <<"Black";
+                std::cout << std::endl;
+            }
+              printBThelper(root->left, level+1);
+        }
+
+        void    printBT()
+        { 
+            printBThelper(root, 0);
+        }
 };
 
 int main(){
     Node<ft::pair<int, int> > root;
     root = root.insert(ft::pair<int, int>(2,2));
+    root = root.insert(ft::pair<int, int>(1,1));
+    root = root.insert(ft::pair<int, int>(3,3));
+    root.printBT();
 }
