@@ -145,22 +145,23 @@ class Node
         //insert function
     Node  *insert(const value_type& data){
         
-        //node is root here
+        
         Node*    node = al.allocate(1);
+        //node is root here
         al.construct(node, data);
         if (!root)
             return node;
-        if(key_compare(data.first, node->data.first))
-        {    node->left = insert(node->left, data.first); node->left->parent = node;}
+        if(key_compare(data.first, root->data.first))
+        {    root->left = insert(root->left, data.first); root->left->parent = root;}
         else
-            {node->right = insert(node->right, data.first); node->right->parent = node;}
+            {root->right = insert(root->right, data.first); root->right->parent = root;}
     
         /* Get the balance factor of this ancestor
             node to check whether this node became
             unbalanced */
         
         return (balance_tree(root, *(node->value)));
-            return node;
+            return root;
     }
     //delete in a bst using AVL
     /* Given a non-empty binary search tree,
