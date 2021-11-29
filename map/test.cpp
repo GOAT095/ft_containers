@@ -323,6 +323,14 @@ int main()
     r = deleteNode(r, 2);
     r = deleteNode(r, 3);
     r = deleteNode(r, 1);
+    r = insert(r, 56);
+	r = insert(r, 22);
+	r = insert(r, 202);
+	r = insert(r, 4244);
+    r = insert(r, 777);
+	r = insert(r, 33);
+	r = insert(r, 11);
+	r = insert(r, 44);
     // // inorder(r);
     printTree(r, nullptr, false);
 	return 0;
