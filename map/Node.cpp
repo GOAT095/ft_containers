@@ -1,4 +1,3 @@
-// #pragma once
 #include "map-utils.hpp"
 
 template<typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
@@ -144,15 +143,14 @@ class Node
             return (node);
         }
         //insert function
-    Node  *insert(Node *node,value_type data){
+    Node  *insert(value_type& data){
         
         //node is root here
-        if(node == NULL){
-            Node n(data);
-            node = n;
+        Node*    node = al.allocate(1);
+        al.construct(node, data);
+        if (!root)
             return node;
-        }
-        if(data.first < node->data.first)
+        if(key_compare(data.first, node->data.first))
         {    node->left = insert(node->left, data.first); node->left->parent = node;}
         else
             {node->right = insert(node->right, data.first); node->right->parent = node;}
@@ -161,7 +159,7 @@ class Node
             node to check whether this node became
             unbalanced */
         
-        return (balance_tree(node, data.first));
+        return (balance_tree(root, *(node->value)));
             return node;
     }
     //delete in a bst using AVL
@@ -249,5 +247,5 @@ class Node
 
 int main(){
     Node<ft::pair<int, int> > r(ft::pair<int, int>(1,1));
-    r.insert(&r, ft::pair<int, int>(1,1));
+    r.insert(ft::pair<int, int>(1,1));
 }

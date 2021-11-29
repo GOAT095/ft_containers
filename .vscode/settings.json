@@ -69,6 +69,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "tuple": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "__memory": "cpp"
     }
 }
