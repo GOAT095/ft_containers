@@ -143,7 +143,7 @@ class Node
             return (node);
         }
         //insert function
-    Node  *insert(value_type& data){
+    Node  *insert(value_type data){
         
         //node is root here
         Node*    node = al.allocate(1);
@@ -246,6 +246,6 @@ class Node
 };
 
 int main(){
-    Node<ft::pair<int, int> > r(ft::pair<int, int>(1,1));
-    r.insert(ft::pair<int, int>(1,1));
+    Node<ft::pair<int, int> > root;
+    root = root.insert(ft::pair<int, int>(2,2));
 }
