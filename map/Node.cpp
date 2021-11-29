@@ -143,7 +143,7 @@ class Node
             return (node);
         }
         //insert function
-    Node  *insert(value_type data){
+    Node  *insert(const value_type& data){
         
         //node is root here
         Node*    node = al.allocate(1);
