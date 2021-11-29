@@ -143,15 +143,16 @@ class Node
             return (node);
         }
         //insert function
-    Node  *insert(const value_type& data){
+    Node  *insert(const value_type& value){
         
         
+        value_type data = value;
         Node*    node = al.allocate(1);
         //node is root here
         al.construct(node, data);
         if (!root)
             return node;
-        if(key_compare(data.first, root->data.first))
+        if(key_compare(data.first, root->value->first))
         {    root->left = insert(root->left, data.first); root->left->parent = root;}
         else
             {root->right = insert(root->right, data.first); root->right->parent = root;}
