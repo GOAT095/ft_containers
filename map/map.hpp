@@ -30,7 +30,23 @@ namespace ft{
             kc = comp;
             _capacity = 0;
         }
-
+        template <class InputIterator>
+        map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+        {
+            
+            //need insert with iters
+            kc = comp;
+            al = alloc;
+            _size = 0;
+        }
+        map (const map& x)
+        {
+            _size = 0;
+            *this = x;
+        }
+        ~map(){
+            clear();
+        }
         private:
         size_t  _size;
         size_t  _capacity;

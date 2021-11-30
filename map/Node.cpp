@@ -9,6 +9,7 @@ class Node
         typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         // typedef Node node;
 
+        Alloc   pair_alloc;
         value_type   value;
         Node  *right;
         Node  *left;
@@ -148,20 +149,20 @@ class Node
     Node  *insert(const value_type& value){
         
         
-        
         Node    *node = al.allocate(1);
+        node->parent = node->left = node->right = nullptr;
         //node is root here
-        al.construct(node, value);
+        pair_alloc.construct(&(node->value), value);
         if (!root)
             return node;
-        if(key_compare(root->value, node->value))
-        {    root->left = insert(value);    root->left->parent = root;}
-        else
-            {root->right = insert(value);  root->right->parent = root;}
+        // if(key_compare(root->value, node->value))
+        // {    root->left = insert(value);    root->left->parent = root;}
+        // else
+        //     {root->right = insert(value);  root->right->parent = root;}
     
-        /* Get the balance factor of this ancestor
-            node to check whether this node became
-            unbalanced */
+        // /* Get the balance factor of this ancestor
+        //     node to check whether this node became
+        //     unbalanced */
         
         return (balance_tree(root, node->value));
             return root;
