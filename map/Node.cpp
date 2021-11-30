@@ -1,12 +1,12 @@
 #include "map-utils.hpp"
 
-template<typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
+template<typename T, class Compare, class Alloc = std::allocator<T> >
 class Node
 {
     
     public:
         typedef T value_type;
-        typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
+        typedef typename Alloc::template rebind<Node<T, Compare> >::other node_allocator;
         // typedef Node node;
 
         Alloc   pair_alloc;
@@ -20,13 +20,13 @@ class Node
         Compare key_compare;
 
         
-        Node()
+        Node(): key_compare(Compare())
         {
             right = left = root = parent = NULL;
             // value = NULL;
             height = 0;
         }
-        Node(const value_type& val)
+        Node(const value_type& val): key_compare(Compare())
         {
             // value = al.allocate(1);
             value = val;
@@ -35,7 +35,7 @@ class Node
             root = this;
             parent = NULL;
         }
-        Node(Node<value_type, Compare, Alloc> *root)
+        Node(Node<value_type, Compare, Alloc> *root): key_compare(Compare())
         {
             right = left = parent = NULL;
             height = root->height;
@@ -118,48 +118,75 @@ class Node
             node->height = 1 + max(Getheight(node->left), Getheight(node->right));
 
             int balance = getBalance(node);
-        
+            
             // If this node becomes unbalanced, then
             // there are 4 cases
-        
+            std::cout << balance << " " <<  value.first << "blanace"<< std::endl;
             // Left Left Case
-            if (balance > 1 && key_compare(value, node->left->value))
+            if (balance > 1 && key_compare(value.first, node->left->value.first))
                 return rightRotate(node);
-
+            // std::cout << root->value.first << " " <<  node->value.first << "blanace"<< std::endl;
             // Right Right Case
-            if (balance < -1 && !key_compare(value, node->right->value))
+            if (balance < -1 && key_compare( node->right->value.first, value.first))
+             {   
                 return leftRotate(node);
-        
+             
+             }
+         
             // Left Right Case
-            if (balance > 1 && !key_compare(value , node->left->value))
+            if (balance > 1 && !key_compare(value.first , node->left->value.first))
             {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
-        
+       
             // Right Left Case
-            if (balance < -1 && key_compare(value,node->right->value))
+            if (balance < -1 && key_compare(value.first,node->right->value.first))
             {
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
-            return (node);
+            
+            return (this->root);
         }
         //insert function
+
+    Node    *insert2(Node *root, Node *node)
+    {
+        
+        if(key_compare(node->value.first, root->value.first))
+        {   
+          
+            if (root->left == nullptr)
+            {    
+                
+                root->left = node; node->parent = root; 
+                
+                return this->root;}
+            root->left = insert2(root->left, node);    root->left->parent = root;
+            
+        }
+        else if(key_compare(root->value.first, node->value.first))
+            {
+                if (root->right == nullptr)
+                 root->right = node; node->parent = root; return root;
+                root->right = insert2(root->right, node);  root->right->parent = root;}
+        
+        return root;
+    }
     Node  *insert(const value_type& value){
         
         
         Node    *node = al.allocate(1);
         node->parent = node->left = node->right = nullptr;
+         node->height = 0;
         //node is root here
+        // node->value = pair_alloc.allocate(1);
         pair_alloc.construct(&(node->value), value);
         if (!root)
             return node;
-        // if(key_compare(root->value, node->value))
-        // {    root->left = insert(value);    root->left->parent = root;}
-        // else
-        //     {root->right = insert(value);  root->right->parent = root;}
-    
+        
+        root = insert2(root, node);
         // /* Get the balance factor of this ancestor
         //     node to check whether this node became
         //     unbalanced */
@@ -275,9 +302,13 @@ class Node
 };
 
 int main(){
-    Node<ft::pair<int, int> > root;
+    typedef Node<ft::pair<int, int>, std::less<int> > node;
+    node root;
     root = root.insert(ft::pair<int, int>(2,2));
     root = root.insert(ft::pair<int, int>(1,1));
     root = root.insert(ft::pair<int, int>(3,3));
+    root = root.insert(ft::pair<int, int>(4,4));
+    root = root.insert(ft::pair<int, int>(5,5));
+    root = root.insert(ft::pair<int, int>(11,11));
     root.printBT();
 }
