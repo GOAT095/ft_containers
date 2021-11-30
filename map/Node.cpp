@@ -77,13 +77,13 @@ class Node
             Node* T2 = x->right;
 
             // do rotate
-            if (x->right)
-                x->right->parent = y;
+            // if (x->right)
+            //     x->right->parent = y;
             x->right = y;
             y->left = T2;
             // update parent
-            x->parent = y->parent;
-            y->parent = x;
+            // x->parent = y->parent;
+            // y->parent = x;
             // recalculate x and y heights
             x->height = std::max(Getheight(x->left), Getheight(x->right)) + 1;
             y->height = std::max(Getheight(y->left), Getheight(y->right)) + 1;
@@ -98,13 +98,13 @@ class Node
             Node *T2 = y->left;
 
             // Perform rotation
-            if (y->left)
-                y->left->parent = x;
+            // if (y->left)
+                // y->left->parent = x;
             y->left = x;
             x->right = T2;
             // update parents
-            y->parent = x->parent;
-            x->parent = y;
+            // y->parent = x->parent;
+            // x->parent = y;
 
             // Update heights
             x->height = max(Getheight(x->left), Getheight(x->right)) + 1;
@@ -116,18 +116,18 @@ class Node
         {
             //UPDATE HEIGHT OF THE CURRENT NODE
             node->height = 1 + max(Getheight(node->left), Getheight(node->right));
-
-            int balance = getBalance(node);
             
+            int balance = getBalance(node);
+            // std::cout << balance << std::endl; // node->left->value.first << " "<<  value.first << "blanace"<< std::endl;
             // If this node becomes unbalanced, then
             // there are 4 cases
-            std::cout << balance << " " <<  value.first << "blanace"<< std::endl;
+            // std::cout << balance << " " <<  value.first << "blanace"<< std::endl;
             // Left Left Case
             if (balance > 1 && key_compare(value.first, node->left->value.first))
                 return rightRotate(node);
             // std::cout << root->value.first << " " <<  node->value.first << "blanace"<< std::endl;
             // Right Right Case
-            if (balance < -1 && key_compare( node->right->value.first, value.first))
+            if (balance < -1 && !key_compare( value.first, node->right->value.first))
              {   
                 return leftRotate(node);
              
@@ -147,31 +147,35 @@ class Node
                 return leftRotate(node);
             }
             
-            return (this->root);
+            return (node);
         }
         //insert function
 
     Node    *insert2(Node *root, Node *node)
     {
-        
+        if (!root)
+            return node;
         if(key_compare(node->value.first, root->value.first))
         {   
           
-            if (root->left == nullptr)
-            {    
-                
-                root->left = node; node->parent = root; 
-                
-                return this->root;}
-            root->left = insert2(root->left, node);    root->left->parent = root;
+            // if (root->left == nullptr)
+            // {
+            //     root->left = node; node->parent = root;
+            //     return this->root;
+            // }
+            root->left = insert2(root->left, node);  
+            //   root->left->parent = root;
             
         }
         else if(key_compare(root->value.first, node->value.first))
-            {
-                if (root->right == nullptr)
-                 root->right = node; node->parent = root; return root;
-                root->right = insert2(root->right, node);  root->right->parent = root;}
+        {
+            // if (root->right == nullptr)
+            //     root->right = node; node->parent = root; return root;
+            root->right = insert2(root->right, node); 
+                // root->right->parent = root;
+                } 
         
+        return (balance_tree(root,  node->value));
         return root;
     }
     Node  *insert(const value_type& value){
@@ -179,10 +183,12 @@ class Node
         
         Node    *node = al.allocate(1);
         node->parent = node->left = node->right = nullptr;
-         node->height = 0;
+        node->height = 1;
         //node is root here
         // node->value = pair_alloc.allocate(1);
-        pair_alloc.construct(&(node->value), value);
+        // pair_alloc.construct(&(node->value), value);
+        node->value = value;
+        // std::cout << node->value.first;
         if (!root)
             return node;
         
@@ -191,8 +197,7 @@ class Node
         //     node to check whether this node became
         //     unbalanced */
         
-        return (balance_tree(root, node->value));
-            return root;
+        return root;
     }
     //delete in a bst using AVL
     /* Given a non-empty binary search tree,
@@ -310,5 +315,6 @@ int main(){
     root = root.insert(ft::pair<int, int>(4,4));
     root = root.insert(ft::pair<int, int>(5,5));
     root = root.insert(ft::pair<int, int>(11,11));
+    
     root.printBT();
 }
