@@ -299,75 +299,67 @@ namespace ft{
         // with given data from subtree with
         // given root. It returns root of the
         // modified subtree.
-Node* deleteNode(Node* root, int data)
-{
-     
-    // STEP 1: PERFORM STANDARD BST DELETE
-    if (root == NULL)
-        return root;
-    // If the data to be deleted is smaller
-    // than the root's data, then it lies
-    // in left subtree
-    if ( data < root->data )
-        root->left = deleteNode(root->left, data);
- 
-    // If the data to be deleted is greater
-    // than the root's data, then it lies
-    // in right subtree
-    else if( data > root->data )
-        root->right = deleteNode(root->right, data);
- 
-    // if data is same as root's data, then
-    // This is the node to be deleted
-    else
-    {
-        // node with only one child or no child
-        if( (root->left == NULL) || (root->right == NULL) )
+        Node* deleteNode(Node* root, int data)
         {
-            Node *temp = root->left ? root->left : root->right;
- 
-            // No child case
-            if (temp == NULL)
+            
+            // STEP 1: PERFORM STANDARD BST DELETE
+            if (root == NULL)
+                return root;
+            // If the data to be deleted is smaller
+            // than the root's data, then it lies
+            // in left subtree
+            if ( data < root->data )
+                root->left = deleteNode(root->left, data);
+        
+            // If the data to be deleted is greater
+            // than the root's data, then it lies
+            // in right subtree
+            else if( data > root->data )
+                root->right = deleteNode(root->right, data);
+        
+            // if data is same as root's data, then
+            // This is the node to be deleted
+            else
             {
-                temp = root;
-                root = NULL;
+                // node with only one child or no child
+                if( (root->left == NULL) || (root->right == NULL) )
+                {
+                    Node *temp = root->left ? root->left : root->right;
+        
+                    // No child case
+                    if (temp == NULL)
+                    {
+                        temp = root;
+                        root = NULL;
+                    }
+                    else // One child case
+                    *root = *temp; // Copy the contents of
+                                // the non-empty child
+                    free(temp);
+                }
+                else
+                {
+                    // node with two children: Get the inorder
+                    // successor (smallest in the right subtree)
+                    Node* temp = minValueNode(root->right);
+        
+                    // Copy the inorder successor's
+                    // data to this node
+                    root->data = temp->data;
+        
+                    // Delete the inorder successor
+                    root->right = deleteNode(root->right, temp->data);
+                }
             }
-            else // One child case
-            *root = *temp; // Copy the contents of
-                           // the non-empty child
-            free(temp);
+        
+            // If the tree had only one node
+            // then return
+            if (root == NULL)
+                return root;
+            
+            return (balance_tree(root, data));
+            return root;
         }
-        else
-        {
-            // node with two children: Get the inorder
-            // successor (smallest in the right subtree)
-            Node* temp = minValueNode(root->right);
- 
-            // Copy the inorder successor's
-            // data to this node
-            root->data = temp->data;
- 
-            // Delete the inorder successor
-            root->right = deleteNode(root->right, temp->data);
-        }
-    }
- 
-    // If the tree had only one node
-    // then return
-    if (root == NULL)
-        return root;
-    
-    return (balance_tree(root, data));
-    return root;
-}
-// void inorder(struct Node* root)
-// {
-//     if (root != NULL) {
-//         inorder(root->left);
-//         std::cout << root->data;
-//         inorder(root->right);
-//     }
-// }
     };
 
 }
