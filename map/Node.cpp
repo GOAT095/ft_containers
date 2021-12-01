@@ -82,8 +82,8 @@ class Node
             x->right = y;
             y->left = T2;
             // update parent
-            x->parent = y->parent;
-            y->parent = x;
+            // x->parent = y->parent;
+            // y->parent = x;
             // recalculate x and y heights
             x->height = std::max(Getheight(x->left), Getheight(x->right)) + 1;
             y->height = std::max(Getheight(y->left), Getheight(y->right)) + 1;
@@ -94,7 +94,6 @@ class Node
 
         Node*   leftRotate(Node* x)
         {
-            
             Node *y = x->right;
             Node *T2 = y->left;
 
@@ -104,8 +103,8 @@ class Node
             y->left = x;
             x->right = T2;
             // update parents
-            y->parent = x->parent;
-            x->parent = y;
+            // y->parent = x->parent;
+            // x->parent = y;
 
             // Update heights
             x->height = max(Getheight(x->left), Getheight(x->right)) + 1;
@@ -120,7 +119,7 @@ class Node
             node->height = 1 + max(Getheight(node->left), Getheight(node->right));
             
             int balance = getBalance(node);
-            // std::cout << node->value.first <<"balance = " << balance<<std::endl;
+            std::cout << node->value.first <<"balance = " << balance<<std::endl;
             // std::cout << balance << std::endl; // node->left->value.first << " "<<  value.first << "blanace"<< std::endl;
             // If this node becomes unbalanced, then
             // there are 4 cases
@@ -166,34 +165,34 @@ class Node
             //     root->left = node; node->parent = root;
             //     return this->root;
             // }
-            root->left = insert2(root->left, node);
-            root->left->parent = root;
+            root->left = insert2(root->left, node);  
+            //   root->left->parent = root;
             
         }
-        else if(!key_compare(node->value.first, root->value.first))
+        else if(key_compare(root->value.first, node->value.first))
         {
             // if (root->right == nullptr)
             //     root->right = node; node->parent = root; return root;
             root->right = insert2(root->right, node); 
-            root->right->parent = root;
+                // root->right->parent = root;
                 } 
         
-        // return (balance_tree(root,  node->value));
+        return (balance_tree(root,  node->value));
         return root;
     }
     Node  *insert(const value_type& value){
         
         
         Node    *node = al.allocate(1);
-        node->parent = node->left = node->right = NULL;
+        node->parent = node->left = node->right = nullptr;
         node->height = 1;
         //node is root here
         // node->value = pair_alloc.allocate(1);
         // pair_alloc.construct(&(node->value), value);
         node->value = value;
         // std::cout << node->value.first;
-        // if (!root)
-        //     return node;
+        if (!root)
+            return node;
         
         root = insert2(root, node);
         // /* Get the balance factor of this ancestor
@@ -300,7 +299,7 @@ class Node
               if(level != 0){
                   for(int i=0;i<level-1;i++)
                       std::cout << "|\t";
-                  std::cout << "|-------|" << root->value.first << " p="<< root->parent->value.first<< " | ";
+                  std::cout << "|-------" << root->value.first << " | ";
                 // root->color? std::cout << "Red" : std::cout <<"Black";
                 std::cout << std::endl;
               }
@@ -322,36 +321,31 @@ class Node
 int main(){
     typedef Node<ft::pair<int, int>, std::less<int> > node;
     node root;
-    
+    root = root.insert(ft::pair<int, int>(2,2));
+    root = root.insert(ft::pair<int, int>(1,1));
+    root = root.insert(ft::pair<int, int>(3,3));
+    root = root.insert(ft::pair<int, int>(4,4));
+    root = root.insert(ft::pair<int, int>(5,5));
+    root = root.insert(ft::pair<int, int>(11,11));
     root = root.insert(ft::pair<int, int>(13,11));
     root = root.insert(ft::pair<int, int>(9,11));
     root = root.insert(ft::pair<int, int>(6,11));
     root = root.insert(ft::pair<int, int>(7,11));
     root = root.insert(ft::pair<int, int>(8,11));
     // root = root.insert(ft::pair<int, int>(-1,11));
-    root = root.insert(ft::pair<int, int>(2,2));
-    root = root.insert(ft::pair<int, int>(3,3));
-    root = root.insert(ft::pair<int, int>(4,4));
-    root = root.insert(ft::pair<int, int>(5,5));
-    root = root.insert(ft::pair<int, int>(9,11));
-    root = root.insert(ft::pair<int, int>(10,11));
-    root = root.insert(ft::pair<int, int>(11,11));
-    root = root.insert(ft::pair<int, int>(12,11));
-    root = root.insert(ft::pair<int, int>(14,11));
-    // root = root.insert(ft::pair<int, int>(11,11));
-    // root = root.insert(ft::pair<int, int>(-2,11));
-    // root = root.insert(ft::pair<int, int>(-3,11));
-    // root = root.insert(ft::pair<int, int>(-4,11));
+    root = root.insert(ft::pair<int, int>(-2,11));
+    root = root.insert(ft::pair<int, int>(-3,11));
+    root = root.insert(ft::pair<int, int>(-4,11));
     // root = root.insert(ft::pair<int, int>(10,11));
-    //root.printBT();
+    root.printBT();
     // std::cout << "\n";
     // root = root.deleteNode(ft::pair<int, int>(-4,11));
-    // // root.printBT();
-    // // std::cout << "\n";
+    // root.printBT();
+    std::cout << "\n";
     // root = root.deleteNode(ft::pair<int, int>(-3,11));
-    // // root.printBT();
-    // // std::cout << "\n";
+    // root.printBT();
+    std::cout << "\n";
     // root = root.deleteNode(ft::pair<int, int>(-2,11));
-    root.printBT();
+    // root.printBT();
     std::cout << "\n";
 }

@@ -301,37 +301,16 @@ Node* deleteNode(Node* root, int data)
 int main()
 {
 
-	Node *r = NULL;
-	r = insert(r, 1);
-	r = insert(r, 2);
-	r = insert(r, 3);
-	r = insert(r, 4);
-	r = insert(r, 5);
-    // // printTree(r, nullptr, false);
-	r = insert(r, 6);
-    // // printTree(r, nullptr, false);
-    // // printTree(r, nullptr, false);
-    // // printTree(r, nullptr, false);
-	r = insert(r, 20);
-    // // printTree(r, nullptr, false);
-    // r = insert(r, 7);
-    // // printTree(r, nullptr, false);
-    r = insert(r, 89);
-    r = insert(r, 9);
-    // inorder(r);
-	printTree(r, nullptr, false);
-    r = deleteNode(r, 2);
-    r = deleteNode(r, 3);
-    r = deleteNode(r, 1);
-    r = insert(r, 56);
-	r = insert(r, 22);
-	r = insert(r, 202);
-	r = insert(r, 4244);
-    r = insert(r, 777);
-	r = insert(r, 33);
-	r = insert(r, 11);
-	r = insert(r, 44);
+	Node *root = NULL;
+	root = insert(root, 13);
+    root = insert(root, 9);
+    root = insert(root, 6);
+    root = insert(root, 7);
+    root = insert(root, 8);
+    root = insert(root, -1);
+    root = insert(root, 2);
     // // inorder(r);
-    printTree(r, nullptr, false);
+    printTree(root, nullptr, false);
+    
 	return 0;
 }
