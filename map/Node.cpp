@@ -24,7 +24,7 @@ class Node
         {
             right = left = root = parent = NULL;
             // value = NULL;
-            height = 0;
+            height = 1;
         }
         Node(const value_type& val): key_compare(Compare())
         {
@@ -112,12 +112,14 @@ class Node
             // Return new root
             return y;
         }
-        Node  *balance_tree(Node *node, value_type &value)
+        Node  *balance_tree(Node *node, value_type value)
         {
+            
             //UPDATE HEIGHT OF THE CURRENT NODE
             node->height = 1 + max(Getheight(node->left), Getheight(node->right));
             
             int balance = getBalance(node);
+            std::cout << node->value.first <<"balance = " << balance<<std::endl;
             // std::cout << balance << std::endl; // node->left->value.first << " "<<  value.first << "blanace"<< std::endl;
             // If this node becomes unbalanced, then
             // there are 4 cases
@@ -127,7 +129,7 @@ class Node
                 return rightRotate(node);
             // std::cout << root->value.first << " " <<  node->value.first << "blanace"<< std::endl;
             // Right Right Case
-            if (balance < -1 && !key_compare( value.first, node->right->value.first))
+            if (balance < -1 && !key_compare(value.first, node->right->value.first))
              {   
                 return leftRotate(node);
              
@@ -218,27 +220,10 @@ class Node
     // with given data from subtree with
     // given root. It returns root of the
     // modified subtree.
-    Node* deleteNode(Node* root, value_type data)
+    Node *deleteNode2(Node *root, value_type data)
     {
-        
-        // STEP 1: PERFORM STANDARD BST DELETE
-        if (root == NULL)
-            return root;
-        // If the data to be deleted is smaller
-        // than the root's data, then it lies
-        // in left subtree
-        if ( data.first < root->data.first )
-            root->left = deleteNode(root->left, data.first);
     
-        // If the data to be deleted is greater
-        // than the root's data, then it lies
-        // in right subtree
-        else if( data.first > root->data.first)
-            root->right = deleteNode(root->right, data.first);
-    
-        // if data is same as root's data, then
-        // This is the node to be deleted
-        else
+        if (root->value.first == data.first)
         {
             // node with only one child or no child
             if( (root->left == NULL) || (root->right == NULL) )
@@ -252,7 +237,7 @@ class Node
                     root = NULL;
                 }
                 else // One child case
-                *root = *temp; // Copy the contents of
+                    *root = *temp; // Copy the contents of
                             // the non-empty child
                 free(temp);
             }
@@ -264,19 +249,46 @@ class Node
     
                 // Copy the inorder successor's
                 // data to this node
-                root->data.first = temp->data.first;
+                root->value.first = temp->value.first;
     
                 // Delete the inorder successor
-                root->right = deleteNode(root->right, temp->data.first);
+                root->right = deleteNode2(root->right, temp->value);
             }
         }
+        else if (key_compare(data.first, root->value.first ))
+        {   
+            if(root->left != nullptr)
+                root->left = deleteNode2(root->left, data);}
+
+        // If the data to be deleted is greater
+        // than the root's data, then it lies
+        // in right subtree
+        else if(!key_compare(data.first, root->value.first))
+        {   
+            if(root->left != nullptr)
+                root->right = deleteNode2(root->right, data);}
     
-        // If the tree had only one node
-        // then return
+        // if data is same as root's data, then
+        // This is the node to be deleted
+        
+        
+        // // If the tree had only one node
+        // // then return
         if (root == NULL)
             return root;
         
-        return (balance_tree(root, data.first));
+        return (balance_tree(root, data));
+    }
+    Node* deleteNode(value_type data)
+    {
+        
+        // STEP 1: PERFORM STANDARD BST DELETE
+        if (this->root == NULL)
+            return this->root;
+        // If the data to be deleted is smaller
+        // than the root's data, then it lies
+        // in left subtree
+        this->root = deleteNode2(this->root, data);
         return root;
     }
     void printBThelper(Node  *root, int level) // https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
@@ -312,9 +324,28 @@ int main(){
     root = root.insert(ft::pair<int, int>(2,2));
     root = root.insert(ft::pair<int, int>(1,1));
     root = root.insert(ft::pair<int, int>(3,3));
-    root = root.insert(ft::pair<int, int>(4,4));
-    root = root.insert(ft::pair<int, int>(5,5));
-    root = root.insert(ft::pair<int, int>(11,11));
-    
+    // root = root.insert(ft::pair<int, int>(4,4));
+    // root = root.insert(ft::pair<int, int>(5,5));
+    // root = root.insert(ft::pair<int, int>(11,11));
+    // root = root.insert(ft::pair<int, int>(13,11));
+    // root = root.insert(ft::pair<int, int>(9,11));
+    // root = root.insert(ft::pair<int, int>(6,11));
+    // root = root.insert(ft::pair<int, int>(7,11));
+    // root = root.insert(ft::pair<int, int>(8,11));
+    // root = root.insert(ft::pair<int, int>(-1,11));
+    root = root.insert(ft::pair<int, int>(-2,11));
+    root = root.insert(ft::pair<int, int>(-3,11));
+    root = root.insert(ft::pair<int, int>(-4,11));
+    // root = root.insert(ft::pair<int, int>(10,11));
     root.printBT();
+    std::cout << "\n";
+    root = root.deleteNode(ft::pair<int, int>(-4,11));
+    root.printBT();
+    std::cout << "\n";
+    root = root.deleteNode(ft::pair<int, int>(-3,11));
+    root.printBT();
+    std::cout << "\n";
+    root = root.deleteNode(ft::pair<int, int>(-2,11));
+    root.printBT();
+    std::cout << "\n";
 }
