@@ -47,6 +47,12 @@ namespace ft{
 
 
                 printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
+                printTree(_Root, nullptr, false);
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -256,7 +262,7 @@ namespace ft{
             return (node);
         }
 
-        Node  *insert(Node *node,value_type data){
+        Node  *insert(Node *node,const value_type& data){
                 
             //node is root here
             if(node == NULL){
@@ -299,7 +305,7 @@ namespace ft{
         // with given data from subtree with
         // given root. It returns root of the
         // modified subtree.
-        Node* deleteNode(Node* root, int data)
+        Node* deleteNode(Node* root,const value_type& data)
         {
             
             // STEP 1: PERFORM STANDARD BST DELETE
@@ -308,13 +314,13 @@ namespace ft{
             // If the data to be deleted is smaller
             // than the root's data, then it lies
             // in left subtree
-            if ( data < root->data )
+            if ( data.first < root->data->first )
                 root->left = deleteNode(root->left, data);
         
             // If the data to be deleted is greater
             // than the root's data, then it lies
             // in right subtree
-            else if( data > root->data )
+            else if( data.first > root->data->first )
                 root->right = deleteNode(root->right, data);
         
             // if data is same as root's data, then
@@ -324,7 +330,8 @@ namespace ft{
                 // node with only one child or no child
                 if( (root->left == NULL) || (root->right == NULL) )
                 {
-                    Node *temp = root->left ? root->left : root->right;
+                    Node *temp = newNode(data);
+                    temp = root->left ? root->left : root->right;
         
                     // No child case
                     if (temp == NULL)
@@ -348,7 +355,7 @@ namespace ft{
                     root->data = temp->data;
         
                     // Delete the inorder successor
-                    root->right = deleteNode(root->right, temp->data);
+                    root->right = deleteNode(root->right, *temp->data);
                 }
             }
         
