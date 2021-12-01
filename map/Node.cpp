@@ -82,8 +82,8 @@ class Node
             x->right = y;
             y->left = T2;
             // update parent
-            // x->parent = y->parent;
-            // y->parent = x;
+            x->parent = y->parent;
+            y->parent = x;
             // recalculate x and y heights
             x->height = std::max(Getheight(x->left), Getheight(x->right)) + 1;
             y->height = std::max(Getheight(y->left), Getheight(y->right)) + 1;
@@ -104,8 +104,8 @@ class Node
             y->left = x;
             x->right = T2;
             // update parents
-            // y->parent = x->parent;
-            // x->parent = y;
+            y->parent = x->parent;
+            x->parent = y;
 
             // Update heights
             x->height = max(Getheight(x->left), Getheight(x->right)) + 1;
@@ -170,7 +170,7 @@ class Node
             root->left->parent = root;
             
         }
-        else
+        else if(!key_compare(node->value.first, root->value.first))
         {
             // if (root->right == nullptr)
             //     root->right = node; node->parent = root; return root;
@@ -300,7 +300,7 @@ class Node
               if(level != 0){
                   for(int i=0;i<level-1;i++)
                       std::cout << "|\t";
-                  std::cout << "|-------|" << root->value.first << "p="<< root->parent->value.first<< " | ";
+                  std::cout << "|-------|" << root->value.first << " p="<< root->parent->value.first<< " | ";
                 // root->color? std::cout << "Red" : std::cout <<"Black";
                 std::cout << std::endl;
               }
