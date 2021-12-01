@@ -120,7 +120,7 @@ class Node
             node->height = 1 + max(Getheight(node->left), Getheight(node->right));
             
             int balance = getBalance(node);
-            std::cout << node->value.first <<"balance = " << balance<<std::endl;
+            // std::cout << node->value.first <<"balance = " << balance<<std::endl;
             // std::cout << balance << std::endl; // node->left->value.first << " "<<  value.first << "blanace"<< std::endl;
             // If this node becomes unbalanced, then
             // there are 4 cases
@@ -166,19 +166,19 @@ class Node
             //     root->left = node; node->parent = root;
             //     return this->root;
             // }
-            root->left = insert2(root->left, node);  
-            //   root->left->parent = root;
+            root->left = insert2(root->left, node);
+            root->left->parent = root;
             
         }
-        else if(key_compare(root->value.first, node->value.first))
+        else
         {
             // if (root->right == nullptr)
             //     root->right = node; node->parent = root; return root;
             root->right = insert2(root->right, node); 
-                // root->right->parent = root;
+            root->right->parent = root;
                 } 
         
-        return (balance_tree(root,  node->value));
+        // return (balance_tree(root,  node->value));
         return root;
     }
     Node  *insert(const value_type& value){
@@ -192,8 +192,8 @@ class Node
         // pair_alloc.construct(&(node->value), value);
         node->value = value;
         // std::cout << node->value.first;
-        if (!root)
-            return node;
+        // if (!root)
+        //     return node;
         
         root = insert2(root, node);
         // /* Get the balance factor of this ancestor
@@ -300,7 +300,7 @@ class Node
               if(level != 0){
                   for(int i=0;i<level-1;i++)
                       std::cout << "|\t";
-                  std::cout << "|-------" << root->value.first << " | ";
+                  std::cout << "|-------|" << root->value.first << "p="<< root->parent->value.first<< " | ";
                 // root->color? std::cout << "Red" : std::cout <<"Black";
                 std::cout << std::endl;
               }
@@ -322,31 +322,36 @@ class Node
 int main(){
     typedef Node<ft::pair<int, int>, std::less<int> > node;
     node root;
-    root = root.insert(ft::pair<int, int>(2,2));
-    root = root.insert(ft::pair<int, int>(1,1));
-    root = root.insert(ft::pair<int, int>(3,3));
-    root = root.insert(ft::pair<int, int>(4,4));
-    root = root.insert(ft::pair<int, int>(5,5));
-    root = root.insert(ft::pair<int, int>(11,11));
+    
     root = root.insert(ft::pair<int, int>(13,11));
     root = root.insert(ft::pair<int, int>(9,11));
     root = root.insert(ft::pair<int, int>(6,11));
     root = root.insert(ft::pair<int, int>(7,11));
     root = root.insert(ft::pair<int, int>(8,11));
-    root = root.insert(ft::pair<int, int>(-1,11));
-    root = root.insert(ft::pair<int, int>(-2,11));
-    root = root.insert(ft::pair<int, int>(-3,11));
-    root = root.insert(ft::pair<int, int>(-4,11));
+    // root = root.insert(ft::pair<int, int>(-1,11));
+    root = root.insert(ft::pair<int, int>(2,2));
+    root = root.insert(ft::pair<int, int>(3,3));
+    root = root.insert(ft::pair<int, int>(4,4));
+    root = root.insert(ft::pair<int, int>(5,5));
+    root = root.insert(ft::pair<int, int>(9,11));
+    root = root.insert(ft::pair<int, int>(10,11));
+    root = root.insert(ft::pair<int, int>(11,11));
+    root = root.insert(ft::pair<int, int>(12,11));
+    root = root.insert(ft::pair<int, int>(14,11));
+    // root = root.insert(ft::pair<int, int>(11,11));
+    // root = root.insert(ft::pair<int, int>(-2,11));
+    // root = root.insert(ft::pair<int, int>(-3,11));
+    // root = root.insert(ft::pair<int, int>(-4,11));
     // root = root.insert(ft::pair<int, int>(10,11));
-    root.printBT();
+    //root.printBT();
     // std::cout << "\n";
     // root = root.deleteNode(ft::pair<int, int>(-4,11));
-    // root.printBT();
-    // std::cout << "\n";
+    // // root.printBT();
+    // // std::cout << "\n";
     // root = root.deleteNode(ft::pair<int, int>(-3,11));
-    // root.printBT();
-    // std::cout << "\n";
+    // // root.printBT();
+    // // std::cout << "\n";
     // root = root.deleteNode(ft::pair<int, int>(-2,11));
-    // root.printBT();
+    root.printBT();
     std::cout << "\n";
 }
