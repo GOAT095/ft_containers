@@ -73,7 +73,6 @@ class Node
         }
         Node*   rightRotate(Node* y)
         {
-            
             Node* x = y->left;
             Node* T2 = x->right;
 
@@ -127,28 +126,30 @@ class Node
             // there are 4 cases
             // std::cout << balance << " " <<  value.first << "blanace"<< std::endl;
             // Left Left Case
-            if (balance > 1) 
-            {   if(key_compare(value.first, node->left->value.first))
-                    return rightRotate(node);
-                if(!key_compare(value.first , node->left->value.first))
-                {
-                    node->left = leftRotate(node->left);
-                    return rightRotate(node);
-                }       
-             }
-                
+            if (balance > 1 && key_compare(value.first, node->left->value.first))
+                return rightRotate(node);
             // std::cout << root->value.first << " " <<  node->value.first << "blanace"<< std::endl;
             // Right Right Case
-            if (balance < -1)
-             {  if (!key_compare(value.first, node->right->value.first))
-                    return leftRotate(node);
-                if(key_compare(value.first,node->right->value.first))
-                {
-                    // if()
-                    // node->right = rightRotate(node->right);
-                    return leftRotate(node);
-                }
+            if (balance < -1 && !key_compare(value.first, node->right->value.first))
+             {   
+                return leftRotate(node);
+             
              }
+         
+            // Left Right Case
+            if (balance > 1 && !key_compare(value.first , node->left->value.first))
+            {
+                node->left = leftRotate(node->left);
+                return rightRotate(node);
+            }
+       
+            // Right Left Case
+            if (balance < -1 && key_compare(value.first,node->right->value.first))
+            {
+                node->right = rightRotate(node->right);
+                return leftRotate(node);
+            }
+            
             return (node);
         }
         //insert function
@@ -239,7 +240,7 @@ class Node
                 else // One child case
                     *root = *temp; // Copy the contents of
                             // the non-empty child
-                al.deallocate(temp, 1);
+                free(temp);
             }
             else
             {
@@ -299,7 +300,7 @@ class Node
               if(level != 0){
                   for(int i=0;i<level-1;i++)
                       std::cout << "|\t";
-                  std::cout << "|-------|" << root->value.first << " | ";
+                  std::cout << "|-------" << root->value.first << " | ";
                 // root->color? std::cout << "Red" : std::cout <<"Black";
                 std::cout << std::endl;
               }
@@ -338,15 +339,14 @@ int main(){
     root = root.insert(ft::pair<int, int>(-4,11));
     // root = root.insert(ft::pair<int, int>(10,11));
     root.printBT();
-    std::cout << "\n";
-    root = root.deleteNode(ft::pair<int, int>(-4,11));
-    root.printBT();
-    std::cout << "\n";
-    root = root.deleteNode(ft::pair<int, int>(-3,11));
-    root.printBT();
-    std::cout << "\n";
-    // root = root.deleteNode(ft::pair<int, int>(3,3));
-    root = root.deleteNode(ft::pair<int, int>(-2,11));
-    root.printBT();
+    // std::cout << "\n";
+    // root = root.deleteNode(ft::pair<int, int>(-4,11));
+    // root.printBT();
+    // std::cout << "\n";
+    // root = root.deleteNode(ft::pair<int, int>(-3,11));
+    // root.printBT();
+    // std::cout << "\n";
+    // root = root.deleteNode(ft::pair<int, int>(-2,11));
+    // root.printBT();
     std::cout << "\n";
 }
