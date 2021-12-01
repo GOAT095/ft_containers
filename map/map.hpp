@@ -43,16 +43,19 @@ namespace ft{
                 _Root = insert(_Root, ft::pair<Key, T>(8,1));
                 _Root = insert(_Root, ft::pair<Key, T>(9,1));
                 _Root = insert(_Root, ft::pair<Key, T>(10,1));
-                
-
-
+                _Root = insert(_Root, ft::pair<Key, T>(-1,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
+                _Root = insert(_Root, ft::pair<Key, T>(-3,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-6,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-4,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-5,1));
                 printTree(_Root, nullptr, false);
-                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                printTree(_Root, nullptr, false);
-                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
-                printTree(_Root, nullptr, false);
-                _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
-                printTree(_Root, nullptr, false);
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                // printTree(_Root, nullptr, false);
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                // printTree(_Root, nullptr, false);
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
+                // printTree(_Root, nullptr, false);
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -122,11 +125,11 @@ namespace ft{
                 }
                 else if (isLeft)
                 {
-                    trunk->str = ".———";
+                    trunk->str = ".——|";
                     prev_str = "   |";
                 }
                 else {
-                    trunk->str = "`———";
+                    trunk->str = "`——|";
                     prev->str = prev_str;
                 }
             
