@@ -368,7 +368,7 @@ namespace ft{
             // If the data to be deleted is greater
             // than the root's data, then it lies
             // in right subtree
-            else if(!kc(data.first, root->data->first ) && data.first != root->data->first)
+            else if(kc(root->data->first, data.first))
                 root->right = deleteNode(root->right, data);
         
             // if data is same as root's data, then
