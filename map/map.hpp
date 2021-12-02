@@ -134,7 +134,7 @@ namespace ft{
                 }
             
                 showTrunks(trunk);
-                std::cout << root->data->first << std::endl;
+                std::cout << root->data->first << root->parent->data->first<< std::endl;
             
                 if (prev) {
                     prev->str = prev_str;
@@ -172,6 +172,7 @@ namespace ft{
             x->right = y;
             y->left = T2;
 
+            //update parents
             tmp = y->parent;
             y->parent = x->parent;
             x->parent = tmp;
@@ -196,7 +197,8 @@ namespace ft{
             // Perform rotation
             y->left = x;
             x->right = T2;
-            
+
+            //update parents
             tmp = y->parent;
             y->parent = x->parent;
             x->parent = tmp;
@@ -222,8 +224,7 @@ namespace ft{
             Node* newNode = new Node();
             newNode->data = al.allocate(1);
             al.construct(newNode->data, val);
-            // Left and right child for node
-            // will be initialized to null
+            
             newNode->left = NULL;
             newNode->right = NULL;
             newNode->height = 1;
@@ -343,9 +344,9 @@ namespace ft{
                         root = NULL;
                     }
                     else // One child case
-                    *root = *temp; // Copy the contents of
+                        *root = *temp; // Copy the contents of
                                 // the non-empty child
-                    free(temp);
+                    al.deallocate(temp->data, 1);
                 }
                 else
                 {
