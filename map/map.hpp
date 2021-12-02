@@ -21,7 +21,7 @@ namespace ft{
             typedef typename allocator_type::const_pointer const_pointer;
             typedef	size_t                             size_type;
             typedef	size_t                             difference_type;
-            typedef pair<const key_type,mapped_type>    value_type;
+            typedef pair<const key_type,mapped_type>   value_type;
             //typedef ft::Node<
             //constractors and stuff
             //empty
@@ -50,8 +50,10 @@ namespace ft{
                 _Root = insert(_Root, ft::pair<Key, T>(-4,1));
                 _Root = insert(_Root, ft::pair<Key, T>(-5,1));
                 printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                // printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
+                printTree(_Root, nullptr, false);
                 // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
                 // printTree(_Root, nullptr, false);
                 // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
@@ -134,7 +136,7 @@ namespace ft{
                 }
             
                 showTrunks(trunk);
-                std::cout << root->data->first << root->parent->data->first<< std::endl;
+                std::cout << root->data->first << std::endl;
             
                 if (prev) {
                     prev->str = prev_str;
@@ -346,7 +348,8 @@ namespace ft{
                     else // One child case
                         *root = *temp; // Copy the contents of
                                 // the non-empty child
-                    al.deallocate(temp->data, 1);
+                    // al.deallocate(temp->data, 1);
+                    temp = nullptr;
                 }
                 else
                 {
