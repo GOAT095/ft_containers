@@ -247,15 +247,15 @@ namespace ft{
             // there are 4 cases
         
             // Left Left Case
-            if (balance > 1 && data.first < node->left->data->first)
+            if (balance > 1 && kc(data.first, node->left->data->first))
                 return rightRotate(node);
         
             // Right Right Case
-            if (balance < -1 && data.first > node->right->data->first)
+            if (balance < -1 && !kc(data.first, node->right->data->first))
                 return leftRotate(node);
         
             // Left Right Case
-            if (balance > 1 &&data.first > node->left->data->first)
+            if (balance > 1 && !kc(data.first, node->left->data->first))
             {
                 if (node->left->left)
                     return rightRotate(node);
@@ -264,7 +264,7 @@ namespace ft{
             }
         
             // Right Left Case
-            if (balance < -1 && data.first < node->right->data->first)
+            if (balance < -1 && kc(data.first, node->right->data->first))
             {
                 if (node->right->right)
                     return leftRotate(node);
@@ -318,10 +318,10 @@ namespace ft{
                 node = n;
                 return node;
             }
-            if(data.first < node->data->first){
+            if(kc(data.first, node->data->first)){
                 node->left = insert(node->left, data);
                 node->left->parent = node;
-            }else {
+            }else if(!kc(data.first, node->data->first)){
                 node->right = insert(node->right, data);
                 node->right->parent = node;
             }
@@ -368,7 +368,7 @@ namespace ft{
             // If the data to be deleted is greater
             // than the root's data, then it lies
             // in right subtree
-            else if( data.first > root->data->first )
+            else if(!kc(data.first, root->data->first ) && data.first != root->data->first)
                 root->right = deleteNode(root->right, data);
         
             // if data is same as root's data, then
