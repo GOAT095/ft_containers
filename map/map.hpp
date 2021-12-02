@@ -59,6 +59,8 @@ namespace ft{
                 printTree(_Root, nullptr, false);
                 _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
                 printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
+                printTree(_Root, nullptr, false);
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
