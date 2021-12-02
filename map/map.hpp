@@ -50,14 +50,15 @@ namespace ft{
                 _Root = insert(_Root, ft::pair<Key, T>(-4,1));
                 _Root = insert(_Root, ft::pair<Key, T>(-5,1));
                 printTree(_Root, nullptr, false);
-                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                printTree(_Root, nullptr, false);
+                
                 _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
                 printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
-                // printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                printTree(_Root, nullptr, false);
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -136,7 +137,7 @@ namespace ft{
                 }
             
                 showTrunks(trunk);
-                std::cout << root->data->first << std::endl;
+                std::cout << root->data->first<< std::endl;
             
                 if (prev) {
                     prev->str = prev_str;
@@ -232,7 +233,6 @@ namespace ft{
             newNode->height = 1;
             return (newNode);
         }
-
         Node  *balance_tree(Node *node, value_type data)
         {
             //UPDATE HEIGHT OF THE CURRENT NODE
@@ -253,8 +253,10 @@ namespace ft{
                 return leftRotate(node);
         
             // Left Right Case
-            if (balance > 1 && data.first > node->left->data->first)
+            if (balance > 1 &&data.first > node->left->data->first)
             {
+                if (node->left->left)
+                    return rightRotate(node);
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
@@ -262,11 +264,49 @@ namespace ft{
             // Right Left Case
             if (balance < -1 && data.first < node->right->data->first)
             {
+                if (node->right->right)
+                    return leftRotate(node);
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
             return (node);
         }
+        // Node  *balance_tree(Node *node, value_type data)
+        // {
+        //     //UPDATE HEIGHT OF THE CURRENT NODE
+        //     node->height = 1 + max(height(node->left),
+        //                         height(node->right));
+
+        //     int balance = getBalance(node);
+        
+        //     // If this node becomes unbalanced, then
+        //     // there are 4 cases
+        
+        //     // Left Left Case
+        //     if (balance > 1 && data.first < node->left->data->first)
+        //         return rightRotate(node);
+        
+        //     // Right Right Case
+        //     if (balance < -1 && data.first > node->right->data->first)
+        //         return leftRotate(node);
+        
+        //     // Left Right Case
+        //     if (balance > 1 &&data.first > node->left->data->first)
+        //     {
+               
+        //         node->left = leftRotate(node->left);
+        //         return rightRotate(node);
+        //     }
+        
+        //     // Right Left Case
+        //     if (balance < -1 && data.first < node->right->data->first)
+        //     {
+                
+        //         node->right = rightRotate(node->right);
+        //         return leftRotate(node);
+        //     }
+        //     return (node);
+        // }
 
         Node  *insert(Node *node,const value_type& data){
                 
