@@ -35,34 +35,39 @@ namespace ft{
                 _capacity = 0;
                 _Root = NULL;
 
-                // _Root = insert(_Root, ft::pair<Key, T>(1,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(2,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(3,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(4,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(5,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(6,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(7,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(8,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(9,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(10,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-1,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
-                // _Root = insert(_Root, ft::pair<Key, T>(-3,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-6,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-4,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-5,1));
-                // printTree(_Root, nullptr, false);
+                _Root = insert(_Root, ft::pair<Key, T>(1,1));
+                _Root = insert(_Root, ft::pair<Key, T>(2,1));
+                _Root = insert(_Root, ft::pair<Key, T>(3,1));
+                _Root = insert(_Root, ft::pair<Key, T>(4,1));
+                _Root = insert(_Root, ft::pair<Key, T>(5,1));
+                _Root = insert(_Root, ft::pair<Key, T>(6,1));
+                _Root = insert(_Root, ft::pair<Key, T>(7,1));
+                _Root = insert(_Root, ft::pair<Key, T>(8,1));
+                _Root = insert(_Root, ft::pair<Key, T>(9,1));
+                _Root = insert(_Root, ft::pair<Key, T>(10,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-1,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
+                _Root = insert(_Root, ft::pair<Key, T>(-3,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-6,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-4,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-5,1));
+                printTree(_Root, nullptr, false);
                 
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
-                // printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -149,7 +154,7 @@ namespace ft{
                 }
             
                 showTrunks(trunk);
-                std::cout << root->data->first<< std::endl;
+                std::cout << root->data->first<< "p:" << root->parent->data->first <<std::endl;
             
                 if (prev) {
                     prev->str = prev_str;
@@ -183,11 +188,17 @@ namespace ft{
             Node *T2 = x? x->right : NULL;
         
             // Perform rotation
-            if (!x){return y;}
+            // if (!x){return y;}
+            // just to fix seg fault not working
+            if (y == _Root)
+                y->parent = x;
+            else if (x == _Root)
+                x->parent = y;
             x->right = y;
             y->left = T2;
 
             //update parents
+            
             tmp = y->parent;
             y->parent = x->parent;
             x->parent = tmp;
@@ -210,10 +221,16 @@ namespace ft{
             Node *T2 = y->left;
         
             // Perform rotation
+            // just to fix seg fault not working
+            if (y == _Root)
+                y->parent = x;
+            else if (x == _Root)
+                x->parent = y;
             y->left = x;
             x->right = T2;
 
             //update parents
+            
             tmp = y->parent;
             y->parent = x->parent;
             x->parent = tmp;
@@ -433,6 +450,7 @@ namespace ft{
                 return root;
             
             return (balance_tree(root, data));
+            // _Root = root;
             return root;
         }
 
@@ -440,7 +458,7 @@ namespace ft{
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
             typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
-        const_iterator begin() const{return ();}
+        // const_iterator begin() const{return ();}
         pair<iterator,bool> insert (const value_type& val)
         {
             size_t s = _size;
