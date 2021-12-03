@@ -17,13 +17,16 @@ template <class NODE, class T, class comp>
             _p = NULL;
         }
         map_iter(const NODE& node){
-            
+            _p = node;
         }
-        ~map_iter(){}
+        map_iter(const map_iter& copy)
+        {
+            *this = copy;
+        }
         map_iter&   operator=(const map_iter& rhs)
         {
             _p = rhs._p;
             return (*this);
         }
-
+        ~map_iter(){}
     };
