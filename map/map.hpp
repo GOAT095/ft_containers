@@ -313,6 +313,7 @@ namespace ft{
         Node  *insert(Node *node,const value_type& data){
                 
             //node is root here
+            //need a rebind and allocation
             if(node == NULL){
                 Node *n = newNode(data);
                 node = n;
@@ -391,6 +392,7 @@ namespace ft{
                         *root = *temp; // Copy the contents of
                                 // the non-empty child
                     // al.deallocate(temp->data, 1);
+                    //needs to be changed to free
                     temp = nullptr;
                 }
                 else
