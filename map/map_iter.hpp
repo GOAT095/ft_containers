@@ -9,11 +9,11 @@ namespace ft{
                 NODE *_p;
             
             public :
-                typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::value_type                value_type;
-                typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::difference_type           difference_type;
-                typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::pointer                   pointer;
-                typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::reference                 reference;
-                typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::iterator_category         iterator_category;
+                // typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::value_type                value_type;
+                // typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::difference_type           difference_type;
+                // typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::pointer                   pointer;
+                // typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::reference                 reference;
+                // typedef typename ft::MyIterator<std::bidirectional_iterator_tag, T>::iterator_category         iterator_category;
             
             map_iter(){
                 _p = NULL;
@@ -31,7 +31,7 @@ namespace ft{
                 return (*this);
             }
             ~map_iter(){}
-            pointer operator->() const{ return (_p->data);}
-            reference operator*() const{ return (*_p->data);}
+            *T operator->() const{ return (_p->data);}
+            &T operator*() const{ return (*_p->data);}
         };
 }

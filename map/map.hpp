@@ -5,6 +5,7 @@
 #include <memory>
 #include <iostream>
 #include "map-utils.hpp"
+#include "map_iter.hpp"
 
 namespace ft{
     template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key,T> > >
@@ -22,6 +23,7 @@ namespace ft{
             typedef	size_t                             size_type;
             typedef	size_t                             difference_type;
             typedef pair<const key_type,mapped_type>   value_type;
+
             //typedef ft::Node<
             //constractors and stuff
             //empty
@@ -94,6 +96,8 @@ namespace ft{
             };
 
             Node* _Root;
+            Node* last_insert;
+            Node* not_inserted;
             struct Trunk
             {
                 Trunk *prev;
@@ -233,6 +237,7 @@ namespace ft{
             newNode->left = NULL;
             newNode->right = NULL;
             newNode->height = 1;
+            _size++;
             return (newNode);
         }
         Node  *balance_tree(Node *node, value_type data)
@@ -317,6 +322,7 @@ namespace ft{
             if(node == NULL){
                 Node *n = newNode(data);
                 node = n;
+                last_insert = n;
                 return node;
             }
             if(kc(data.first, node->data->first)){
@@ -326,13 +332,18 @@ namespace ft{
                 node->right = insert(node->right, data);
                 node->right->parent = node;
             }
-        
+            //to know if not inserted
+            else{
+                not_inserted = node;
+                return node;
+            }
             /* 3. Get the balance factor of this ancestor
                 node to check whether this node became
                 unbalanced */
             
             return (balance_tree(node, data));
-                return node;
+
+            return node;
         }
         //delete in a bst using AVL
         /* Given a non-empty binary search tree,
@@ -417,6 +428,19 @@ namespace ft{
             
             return (balance_tree(root, data));
             return root;
+        }
+
+        public:
+            typedef typename ft::map_iter<Node, value_type, Compare> iterator;
+        
+        pair<iterator,bool> insert (const value_type& val)
+        {
+            size_t s = _size;
+            _Root = insert(_Root, val);
+            if (s == _size)
+                return(make_pair(iterator(not_inserted, false)));
+            else
+                return(make_pair(iterator(last_insert, true)));
         }
     };
 
