@@ -286,7 +286,7 @@ namespace ft{
             // Left Right Case
             if (balance > 1 && !kc(data.first, node->left->data->first))
             {
-                if (node->left->left)
+                if (node->left->left) //just right rotate node 
                     return rightRotate(node);
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
@@ -295,7 +295,7 @@ namespace ft{
             // Right Left Case
             if (balance < -1 && kc(data.first, node->right->data->first))
             {
-                if (node->right->right)
+                if (node->right->right) //just left rotate node 
                     return leftRotate(node);
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
@@ -325,7 +325,6 @@ namespace ft{
             // Left Right Case
             if (balance > 1 &&data.first > node->left->data->first)
             {
-               
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
