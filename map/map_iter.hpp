@@ -32,7 +32,12 @@ namespace ft{
                 return (*this);
             }
             ~map_iter(){}
-            pointer operator->() const{ return (_p->data);}
-            reference operator*() const{ return (*_p->data);}
+            T* operator->() const{ return (_p->data);}
+            T& operator*() const{ return (*_p->data);}
+            
+            NODE* previous(NODE *node)
+            {
+                
+            }
         };
 }

@@ -38,6 +38,10 @@ namespace ft{
                 _Root = insert(_Root, ft::pair<Key, T>(1,1));
                 _Root = insert(_Root, ft::pair<Key, T>(2,1));
                 _Root = insert(_Root, ft::pair<Key, T>(3,1));
+                _Root = insert(_Root, ft::pair<Key, T>(10,1));
+                _Root = insert(_Root, ft::pair<Key, T>(77,1));
+                _Root = insert(_Root, ft::pair<Key, T>(5,1));
+                _Root = insert(_Root, ft::pair<Key, T>(78,1));
                 _Root = insert(_Root, ft::pair<Key, T>(4,1));
                 _Root = insert(_Root, ft::pair<Key, T>(5,1));
                 _Root = insert(_Root, ft::pair<Key, T>(6,1));
@@ -154,7 +158,8 @@ namespace ft{
                 std::cout << root->data->first;
                 if (root->parent)
                     std::cout << "p:"<< root->parent->data->first <<std::endl;
-            
+                else
+                    std::cout <<std::endl;
                 if (prev) {
                     prev->str = prev_str;
                 }
@@ -193,8 +198,8 @@ namespace ft{
             
             // if (x == _Root)
             //     x->parent = y;
-            // if (x->right)
-            //     x->right->parent = y;
+            if (x->right)
+                x->right->parent = y;
             x->right = y;
             y->left = T2;
 
@@ -223,8 +228,8 @@ namespace ft{
             // just to fix seg fault not working
             // if (x == _Root)
             //     x->parent = x;
-            // if (y->left)
-            //     y->left->parent = x;
+            if (y->left)
+                y->left->parent = x;
             y->left = x;
             x->right = T2;
 
@@ -284,8 +289,8 @@ namespace ft{
             // Left Right Case
             if (balance > 1 && !kc(data.first, node->left->data->first))
             {
-                if (node->left->left)
-                    return rightRotate(node);
+                // if (node->left->left)
+                //     return rightRotate(node);
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
@@ -293,8 +298,8 @@ namespace ft{
             // Right Left Case
             if (balance < -1 && kc(data.first, node->right->data->first))
             {
-                if (node->right->right)
-                    return leftRotate(node);
+                // if (node->right->right)
+                //     return leftRotate(node);
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
