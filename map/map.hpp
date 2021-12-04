@@ -38,10 +38,7 @@ namespace ft{
                 _Root = insert(_Root, ft::pair<Key, T>(1,1));
                 _Root = insert(_Root, ft::pair<Key, T>(2,1));
                 _Root = insert(_Root, ft::pair<Key, T>(3,1));
-                _Root = insert(_Root, ft::pair<Key, T>(10,1));
-                _Root = insert(_Root, ft::pair<Key, T>(77,1));
-                _Root = insert(_Root, ft::pair<Key, T>(5,1));
-                _Root = insert(_Root, ft::pair<Key, T>(78,1));
+                
                 _Root = insert(_Root, ft::pair<Key, T>(4,1));
                 _Root = insert(_Root, ft::pair<Key, T>(5,1));
                 _Root = insert(_Root, ft::pair<Key, T>(6,1));
@@ -266,7 +263,7 @@ namespace ft{
             _size++;
             return (newNode);
         }
-        Node  *balance_tree(Node *node, value_type data)
+        Node  *balance_tree_delete(Node *node, value_type data)
         {
             //UPDATE HEIGHT OF THE CURRENT NODE
             node->height = 1 + max(height(node->left),
@@ -289,8 +286,8 @@ namespace ft{
             // Left Right Case
             if (balance > 1 && !kc(data.first, node->left->data->first))
             {
-                // if (node->left->left)
-                //     return rightRotate(node);
+                if (node->left->left)
+                    return rightRotate(node);
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
@@ -298,50 +295,50 @@ namespace ft{
             // Right Left Case
             if (balance < -1 && kc(data.first, node->right->data->first))
             {
-                // if (node->right->right)
-                //     return leftRotate(node);
+                if (node->right->right)
+                    return leftRotate(node);
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
             // _Root->parent = _Root; 
             return (node);
         }
-        // Node  *balance_tree(Node *node, value_type data)
-        // {
-        //     //UPDATE HEIGHT OF THE CURRENT NODE
-        //     node->height = 1 + max(height(node->left),
-        //                         height(node->right));
+        Node  *balance_tree(Node *node, value_type data)
+        {
+            //UPDATE HEIGHT OF THE CURRENT NODE
+            node->height = 1 + max(height(node->left),
+                                height(node->right));
 
-        //     int balance = getBalance(node);
+            int balance = getBalance(node);
         
-        //     // If this node becomes unbalanced, then
-        //     // there are 4 cases
+            // If this node becomes unbalanced, then
+            // there are 4 cases
         
-        //     // Left Left Case
-        //     if (balance > 1 && data.first < node->left->data->first)
-        //         return rightRotate(node);
+            // Left Left Case
+            if (balance > 1 && data.first < node->left->data->first)
+                return rightRotate(node);
         
-        //     // Right Right Case
-        //     if (balance < -1 && data.first > node->right->data->first)
-        //         return leftRotate(node);
+            // Right Right Case
+            if (balance < -1 && data.first > node->right->data->first)
+                return leftRotate(node);
         
-        //     // Left Right Case
-        //     if (balance > 1 &&data.first > node->left->data->first)
-        //     {
+            // Left Right Case
+            if (balance > 1 &&data.first > node->left->data->first)
+            {
                
-        //         node->left = leftRotate(node->left);
-        //         return rightRotate(node);
-        //     }
+                node->left = leftRotate(node->left);
+                return rightRotate(node);
+            }
         
-        //     // Right Left Case
-        //     if (balance < -1 && data.first < node->right->data->first)
-        //     {
+            // Right Left Case
+            if (balance < -1 && data.first < node->right->data->first)
+            {
                 
-        //         node->right = rightRotate(node->right);
-        //         return leftRotate(node);
-        //     }
-        //     return (node);
-        // }
+                node->right = rightRotate(node->right);
+                return leftRotate(node);
+            }
+            return (node);
+        }
 
         Node  *insert(Node *node,const value_type& data){
                 
@@ -461,7 +458,7 @@ namespace ft{
             // then return
             if (root == NULL)
                 return root;
-            Node *x = balance_tree(root, data);
+            Node *x = balance_tree_delete(root, data);
             // x->parent = x;
             return (x);
         }
