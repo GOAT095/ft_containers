@@ -183,17 +183,20 @@ namespace ft{
             // See the diagram given above.
         Node *rightRotate(Node *y)
         {
-            // Node *tmp;
+            Node *tmp;
             Node *x = y->left;
-            Node *T2 = x? x->right : NULL;
+            Node *T2 = x->right;
         
             // Perform rotation
             // if (!x){return y;}
             // just to fix seg fault not working
+
             if (y == _Root)
                 y->parent = y;
             else if (x == _Root)
                 x->parent = y;
+            if (x->right)
+                x->right->parent = y;
             x->right = y;
             y->left = T2;
 
@@ -215,16 +218,18 @@ namespace ft{
         // See the diagram given above.
         Node *leftRotate(Node *x)
         {
-            // Node *tmp;
+            Node *tmp;
             Node *y = x->right;
             Node *T2 = y->left;
         
             // Perform rotation
             // just to fix seg fault not working
-            if (y == _Root)
+            if (y == _Root && y->parent != y)
                 y->parent = x;
             else if (x == _Root)
                 x->parent = x;
+            if (y->left)
+                y->left->parent = x;
             y->left = x;
             x->right = T2;
 
