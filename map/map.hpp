@@ -82,12 +82,7 @@ namespace ft{
                 }
                 kc = comp;
                 al = alloc;
-                _size = 0;
-            }
-            map (const map& x)
-            {
-                _size = 0;
-                *this = x;
+                _size = diff;
             }
             ~map(){
                 //clear();
@@ -302,6 +297,7 @@ namespace ft{
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
+            _Root->parent = _Root; 
             return (node);
         }
         // Node  *balance_tree(Node *node, value_type data)
@@ -368,7 +364,6 @@ namespace ft{
                 unbalanced */
             
             return (balance_tree(node, data));
-
             return node;
         }
         //delete in a bst using AVL
@@ -453,7 +448,6 @@ namespace ft{
                 return root;
             
             return (balance_tree(root, data));
-            // _Root = root;
             return root;
         }
 
