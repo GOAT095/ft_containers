@@ -183,7 +183,7 @@ namespace ft{
             // See the diagram given above.
         Node *rightRotate(Node *y)
         {
-            Node *tmp;
+            // Node *tmp;
             Node *x = y->left;
             Node *T2 = x? x->right : NULL;
         
@@ -191,7 +191,7 @@ namespace ft{
             // if (!x){return y;}
             // just to fix seg fault not working
             if (y == _Root)
-                y->parent = x;
+                y->parent = y;
             else if (x == _Root)
                 x->parent = y;
             x->right = y;
@@ -199,9 +199,8 @@ namespace ft{
 
             //update parents
             
-            tmp = y->parent;
-            y->parent = x->parent;
-            x->parent = tmp;
+            x->parent = y->parent;
+            y->parent = x;
             // Update heights
             y->height = max(height(y->left),
                             height(y->right)) + 1;
@@ -216,7 +215,7 @@ namespace ft{
         // See the diagram given above.
         Node *leftRotate(Node *x)
         {
-            Node *tmp;
+            // Node *tmp;
             Node *y = x->right;
             Node *T2 = y->left;
         
@@ -225,15 +224,14 @@ namespace ft{
             if (y == _Root)
                 y->parent = x;
             else if (x == _Root)
-                x->parent = y;
+                x->parent = x;
             y->left = x;
             x->right = T2;
 
             //update parents
             
-            tmp = y->parent;
             y->parent = x->parent;
-            x->parent = tmp;
+            x->parent = y;
             // Update heights
             x->height = max(height(x->left),   
                             height(x->right)) + 1;
