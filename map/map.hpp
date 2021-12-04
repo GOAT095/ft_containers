@@ -42,6 +42,8 @@ namespace ft{
                 _Root = insert(_Root, ft::pair<Key, T>(5,1));
                 _Root = insert(_Root, ft::pair<Key, T>(6,1));
                 _Root = insert(_Root, ft::pair<Key, T>(7,1));
+                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                printTree(_Root, nullptr, false);
                 _Root = insert(_Root, ft::pair<Key, T>(8,1));
                 _Root = insert(_Root, ft::pair<Key, T>(9,1));
                 _Root = insert(_Root, ft::pair<Key, T>(10,1));
@@ -187,8 +189,8 @@ namespace ft{
             // just to fix seg fault not working
 
             
-            if (x == _Root)
-                x->parent = y;
+            // if (x == _Root)
+            //     x->parent = y;
             if (x->right)
                 x->right->parent = y;
             x->right = y;
@@ -205,6 +207,7 @@ namespace ft{
                             height(x->right)) + 1;
         
             // Return new root
+            _Root->parent = _Root; 
             return x;
         }
         // A utility function to left
@@ -218,8 +221,8 @@ namespace ft{
         
             // Perform rotation
             // just to fix seg fault not working
-            if (x == _Root)
-                x->parent = x;
+            // if (x == _Root)
+            //     x->parent = x;
             if (y->left)
                 y->left->parent = x;
             y->left = x;
@@ -236,6 +239,7 @@ namespace ft{
                             height(y->right)) + 1;
         
             // Return new root
+            _Root->parent = _Root; 
             return y;
         }
 
@@ -270,6 +274,7 @@ namespace ft{
             // there are 4 cases
         
             // Left Left Case
+            
             if (balance > 1 && kc(data.first, node->left->data->first))
                 return rightRotate(node);
         
@@ -294,7 +299,7 @@ namespace ft{
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
-            _Root->parent = _Root; 
+            // _Root->parent = _Root; 
             return (node);
         }
         // Node  *balance_tree(Node *node, value_type data)
@@ -361,6 +366,7 @@ namespace ft{
                 unbalanced */
             
             return (balance_tree(node, data));
+            
             return node;
         }
         //delete in a bst using AVL
@@ -398,7 +404,7 @@ namespace ft{
             // If the data to be deleted is greater
             // than the root's data, then it lies
             // in right subtree
-            else if(kc(root->data->first, data.first))
+            else if(root->data->first < data.first)
                 root->right = deleteNode(root->right, data);
         
             // if data is same as root's data, then
@@ -409,20 +415,27 @@ namespace ft{
                 if( (root->left == NULL) || (root->right == NULL) )
                 {
                     Node *temp = newNode(data);
+                    Node *tmp = root->parent;
                     temp = root->left ? root->left : root->right;
-        
                     // No child case
                     if (temp == NULL)
                     {
                         temp = root;
                         root = NULL;
                     }
+                    
                     else // One child case
-                        *root = *temp; // Copy the contents of
+                    {
+                       *root = *temp;
+                       root->parent = tmp;
+
+                    } // Copy the contents of
                                 // the non-empty child
                     // al.deallocate(temp->data, 1);
                     //needs to be changed to free
-                    temp = nullptr;
+                    al.destroy(temp->data);
+                    temp= NULL;
+                    
                 }
                 else
                 {
@@ -433,18 +446,20 @@ namespace ft{
                     // Copy the inorder successor's
                     // data to this node
                     root->data = temp->data;
-        
+                    
                     // Delete the inorder successor
                     root->right = deleteNode(root->right, *temp->data);
                 }
+                
             }
-        
+
             // If the tree had only one node
             // then return
             if (root == NULL)
                 return root;
-            
-            return (balance_tree(root, data));
+            Node *x = balance_tree(root, data);
+            x->parent = x;
+            return (x);
             return root;
         }
 
