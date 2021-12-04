@@ -186,9 +186,8 @@ namespace ft{
             // if (!x){return y;}
             // just to fix seg fault not working
 
-            if (y == _Root)
-                y->parent = y;
-            else if (x == _Root)
+            
+            if (x == _Root)
                 x->parent = y;
             if (x->right)
                 x->right->parent = y;
@@ -219,9 +218,7 @@ namespace ft{
         
             // Perform rotation
             // just to fix seg fault not working
-            if (y == _Root && y->parent != y)
-                y->parent = x;
-            else if (x == _Root)
+            if (x == _Root)
                 x->parent = x;
             if (y->left)
                 y->left->parent = x;
