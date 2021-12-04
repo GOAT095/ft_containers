@@ -9,12 +9,6 @@ namespace ft{
                 NODE *_p;
             
             public :
-                
-                typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::value_type                value_type;
-                typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type           difference_type;
-                typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer                   pointer;
-                typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::reference                 reference;
-                typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category         iterator_category;
             
             map_iter(){
                 _p = NULL;
@@ -37,7 +31,17 @@ namespace ft{
             
             NODE* previous(NODE *node)
             {
-                
+                if (node->parent && comp(node->parent->data->first, node->data->first))
+                    return (node->parent);
+                else if (node->left)
+                    return (node->left);
+            }
+            NODE* next(NODE *node)
+            {
+                if (node->parent && comp(node->data->first, node->parent->data->first,))
+                    return (node->parent);
+                else if (node->right)
+                    return (node->right);
             }
         };
 }
