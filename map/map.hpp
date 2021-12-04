@@ -193,8 +193,8 @@ namespace ft{
             
             // if (x == _Root)
             //     x->parent = y;
-            if (x->right)
-                x->right->parent = y;
+            // if (x->right)
+            //     x->right->parent = y;
             x->right = y;
             y->left = T2;
 
@@ -223,8 +223,8 @@ namespace ft{
             // just to fix seg fault not working
             // if (x == _Root)
             //     x->parent = x;
-            if (y->left)
-                y->left->parent = x;
+            // if (y->left)
+            //     y->left->parent = x;
             y->left = x;
             x->right = T2;
 
@@ -459,7 +459,6 @@ namespace ft{
             Node *x = balance_tree(root, data);
             // x->parent = x;
             return (x);
-            return root;
         }
 
         public:
