@@ -151,7 +151,9 @@ namespace ft{
                 }
             
                 showTrunks(trunk);
-                std::cout << root->data->first<< "p:" << root->parent->data->first <<std::endl;
+                std::cout << root->data->first;
+                if (root->parent)
+                    std::cout << "p:"<< root->parent->data->first <<std::endl;
             
                 if (prev) {
                     prev->str = prev_str;
@@ -201,13 +203,11 @@ namespace ft{
             x->parent = y->parent;
             y->parent = x;
             // Update heights
-            y->height = max(height(y->left),
-                            height(y->right)) + 1;
-            x->height = max(height(x->left),
-                            height(x->right)) + 1;
+            y->height = max(height(y->left), height(y->right)) + 1;
+            x->height = max(height(x->left), height(x->right)) + 1;
         
             // Return new root
-            _Root->parent = _Root; 
+            // _Root->parent = _Root; 
             return x;
         }
         // A utility function to left
@@ -233,13 +233,11 @@ namespace ft{
             y->parent = x->parent;
             x->parent = y;
             // Update heights
-            x->height = max(height(x->left),   
-                            height(x->right)) + 1;
-            y->height = max(height(y->left),
-                            height(y->right)) + 1;
+            x->height = max(height(x->left), height(x->right)) + 1;
+            y->height = max(height(y->left), height(y->right)) + 1;
         
             // Return new root
-            _Root->parent = _Root; 
+            // _Root->parent = _Root;
             return y;
         }
 
@@ -259,6 +257,7 @@ namespace ft{
             newNode->left = NULL;
             newNode->right = NULL;
             newNode->height = 1;
+            newNode->parent = NULL;
             _size++;
             return (newNode);
         }
@@ -458,7 +457,7 @@ namespace ft{
             if (root == NULL)
                 return root;
             Node *x = balance_tree(root, data);
-            x->parent = x;
+            // x->parent = x;
             return (x);
             return root;
         }
