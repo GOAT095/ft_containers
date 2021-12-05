@@ -35,13 +35,30 @@ namespace ft{
                     return (node->parent);
                 else if (node->left)
                     return (node->left);
+                else{
+                    NODE *n = node->parent;
+
+                    while (n->parent->left == n)
+                        n = n->parent;
+                    return n->parent;
+                }
+                return NULL;
             }
             NODE* next(NODE *node)
             {
-                if (node->parent && comp(node->data->first, node->parent->data->first,))
+                if (node->parent && comp(node->data->first, node->parent->data->first))
                     return (node->parent);
                 else if (node->right)
                     return (node->right);
+                else
+                {
+                    NODE *n = node->parent;
+
+                    while (n->parent->right == n)
+                        n = n->parent;
+                    return n->parent;
+                }
+                return NULL;
             }
         };
 }
