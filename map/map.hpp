@@ -39,38 +39,34 @@ namespace ft{
                 _Root = insert(_Root, ft::pair<Key, T>(2,1));
                 _Root = insert(_Root, ft::pair<Key, T>(3,1));
                 _Root = insert(_Root, ft::pair<Key, T>(77,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(4,1));
+                _Root = insert(_Root, ft::pair<Key, T>(4,1));
                 _Root = insert(_Root, ft::pair<Key, T>(5,1));
-                _Root = insert(_Root, ft::pair<Key, T>(38,1));
-                _Root = insert(_Root, ft::pair<Key, T>(48,1));
-                _Root = deleteNode(_Root, ft::pair<Key, T>(60,1));
                 // printTree(_Root, nullptr, false);
-                _Root = insert(_Root, ft::pair<Key, T>(51,1));
                 _Root = insert(_Root, ft::pair<Key, T>(11,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(10,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-1,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
-                // _Root = insert(_Root, ft::pair<Key, T>(-3,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-6,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-4,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-5,1));
+                _Root = insert(_Root, ft::pair<Key, T>(10,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-1,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
+                _Root = insert(_Root, ft::pair<Key, T>(-3,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-6,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-4,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-5,1));
                 printTree(_Root, nullptr, false);
                 
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
+                printTree(_Root, nullptr, false);
+                std::cout << "root->"<< _Root->data->first << std::endl;
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -457,9 +453,7 @@ namespace ft{
             // then return
             if (root == NULL)
                 return root;
-            Node *x = balance_tree_delete(root, data);
-            // x->parent = x;
-            return (x);
+            return(balance_tree_delete(root, data));
         }
 
         public:
