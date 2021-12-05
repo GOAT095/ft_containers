@@ -37,12 +37,16 @@ namespace ft{
             
                 // if doesnt have right you need to get it from parents
                 NODE* p = n->parent;
-                while (p != NULL && n == p->left)
+                else
                 {
-                    n = p;
-                    p = p->parent;
+                    while (p != NULL && n == p->left)
+                    {
+                        n = p;
+                        p = p->parent;
+                    }
+                    return p;
                 }
-                return p;
+                return NULL;
             }
             
             NODE* next(NODE *n)
@@ -53,12 +57,15 @@ namespace ft{
             
                 // if doesnt have right you need to get it from parents
                 NODE* p = n->parent;
-                while (p != NULL && n == p->right)
-                {
-                    n = p;
-                    p = p->parent;
+                else
+                {    while (p != NULL && n == p->right)
+                    {
+                        n = p;
+                        p = p->parent;
+                    }
+                    return p;
                 }
-                return p;
+                return NULL;
             }
         };
 }
