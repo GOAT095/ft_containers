@@ -40,6 +40,8 @@ namespace ft{
 
                     while (n->parent->left == n)
                         n = n->parent;
+                    while (n->parent->right == n && n->parent->right->data->first > node->data->first)
+                        n = n->parent;
                     return n->parent;
                 }
                 return NULL;
@@ -55,6 +57,8 @@ namespace ft{
                     NODE *n = node->parent;
 
                     while (n->parent->right == n)
+                        n = n->parent;
+                    while (n->parent->left == n && n->parent->left->data->first > node->data->first)
                         n = n->parent;
                     return n->parent;
                 }
