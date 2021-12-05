@@ -29,40 +29,36 @@ namespace ft{
             T* operator->() const{ return (_p->data);}
             T& operator*() const{ return (*_p->data);}
             
-            NODE* previous(NODE *node)
+            NODE* previous(NODE *n)
             {
-                if (node->parent && comp(node->parent->data->first, node->data->first))
-                    return (node->parent);
-                else if (node->left)
-                    return (node->left);
-                else{
-                    NODE *n = node->parent;
-
-                    while (n->parent->left == n)
-                        n = n->parent;
-                    while (n->parent->right == n && n->parent->right->data->first > node->data->first)
-                        n = n->parent;
-                    return n->parent;
-                }
-                return NULL;
-            }
-            NODE* next(NODE *node)
-            {
-                if (node->parent && comp(node->data->first, node->parent->data->first))
-                    return (node->parent);
-                else if (node->right)
-                    return (node->right);
-                else
+                 // if it has left, left it is :)
+                if (n->left != NULL)
+                    return minValue(n->left);
+            
+                // if doesnt have right you need to get it from parents
+                NODE* p = n->parent;
+                while (p != NULL && n == p->left)
                 {
-                    NODE *n = node->parent;
-
-                    while (n->parent->right == n)
-                        n = n->parent;
-                    while (n->parent->left == n && n->parent->left->data->first > node->data->first)
-                        n = n->parent;
-                    return n->parent;
+                    n = p;
+                    p = p->parent;
                 }
-                return NULL;
+                return p;
+            }
+            
+            NODE* next(NODE *n)
+            {
+                // if it has right right it is :)
+                if (n->right != NULL)
+                    return minValue(n->right);
+            
+                // if doesnt have right you need to get it from parents
+                NODE* p = n->parent;
+                while (p != NULL && n == p->right)
+                {
+                    n = p;
+                    p = p->parent;
+                }
+                return p;
             }
         };
 }
