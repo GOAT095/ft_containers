@@ -29,11 +29,12 @@ namespace ft{
             T* operator->() const{ return (_p->data);}
             T& operator*() const{ return (*_p->data);}
             
-            NODE* previous(NODE *n)
+            map_iter& operator--()
             {
-                 // if it has left, left it is :)
+                Node *n = _p
+                // if it has left, left it is :)
                 if (n->left != NULL)
-                    return minValue(n->left);
+                    _p = minValue(n->left);
             
                 // if doesnt have right you need to get it from parents
                 NODE* p = n->parent;
@@ -44,16 +45,24 @@ namespace ft{
                         n = p;
                         p = p->parent;
                     }
-                    return p;
+                    _p = p;
                 }
-                return NULL;
+                return (*this);
+            }
+
+            map_iter operator++(int)
+            {
+                map_iter tmp(*this);
+                this->operator++();
+                return (tmp);
             }
             
-            NODE* next(NODE *n)
+            map_iter& operator--()
             {
+                Node *n = _p
                 // if it has right right it is :)
                 if (n->right != NULL)
-                    return minValue(n->right);
+                    _p = minValue(n->right);
             
                 // if doesnt have right you need to get it from parents
                 NODE* p = n->parent;
@@ -63,9 +72,19 @@ namespace ft{
                         n = p;
                         p = p->parent;
                     }
-                    return p;
+                    _p = p;
                 }
-                return NULL;
+                return (*this);
             }
+            map_iter operator--(int)
+            {
+                map_iter tmp(*this);
+                this->operator--();
+                return (tmp);
+            }
+
+            operator map_iter<Node, T,Compare>() const{return map_iter<Node, T,Compare>(_p);}
+            friend bool	operator==(map_iter const& lhs, map_iter const& rhs) { return (lhs._p == rhs._p); }
+            friend bool	operator!=(map_iter const& lhs, map_iter const& rhs) { return (lhs._p != rhs._p); }
         };
 }
