@@ -31,15 +31,15 @@ namespace ft{
             
             map_iter& operator--()
             {
-                Node *n = _p
+                NODE *n = _p;
                 // if it has left, left it is :)
                 if (n->left != NULL)
                     _p = minValue(n->left);
             
                 // if doesnt have right you need to get it from parents
-                NODE* p = n->parent;
                 else
                 {
+                    NODE* p = n->parent;
                     while (p != NULL && n == p->left)
                     {
                         n = p;
@@ -57,17 +57,19 @@ namespace ft{
                 return (tmp);
             }
             
-            map_iter& operator--()
+            map_iter& operator++()
             {
-                Node *n = _p
+                NODE *n = _p;
                 // if it has right right it is :)
                 if (n->right != NULL)
                     _p = minValue(n->right);
             
                 // if doesnt have right you need to get it from parents
-                NODE* p = n->parent;
+                
                 else
-                {    while (p != NULL && n == p->right)
+                {   
+                    NODE* p = n->parent;
+                    while (p != NULL && n == p->right)
                     {
                         n = p;
                         p = p->parent;
@@ -83,7 +85,7 @@ namespace ft{
                 return (tmp);
             }
 
-            operator map_iter<Node, T,Compare>() const{return map_iter<Node, T,Compare>(_p);}
+            operator map_iter<NODE, T,comp>() const{return map_iter<NODE, T,comp>(_p);}
             friend bool	operator==(map_iter const& lhs, map_iter const& rhs) { return (lhs._p == rhs._p); }
             friend bool	operator!=(map_iter const& lhs, map_iter const& rhs) { return (lhs._p != rhs._p); }
         };

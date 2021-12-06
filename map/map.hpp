@@ -461,6 +461,7 @@ namespace ft{
             typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
         // const_iterator begin() const{return ();}
+
         pair<iterator,bool> insert (const value_type& val)
         {
             size_t s = _size;
@@ -469,6 +470,19 @@ namespace ft{
                 return(make_pair(iterator(not_inserted, false)));
             else
                 return(make_pair(iterator(last_insert, true)));
+        }
+        iterator insert (iterator position, const value_type& val)
+        {
+            
+        }
+        template <class InputIterator>
+        void insert (InputIterator first, InputIterator last)
+        {
+            while (first != last)
+            {
+               insert(_Root, *first);
+                first++;
+            }
         }
     };
 
