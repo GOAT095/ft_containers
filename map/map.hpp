@@ -35,38 +35,33 @@ namespace ft{
                 _capacity = 0;
                 _Root = NULL;
 
-                // _Root = insert(_Root, ft::pair<Key, T>(1,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(2,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(3,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(77,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(4,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(5,1));
-                // // printTree(_Root, nullptr, false);
-                // _Root = insert(_Root, ft::pair<Key, T>(11,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(10,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-1,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
-                // _Root = insert(_Root, ft::pair<Key, T>(-3,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-6,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-4,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-5,1));
+                _Root = insert(_Root, ft::pair<Key, T>(1,1));
+                _Root = insert(_Root, ft::pair<Key, T>(2,1));
+                _Root = insert(_Root, ft::pair<Key, T>(3,1));
+                _Root = insert(_Root, ft::pair<Key, T>(77,1));
+                _Root = insert(_Root, ft::pair<Key, T>(4,1));
+                _Root = insert(_Root, ft::pair<Key, T>(5,1));
                 // printTree(_Root, nullptr, false);
+                _Root = insert(_Root, ft::pair<Key, T>(11,1));
+                _Root = insert(_Root, ft::pair<Key, T>(10,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-1,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-2,1));   
+                _Root = insert(_Root, ft::pair<Key, T>(-3,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-6,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-4,1));
+                _Root = insert(_Root, ft::pair<Key, T>(-5,1));
+                printTree(_Root, nullptr, false);
                 
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
-                // printTree(_Root, nullptr, false);
-                // std::cout << "root->"<< _Root->data->first << std::endl;
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                printTree(_Root, nullptr, false);
+                _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
+                printTree(_Root, nullptr, false);
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -313,22 +308,22 @@ namespace ft{
             // there are 4 cases
         
             // Left Left Case
-            if (balance > 1 && data.first < node->left->data->first)
+            if (balance > 1 && kc(data.first, node->left->data->first))
                 return rightRotate(node);
         
             // Right Right Case
-            if (balance < -1 && data.first > node->right->data->first)
+            if (balance < -1 && !kc(data.first, node->right->data->first))
                 return leftRotate(node);
         
             // Left Right Case
-            if (balance > 1 &&data.first > node->left->data->first)
+            if (balance > 1 && !kc(data.first, node->left->data->first))
             {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
         
             // Right Left Case
-            if (balance < -1 && data.first < node->right->data->first)
+            if (balance < -1 && kc(data.first, node->right->data->first))
             {
                 
                 node->right = rightRotate(node->right);
@@ -396,13 +391,13 @@ namespace ft{
             // If the data to be deleted is smaller
             // than the root's data, then it lies
             // in left subtree
-            if ( data.first < root->data->first )
+            if (kc(data.first, root->data->first))
                 root->left = deleteNode(root->left, data);
         
             // If the data to be deleted is greater
             // than the root's data, then it lies
             // in right subtree
-            else if(root->data->first < data.first)
+            else if(kc(root->data->first, data.first))
                 root->right = deleteNode(root->right, data);
         
             // if data is same as root's data, then
@@ -464,7 +459,6 @@ namespace ft{
             // typedef typename Alloc rebind<Node>::other node_allocator;
         iterator begin(){return (iterator(minValueNode(_Root)));}
         const_iterator begin() const{return (iterator(minValueNode(_Root)));}
-
 
         pair<iterator,bool> insert (const value_type& val)
         {
