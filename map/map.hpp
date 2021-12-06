@@ -471,9 +471,10 @@ namespace ft{
             else
                 return(make_pair(iterator(last_insert, true)));
         }
-        iterator insert (iterator position, const value_type& val)
+        // this one is weird just ignore position param
+        void insert (iterator position, const value_type& val)
         {
-            
+            insert(val);
         }
         template <class InputIterator>
         void insert (InputIterator first, InputIterator last)
