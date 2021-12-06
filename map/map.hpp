@@ -35,38 +35,38 @@ namespace ft{
                 _capacity = 0;
                 _Root = NULL;
 
-                _Root = insert(_Root, ft::pair<Key, T>(1,1));
-                _Root = insert(_Root, ft::pair<Key, T>(2,1));
-                _Root = insert(_Root, ft::pair<Key, T>(3,1));
-                _Root = insert(_Root, ft::pair<Key, T>(77,1));
-                _Root = insert(_Root, ft::pair<Key, T>(4,1));
-                _Root = insert(_Root, ft::pair<Key, T>(5,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(1,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(2,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(3,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(77,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(4,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(5,1));
+                // // printTree(_Root, nullptr, false);
+                // _Root = insert(_Root, ft::pair<Key, T>(11,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(10,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(-1,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
+                // _Root = insert(_Root, ft::pair<Key, T>(-3,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(-6,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(-4,1));
+                // _Root = insert(_Root, ft::pair<Key, T>(-5,1));
                 // printTree(_Root, nullptr, false);
-                _Root = insert(_Root, ft::pair<Key, T>(11,1));
-                _Root = insert(_Root, ft::pair<Key, T>(10,1));
-                _Root = insert(_Root, ft::pair<Key, T>(-1,1));
-                _Root = insert(_Root, ft::pair<Key, T>(-2,1));    
-                _Root = insert(_Root, ft::pair<Key, T>(-3,1));
-                _Root = insert(_Root, ft::pair<Key, T>(-6,1));
-                _Root = insert(_Root, ft::pair<Key, T>(-4,1));
-                _Root = insert(_Root, ft::pair<Key, T>(-5,1));
-                printTree(_Root, nullptr, false);
                 
-                _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
-                printTree(_Root, nullptr, false);
-                std::cout << "root->"<< _Root->data->first << std::endl;
-                _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
-                printTree(_Root, nullptr, false);
-                std::cout << "root->"<< _Root->data->first << std::endl;
-                _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
-                printTree(_Root, nullptr, false);
-                std::cout << "root->"<< _Root->data->first << std::endl;
-                _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                printTree(_Root, nullptr, false);
-                std::cout << "root->"<< _Root->data->first << std::endl;
-                _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
-                printTree(_Root, nullptr, false);
-                std::cout << "root->"<< _Root->data->first << std::endl;
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
+                // printTree(_Root, nullptr, false);
+                // std::cout << "root->"<< _Root->data->first << std::endl;
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
+                // printTree(_Root, nullptr, false);
+                // std::cout << "root->"<< _Root->data->first << std::endl;
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
+                // printTree(_Root, nullptr, false);
+                // std::cout << "root->"<< _Root->data->first << std::endl;
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
+                // printTree(_Root, nullptr, false);
+                // std::cout << "root->"<< _Root->data->first << std::endl;
+                // _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
+                // printTree(_Root, nullptr, false);
+                // std::cout << "root->"<< _Root->data->first << std::endl;
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -103,6 +103,7 @@ namespace ft{
             Node* _Root;
             Node* last_insert;
             Node* not_inserted;
+            public:
             struct Trunk
             {
                 Trunk *prev;
@@ -160,6 +161,7 @@ namespace ft{
             
                 printTree(root->left, trunk, false);
             }
+            private:
             //node stuff
 
             //insert ina bst using AVL
@@ -460,16 +462,18 @@ namespace ft{
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
             typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
-        // const_iterator begin() const{return ();}
+        iterator begin(){return (iterator(minValueNode(_Root)));}
+        const_iterator begin() const{return (iterator(minValueNode(_Root)));}
+
 
         pair<iterator,bool> insert (const value_type& val)
         {
             size_t s = _size;
             _Root = insert(_Root, val);
             if (s == _size)
-                return(make_pair(iterator(not_inserted, false)));
+                return(ft::make_pair(iterator(not_inserted), false));
             else
-                return(make_pair(iterator(last_insert, true)));
+                return(ft::make_pair(iterator(last_insert), true));
         }
         // this one is weird just ignore position param
         void insert (iterator position, const value_type& val)

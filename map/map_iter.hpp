@@ -7,13 +7,24 @@ namespace ft{
         {
             private:
                 NODE *_p;
+
+                 NODE * minValueNode(NODE* node)
+                {
+                    NODE* current = node;
+                
+                    /* loop down to find the leftmost leaf */
+                    while (current->left != NULL)
+                        current = current->left;
+                
+                    return current;
+                }
             
             public :
             
             map_iter(){
                 _p = NULL;
             }
-            map_iter(const NODE& node){
+             map_iter(NODE *node){
                 _p = node;
             }
             map_iter(const map_iter& copy)
@@ -34,7 +45,7 @@ namespace ft{
                 NODE *n = _p;
                 // if it has left, left it is :)
                 if (n->left != NULL)
-                    _p = minValue(n->left);
+                    _p = minValueNode(n->left);
             
                 // if doesnt have right you need to get it from parents
                 else
@@ -62,7 +73,7 @@ namespace ft{
                 NODE *n = _p;
                 // if it has right right it is :)
                 if (n->right != NULL)
-                    _p = minValue(n->right);
+                    _p = minValueNode(n->right);
             
                 // if doesnt have right you need to get it from parents
                 
