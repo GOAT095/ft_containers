@@ -44,6 +44,20 @@ int main(){
     std::cout << it->first << std::endl;
     it++;
     std::cout << it->first << std::endl;
+    it--;
+    std::cout << it->first << std::endl;
+    it--;
+    std::cout << it->first << std::endl;
+    it--;
+    std::cout << it->first << std::endl;
+    it--;
+    std::cout << it->first << std::endl;
+    it--;
+    std::cout << it->first << std::endl;
+    it--;
+    std::cout << it->first << std::endl;
+    it--;
+    std::cout << it->first << std::endl;
     
     return 0;
 }
