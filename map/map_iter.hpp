@@ -48,13 +48,16 @@ namespace ft{
                     _p = minValueNode(n->left);
             
                 // if doesnt have right you need to get it from parents
-                else
+                else if (n->right == NULL)
                 {
                     NODE* p = n->parent;
                     while (p != NULL && n == p->left)
                     {
                         n = p;
+                        if (!p->parent)
+                            return (*this);
                         p = p->parent;
+                        
                     }
                     _p = p;
                 }
@@ -77,16 +80,21 @@ namespace ft{
             
                 // if doesnt have right you need to get it from parents
                 
-                else
+                else if (n->right == NULL)
                 {   
                     NODE* p = n->parent;
                     while (p != NULL && n == p->right)
                     {
                         n = p;
+                        if (!p->parent)
+                            return (*this);
                         p = p->parent;
+                        
                     }
                     _p = p;
                 }
+                else
+                    return (*this);
                 return (*this);
             }
             map_iter operator--(int)
