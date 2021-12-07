@@ -119,6 +119,10 @@ namespace ft{
                 showTrunks(p->prev);
                 std::cout << p->str;
             }
+            Node    *getRoot()
+            {
+                return _Root;
+            }
             void printTree(Node* root, Trunk *prev, bool isLeft)
             {
                 if (root == nullptr) {
@@ -377,7 +381,16 @@ namespace ft{
         
             return current;
         }
+        Node * maxValueNode(Node* node)
+        {
+            Node* current = node;
         
+            /* loop down to find the leftmost leaf */
+            while (current->right != NULL)
+                current = current->right;
+        
+            return current;
+        }
         // Recursive function to delete a node
         // with given data from subtree with
         // given root. It returns root of the
@@ -456,10 +469,14 @@ namespace ft{
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
             typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
+            typedef typename ft::map_iter<Node, value_type, Compare> reverse_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
+
         iterator begin(){return (iterator(minValueNode(_Root)));}
         const_iterator begin() const{return (iterator(minValueNode(_Root)));}
-
+        reverse_iterator rbegin(){iterator(maxValueNode(_Root));}
+        const reverse_iterator rbegin()const {iterator(maxValueNode(_Root));}
+        
         pair<iterator,bool> insert (const value_type& val)
         {
             size_t s = _size;

@@ -7,8 +7,8 @@ namespace ft{
         {
             private:
                 NODE *_p;
-
-                 NODE * minValueNode(NODE* node)
+                NODE *_root;
+                NODE * minValueNode(NODE* node)
                 {
                     NODE* current = node;
                 
@@ -18,6 +18,18 @@ namespace ft{
                 
                     return current;
                 }
+                NODE * maxValueNode(NODE* node)
+                {
+                    NODE* current = node;
+                
+                    /* loop down to find the leftmost leaf */
+                    while (current->right != NULL)
+                        current = current->right;
+                
+                    return current;
+                }
+                NODE *min;
+                NODE *max;
             
             public :
             
@@ -43,6 +55,9 @@ namespace ft{
             map_iter& operator--()
             {
                 NODE *n = _p;
+                // *min = minValueNode(_root);
+                // if (_p == min)
+                //     return *this;
                 // if it has left, left it is :)
                 if (n->left != NULL)
                     _p = minValueNode(n->left);
@@ -54,8 +69,6 @@ namespace ft{
                     while (p != NULL && n == p->left)
                     {
                         n = p;
-                        if (!p->parent)
-                            return (*this);
                         p = p->parent;
                         
                     }
@@ -74,10 +87,13 @@ namespace ft{
             map_iter& operator++()
             {
                 NODE *n = _p;
+                // *min = maxValueNode(_root);
+                // if (_p == max)
+                //     return *this;
                 // if it has right right it is :)
                 if (n->right != NULL)
                     _p = minValueNode(n->right);
-            
+
                 // if doesnt have right you need to get it from parents
                 
                 else if (n->right == NULL)
@@ -86,8 +102,6 @@ namespace ft{
                     while (p != NULL && n == p->right)
                     {
                         n = p;
-                        if (!p->parent)
-                            return (*this);
                         p = p->parent;
                         
                     }
