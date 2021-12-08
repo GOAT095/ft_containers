@@ -472,21 +472,21 @@ namespace ft{
             typedef typename ft::map_iter<Node, value_type, Compare> reverse_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
 
-        iterator begin(){return (iterator(minValueNode(_Root)));}
-        const_iterator begin() const{return (iterator(minValueNode(_Root)));}
-        iterator end(){return(iterator(maxValueNode(_Root)));}
-        const_iterator end() const{return(iterator(maxValueNode(_Root)));}
-        reverse_iterator rbegin(){return(iterator(maxValueNode(_Root)));}
-        const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root)));}
+        iterator begin(){return (iterator(minValueNode(_Root), _Root));}
+        const_iterator begin() const{return (iterator(minValueNode(_Root), _Root));}
+        iterator end(){return(iterator(NULL, _Root));}
+        const_iterator end() const{return(iterator(NULL, _Root));}
+        reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
+        const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
         
         pair<iterator,bool> insert (const value_type& val)
         {
             size_t s = _size;
             _Root = insert(_Root, val);
             if (s == _size)
-                return(ft::make_pair(iterator(not_inserted), false));
+                return(ft::make_pair(iterator(not_inserted,_Root), false));
             else
-                return(ft::make_pair(iterator(last_insert), true));
+                return(ft::make_pair(iterator(last_insert,_Root), true));
         }
         // this one is weird just ignore position param
         void insert (iterator position, const value_type& val)

@@ -17,47 +17,13 @@ int main(){
     m.insert(ft::pair<int,int>(-4,3));
     // m.printTree()
     ft::map<int, int>::iterator it = m.begin();
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    ++it;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it++;
-    std::cout << it->first << std::endl;
-    it--;
-    std::cout << it->first << std::endl;
-    it--;
-    std::cout << it->first << std::endl;
-    it--;
-    std::cout << it->first << std::endl;
-    it--;
-    std::cout << it->first << std::endl;
-    it--;
-    std::cout << it->first << std::endl;
-    it--;
-    std::cout << it->first << std::endl;
-    it--;
-    std::cout << it->first << std::endl;
+    
+    for (it; it != m.end(); ++it){
+        std::cout << it->first << std::endl;
+    }
+    //it++;
+    //it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;
+    
     
     return 0;
 }

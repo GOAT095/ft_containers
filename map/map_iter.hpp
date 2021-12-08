@@ -12,7 +12,7 @@ namespace ft{
                 {
                     NODE* current = node;
                 
-                    /* loop down to find the leftmost leaf */
+                    /* loop down to find the rightmost leaf */
                     while (current->left != NULL)
                         current = current->left;
                 
@@ -36,8 +36,9 @@ namespace ft{
             map_iter(){
                 _p = NULL;
             }
-             map_iter(NODE *node){
+             map_iter(NODE *node, NODE *root){
                 _p = node;
+                _root = root;
             }
             map_iter(const map_iter& copy)
             {
@@ -46,6 +47,7 @@ namespace ft{
             map_iter&   operator=(const map_iter& rhs)
             {
                 _p = rhs._p;
+                _root = rhs._root;
                 return (*this);
             }
             ~map_iter(){}
@@ -55,9 +57,9 @@ namespace ft{
             map_iter& operator--()
             {
                 NODE *n = _p;
-                // *min = minValueNode(_root);
-                // if (_p == min)
-                //     return *this;
+                NODE *min = minValueNode(_root);
+                if (_p == min)
+                {    _p = NULL; return *this;}
                 // if it has left, left it is :)
                 if (n->left != NULL)
                     _p = minValueNode(n->left);
@@ -74,6 +76,7 @@ namespace ft{
                     }
                     _p = p;
                 }
+                
                 return (*this);
             }
 
@@ -87,9 +90,9 @@ namespace ft{
             map_iter& operator++()
             {
                 NODE *n = _p;
-                // *min = maxValueNode(_root);
-                // if (_p == max)
-                //     return *this;
+                NODE *max = maxValueNode(_root);
+                if (_p == max)
+                {    _p = NULL; return *this;}
                 // if it has right right it is :)
                 if (n->right != NULL)
                     _p = minValueNode(n->right);
@@ -107,8 +110,7 @@ namespace ft{
                     }
                     _p = p;
                 }
-                else
-                    return (*this);
+
                 return (*this);
             }
             map_iter operator--(int)
