@@ -474,8 +474,10 @@ namespace ft{
 
         iterator begin(){return (iterator(minValueNode(_Root)));}
         const_iterator begin() const{return (iterator(minValueNode(_Root)));}
-        reverse_iterator rbegin(){iterator(maxValueNode(_Root));}
-        const reverse_iterator rbegin()const {iterator(maxValueNode(_Root));}
+        iterator end(){return(iterator(maxValueNode(_Root)));}
+        const_iterator end() const{return(iterator(maxValueNode(_Root)));}
+        reverse_iterator rbegin(){return(iterator(maxValueNode(_Root)));}
+        const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root)));}
         
         pair<iterator,bool> insert (const value_type& val)
         {
