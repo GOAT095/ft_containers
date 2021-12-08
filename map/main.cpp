@@ -21,6 +21,10 @@ int main(){
     for (it; it != m.end(); ++it){
         std::cout << it->first << std::endl;
     }
+    it = m.end();
+    for (it; it != m.begin(); --it){
+        std::cout << it->first << std::endl;
+    }
     //it++;
     //it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;
     

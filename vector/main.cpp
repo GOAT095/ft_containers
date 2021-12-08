@@ -3,30 +3,20 @@
 #include "stack"
 int main (void)
 {
-    // int i = 0;
-    // ft::Vector<int> myvector(5);
-    // //for(int i = 0; i < 5; i++)
-    //     myvector.push_back(8);
-    // ft::Vector<int>::iterator it =  myvector.begin();
-    // // for(int i = 0; i < 5; i++)
-    // // {   std::cout << *it; it++;}
-    // // ft::Vector<int>::iterator it2 =  myvector.end();
-    // // std::cout << *(--it2) << std::endl;
+    ft::Vector<int> myvector;
 
-    // // working fine as expected !
+  // set some values (from 1 to 10)
+  for (int i=1; i<=10; i++) myvector.push_back(i);
 
-    // std::cout << myvector.size() << std::endl;
-    // // std::cout << myvector.max_size() << std::endl;;
-    // std::cout << myvector.capacity() << std::endl;;
-    
-    // myvector.insert(it, 1111);
-    // std::cout << *it << std::endl;
-    //working fine
+  // erase the 6th element
+  myvector.erase (myvector.begin()+5);
 
-    // std::cout << std::boolalpha;
-    // std::cout << "is_integral:" << std::endl;
-    // std::cout << "char: " << ft::is_integral<char>::value << std::endl;
-    // std::cout << "int: " << ft::is_integral<int>::value << std::endl;
-    // std::cout << "float: " << ft::is_integral<float>::value << std::endl;
+  // erase the first 3 elements:
+  myvector.erase (myvector.begin(),myvector.begin()+3);
+
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<myvector.size(); ++i)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
     return 0;
 }

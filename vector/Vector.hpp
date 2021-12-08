@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/08 20:23:50 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/08 21:51:59 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,11 +334,16 @@ namespace ft
 			//needs to be fixed !!!
             size_type dist = last - first;
 			size_type start = first - begin();
+            size_type distt = dist;
 
-			for (size_type i = 0; i < dist ; i++ )
-				al.construct(&_arr[start + i], _arr[--_size]);
-			// for (size_type i = 0 ; i > dist ; i++)
-			// 	al.destroy(&_arr[start + i]);  
+            _size-=dist;
+			for (size_type i = 0; i < _size ; i++ ){
+				al.construct(&_arr[start + i], _arr[start + distt]);
+                distt++;
+                }
+            distt = dist;
+			for (size_type i = 0 ; i < _size ; i++)
+			{	al.destroy(&_arr[start + distt]); distt++;}
 			return (first);
 		}
 
