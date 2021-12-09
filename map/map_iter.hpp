@@ -82,7 +82,10 @@ namespace ft{
                 
                 return (*this);
             }
-
+            NODE *getNode() const
+            {
+                return _p;
+            }
             map_iter operator++(int)
             {
                 map_iter tmp(*this);

@@ -16,7 +16,7 @@ int main(){
     m.insert(ft::pair<int,int>(-3,3));
     m.insert(ft::pair<int,int>(-4,3));
     ft::map<int, int>::iterator it = m.begin();
-    m.erase(-4);
+    m.erase(it);
     // m.printTree()
     it = m.begin();
     std::cout << it->first << std::endl;

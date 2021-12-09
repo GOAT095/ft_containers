@@ -513,7 +513,7 @@ namespace ft{
         }
         void erase (iterator position)
         {
-            _Root = deleteNode(_Root, position->_p);
+            _Root = deleteNode(_Root, *(position.getNode()->data));
             _size--;
         }
         void erase (iterator first, iterator last)
@@ -525,6 +525,11 @@ namespace ft{
                 erase(first);
                 first++;
             }
+        }
+
+        mapped_type& operator[] (const key_type& k)
+        {
+
         }
 
     };
