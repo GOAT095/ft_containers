@@ -511,6 +511,20 @@ namespace ft{
             _Root = deleteNode(_Root, ft::make_pair(k, mapped_type()));
             return (_size);
         }
+        void erase (iterator position)
+        {
+            _Root = deleteNode(_Root, position->_p);
+            _size--;
+        }
+        void erase (iterator first, iterator last)
+        {
+            while (first != last)
+            {
+                erase(first);
+                first++;
+            }
+        }
+
     };
 
 }
