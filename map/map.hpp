@@ -4,6 +4,7 @@
 #include <cstring>
 #include <memory>
 #include <iostream>
+#include "../vector/Vector.hpp"
 #include "map-utils.hpp"
 #include "map_iter.hpp"
 
@@ -518,18 +519,28 @@ namespace ft{
         }
         void erase (iterator first, iterator last)
         {
+            size_t i = 0;
+            ft::Vector<key_type> vec;
             if (first == last)
                 return ;
             while (first != last)
             {
-                erase(first);
+                // ft::Vector<key_type> vec;
+                vec.push_back(first.getNode()->data->first);
                 first++;
+            }
+            // ft::Vector<key_type>::iterator it = vec.begin();
+            // ft::Vector<key_type>::iterator end = vec.end();
+            while (i < vec.size())
+            {
+                erase(vec[i]);
+                i++;
             }
         }
 
         mapped_type& operator[] (const key_type& k)
         {
-
+            
         }
 
     };
