@@ -20,9 +20,9 @@ int main(){
     // m.printTree()
     it = m.begin();
     std::cout << it->first << std::endl;
-    // for (it; it != m.end(); ++it){
-    //     std::cout << it->first << std::endl;
-    // }
+    for (it; it != m.end(); ++it){
+        std::cout << it->first << std::endl;
+    }
     it = m.end();
     it--;
     // std::cout << it->first << std::endl;
