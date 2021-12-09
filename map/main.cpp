@@ -18,12 +18,14 @@ int main(){
     ft::map<int, int>::iterator it = m.begin();
     ft::map<int, int>::iterator it2 = m.end();
     it2--;
-    std::cout << it2->first << std::endl;
+    it2--;
+    it2--;
+    // std::cout << it2->first << std::endl;
     m.erase(it, it2);
     // m.printTree()
     it = m.begin();
     // std::cout << it->first << std::endl;
-    for (it; it != m.end(); ++it){
+    for (; it != m.end(); ++it){
         std::cout << it->first << std::endl;
     }
     // it = m.end();
