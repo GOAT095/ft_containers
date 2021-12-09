@@ -58,8 +58,9 @@ namespace ft{
             {
                 NODE *n = _p;
                 NODE *min = minValueNode(_root);
-                // if (_p == NULL)
-                // { _p = min ;  return (*this);}
+                NODE *max = maxValueNode(_root);
+                if (_p == NULL)
+                { _p = max ;  return (*this);}
                 if (_p == min)
                 {    _p = NULL; return *this;}
                 // if it has left, left it is :)

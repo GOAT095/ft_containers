@@ -18,13 +18,15 @@ int main(){
     // m.printTree()
     ft::map<int, int>::iterator it = m.begin();
     
-    for (it; it != m.end(); ++it){
-        std::cout << it->first << std::endl;
-    }
+    // for (it; it != m.end(); ++it){
+    //     std::cout << it->first << std::endl;
+    // }
     it = m.end();
-    for (it; it != m.begin(); --it){
-        std::cout << it->first << std::endl;
-    }
+    it--;
+    std::cout << it->first << std::endl;
+    // for (it; it != m.begin(); --it){
+    //     std::cout << it->first << std::endl;
+    // }
     //it++;
     //it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;
     
