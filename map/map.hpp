@@ -479,6 +479,7 @@ namespace ft{
         reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
         const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
         
+        //inserts
         pair<iterator,bool> insert (const value_type& val)
         {
             size_t s = _size;
@@ -494,6 +495,7 @@ namespace ft{
             insert(val);
         }
         template <class InputIterator>
+
         void insert (InputIterator first, InputIterator last)
         {
             while (first != last)
@@ -501,6 +503,13 @@ namespace ft{
                insert(_Root, *first);
                 first++;
             }
+        }
+        //erases
+        size_type erase (const key_type& k)
+        {
+            _size--;
+            _Root = deleteNode(_Root, ft::make_pair(k, mapped_type()));
+            return (_size);
         }
     };
 

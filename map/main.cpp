@@ -15,18 +15,19 @@ int main(){
     m.insert(ft::pair<int,int>(-1,3));
     m.insert(ft::pair<int,int>(-3,3));
     m.insert(ft::pair<int,int>(-4,3));
+    m.erase(-4);
     // m.printTree()
     ft::map<int, int>::iterator it = m.begin();
-    
+    std::cout << it->first << std::endl;
     // for (it; it != m.end(); ++it){
     //     std::cout << it->first << std::endl;
     // }
     it = m.end();
     it--;
     std::cout << it->first << std::endl;
-    // for (it; it != m.begin(); --it){
-    //     std::cout << it->first << std::endl;
-    // }
+    for (it; it != m.begin(); --it){
+        std::cout << it->first << std::endl;
+    }
     //it++;
     //it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;
     
