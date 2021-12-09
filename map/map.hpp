@@ -508,7 +508,7 @@ namespace ft{
         size_type erase (const key_type& k)
         {
             _size--;
-            _Root = deleteNode(_Root, ft::make_pair(k, mapped_type()));
+            _Root = deleteNode(_Root, ft::make_pair(k, NULL));
             return (_size);
         }
         void erase (iterator position)
@@ -518,6 +518,8 @@ namespace ft{
         }
         void erase (iterator first, iterator last)
         {
+            if (first == last)
+                return ;
             while (first != last)
             {
                 erase(first);
