@@ -560,7 +560,8 @@ namespace ft{
         }
 
         key_compare key_comp() const{return (kc);}
+
+        allocator_type get_allocator() const{return al;}
         
     };
-
 }
