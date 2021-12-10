@@ -480,6 +480,10 @@ namespace ft{
         reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
         const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
         
+        //capacity
+        size_type max_size() const{return al.max_size();}
+        size_type size() const{return _size;}
+        bool empty() const{return (_size == 0);}
         //inserts
         pair<iterator,bool> insert (const value_type& val)
         {
@@ -538,10 +542,10 @@ namespace ft{
             }
         }
 
-        mapped_type& operator[] (const key_type& k)
-        {
+        // mapped_type& operator[] (const key_type& k)
+        // {
             
-        }
+        // }
 
     };
 
