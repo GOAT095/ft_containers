@@ -476,9 +476,7 @@ namespace ft{
             }else if(kc(node->data->first, first)){
                 node = search(node->right, first);
             }
-            else
-                return node;
-            return NULL;
+            return node;
         }
 
         public:
@@ -572,11 +570,15 @@ namespace ft{
         size_type count(const key_type& k) const
         {
             if(search(_Root, k))
+            {  
+                // std::cout << "v"<<search(_Root, k)->data->first << std::endl;
                 return 1;
+            }
             return 0;
         }
         iterator find(const key_type& k)
         {
+            // iterator it = 
             return (iterator(search(_Root, k), _Root));
         }
         const_iterator find (const key_type& k) const
