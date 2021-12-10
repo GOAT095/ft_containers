@@ -533,8 +533,6 @@ namespace ft{
                 vec.push_back(first.getNode()->data->first);
                 first++;
             }
-            // ft::Vector<key_type>::iterator it = vec.begin();
-            // ft::Vector<key_type>::iterator end = vec.end();
             while (i < vec.size())
             {
                 erase(vec[i]);
@@ -546,7 +544,23 @@ namespace ft{
         // {
             
         // }
+        //needs to be tested
+        void clear()
+        {
+            iterator it = begin();
+            iterator it2 = end();
 
+            iterator next = it;
+            while(it != it2)
+            {
+                it = next;
+                next++;
+                erase(it);
+            }
+        }
+
+        key_compare key_comp() const{return (kc);}
+        
     };
 
 }
