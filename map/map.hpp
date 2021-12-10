@@ -466,7 +466,7 @@ namespace ft{
                 return root;
             return(balance_tree_delete(root, data));
         }
-        size_type search(Node *node, const key_type& first)
+        size_type search(Node *node, const key_type& first)const 
         {
             if (node == NULL)
                 return 0;
@@ -578,7 +578,7 @@ namespace ft{
         allocator_type get_allocator() const{return al;}
         
 
-        size_type count(const key_type& k)
+        size_type count(const key_type& k) const
         {
             if(search(_Root, k))
                 return 1;
