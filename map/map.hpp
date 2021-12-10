@@ -5,6 +5,7 @@
 #include <memory>
 #include <iostream>
 #include "../vector/Vector.hpp"
+#include "../vector/reverse_iterator.hpp"
 #include "map-utils.hpp"
 #include "map_iter.hpp"
 
@@ -482,15 +483,16 @@ namespace ft{
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
             typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
-            // typedef typename ft::map_iter<Node, value_type, Compare> reverse_iterator;
+            typedef typename ft::reverse_iterator<iterator> reverse_iterator;
+            
             // typedef typename Alloc rebind<Node>::other node_allocator;
 
         iterator begin(){return (iterator(minValueNode(_Root), _Root));}
         const_iterator begin() const{return (iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root));}
         const_iterator end() const{return(iterator(NULL, _Root));}
-        // reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
-        // const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
+        reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
+        const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
         
         //capacity
         size_type max_size() const{return al.max_size();}
