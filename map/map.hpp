@@ -466,19 +466,19 @@ namespace ft{
                 return root;
             return(balance_tree_delete(root, data));
         }
-        size_type search(Node *node, const key_type& first)const 
+        Node* search(Node *node, const key_type& first)const 
         {
             if (node == NULL)
-                return 0;
+                return NULL;
             if(kc(first, node->data->first)){
-                return(search(node->left, first));
+                node =search(node->left, first);
             
             }else if(kc(node->data->first, first)){
-                return(search(node->right, first));
+                node = search(node->right, first);
             }
             else
-                return 1;
-            return 0;
+                return node;
+            return NULL;
         }
 
         public:
@@ -554,10 +554,10 @@ namespace ft{
             }
         }
 
-        // mapped_type& operator[] (const key_type& k)
-        // {
-            
-        // }
+        mapped_type& operator[] (const key_type& k)
+        {
+            return (*((this->insert(make_pair(k,mapped_type()))).first)).second;
+        }
         //needs to be tested
         void clear()
         {
@@ -586,7 +586,7 @@ namespace ft{
         }
         iterator find(const key_type& k)
         {
-            
+            return (iterator(search(_Root, k), _Root));
         }
     };
 }

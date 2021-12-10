@@ -2,23 +2,24 @@
 #include <map>
 int main(){
 
-    ft::map<char,int> mymap;
-  char c;
+   ft::map<char,int> mymap;
+  ft::map<char,int>::iterator it;
 
-  mymap.insert(ft::pair<char,int>('a',101));
-  mymap.insert(ft::pair<char,int>('c',202));
-  mymap.insert(ft::pair<char,int>('f',303));
+  mymap['a']=50;
+  mymap['b']=100;
+  mymap['c']=150;
+  mymap['d']=200;
 
-  for (c='a'; c<'h'; c++)
-  {
-    std::cout << c;
-    if (mymap.count(c)>0)
-      std::cout << " is an element of mymap.\n";
-    else 
-      std::cout << " is not an element of mymap.\n";
-  }
+  it = mymap.find('b');
+  if (it != mymap.end())
+    mymap.erase (it);
 
-  return 0;
+  // print content:
+  std::cout << "elements in mymap:" << '\n';
+  std::cout << "a => " << mymap.find('a')->second << '\n';
+  std::cout << "c => " << mymap.find('c')->second << '\n';
+  std::cout << "d => " << mymap.find('d')->second << '\n';
+
     
     
     
