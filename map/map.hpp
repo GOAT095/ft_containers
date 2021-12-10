@@ -484,15 +484,15 @@ namespace ft{
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
             typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
-            typedef typename ft::map_iter<Node, value_type, Compare> reverse_iterator;
+            // typedef typename ft::map_iter<Node, value_type, Compare> reverse_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
 
         iterator begin(){return (iterator(minValueNode(_Root), _Root));}
         const_iterator begin() const{return (iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root));}
         const_iterator end() const{return(iterator(NULL, _Root));}
-        reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
-        const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
+        // reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
+        // const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
         
         //capacity
         size_type max_size() const{return al.max_size();}
@@ -527,7 +527,7 @@ namespace ft{
         size_type erase (const key_type& k)
         {
             _size--;
-            _Root = deleteNode(_Root, k);
+            _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
             return (_size);
         }
         void erase (iterator position)
@@ -556,21 +556,12 @@ namespace ft{
 
         mapped_type& operator[] (const key_type& k)
         {
-            return (*((this->insert(make_pair(k,mapped_type()))).first)).second;
+            return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second;
         }
         //needs to be tested
         void clear()
         {
-            iterator it = begin();
-            iterator it2 = end();
-
-            iterator next = it;
-            while(it != it2)
-            {
-                it = next;
-                next++;
-                erase(it);
-            }
+            erase(begin(), end());
         }
 
         key_compare key_comp() const{return (kc);}
@@ -587,6 +578,10 @@ namespace ft{
         iterator find(const key_type& k)
         {
             return (iterator(search(_Root, k), _Root));
+        }
+        const_iterator find (const key_type& k) const
+        {
+            return (const_iterator(search(_Root, k), _Root));
         }
     };
 }
