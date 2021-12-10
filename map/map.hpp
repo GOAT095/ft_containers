@@ -466,6 +466,20 @@ namespace ft{
                 return root;
             return(balance_tree_delete(root, data));
         }
+        size_type search(Node *node, const key_type& first)
+        {
+            if (node == NULL)
+                return 0;
+            if(kc(first, node->data->first)){
+                return(search(node->left, first));
+            
+            }else if(kc(node->data->first, first)){
+                return(search(node->right, first));
+            }
+            else
+                return 1;
+            return 0;
+        }
 
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
@@ -513,7 +527,7 @@ namespace ft{
         size_type erase (const key_type& k)
         {
             _size--;
-            _Root = deleteNode(_Root, ft::make_pair(k, NULL));
+            _Root = deleteNode(_Root, k);
             return (_size);
         }
         void erase (iterator position)
@@ -563,5 +577,16 @@ namespace ft{
 
         allocator_type get_allocator() const{return al;}
         
+
+        size_type count(const key_type& k)
+        {
+            if(search(_Root, k))
+                return 1;
+            return 0;
+        }
+        iterator find(const key_type& k)
+        {
+            
+        }
     };
 }
