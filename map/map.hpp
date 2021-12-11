@@ -81,7 +81,7 @@ namespace ft{
                 _capacity = _size = diff;
             }
             ~map(){
-                //clear();
+                clear();
             }
         private:
             size_t  _size;
@@ -586,6 +586,28 @@ namespace ft{
         const_iterator find (const key_type& k) const
         {
             return (const_iterator(search(_Root, k), _Root));
+        }
+        iterator lower_bound (const key_type& k)
+        {
+            iterator it;
+            for(it = begin(); it != end(); it++)
+            {
+                if(it->first > k)
+                    return(it);
+                else if(it->first == k)
+                    return it;
+            }
+            return (end());
+        }
+        iterator upper_bound (const key_type& k)
+        {
+            iterator it;
+            for(it = begin(); it != end(); it++)
+            {
+                if(it->first == k)
+                    return it;
+            }
+            return (end());
         }
     };
 }
