@@ -605,7 +605,7 @@ namespace ft{
             for(it = begin(); it != end(); it++)
             {
                 if(it->first == k)
-                    return it;
+                {   it++; return it;}
             }
             return (end());
         }
