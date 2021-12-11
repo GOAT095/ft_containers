@@ -13,7 +13,7 @@ namespace ft{
                     NODE* current = node;
                 
                     /* loop down to find the rightmost leaf */
-                    while (current->left != NULL)
+                    while (current && current->left != NULL)
                         current = current->left;
                 
                     return current;
@@ -23,7 +23,7 @@ namespace ft{
                     NODE* current = node;
                 
                     /* loop down to find the leftmost leaf */
-                    while (current->right != NULL)
+                    while (current && current->right != NULL)
                         current = current->right;
                 
                     return current;

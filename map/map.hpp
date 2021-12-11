@@ -378,7 +378,7 @@ namespace ft{
             Node* current = node;
         
             /* loop down to find the leftmost leaf */
-            while (current->left != NULL)
+            while (current &&current->left != NULL)
                 current = current->left;
         
             return current;
@@ -388,7 +388,7 @@ namespace ft{
             Node* current = node;
         
             /* loop down to find the leftmost leaf */
-            while (current->right != NULL)
+            while (current && current->right != NULL)
                 current = current->right;
         
             return current;
@@ -540,6 +540,7 @@ namespace ft{
         {
             size_t i = 0;
             ft::Vector<key_type> vec;
+            
             if (first == last)
                 return ;
             while (first != last)
@@ -550,7 +551,9 @@ namespace ft{
             }
             while (i < vec.size())
             {
+                
                 erase(vec[i]);
+                // std::cout << vec[i] << ">" << _size << std::endl;
                 i++;
             }
         }
@@ -581,7 +584,6 @@ namespace ft{
         }
         iterator find(const key_type& k)
         {
-            // iterator it = 
             return (iterator(search(_Root, k), _Root));
         }
         const_iterator find (const key_type& k) const
@@ -603,6 +605,8 @@ namespace ft{
         iterator upper_bound (const key_type& k)
         {
             iterator it;
+
+            
             for(it = begin(); it != end(); it++)
             {
                 if(it->first == k)

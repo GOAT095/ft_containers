@@ -3,7 +3,7 @@
 int main(){
 
 
-    ft::map<char,int> mymap;
+  ft::map<char,int> mymap;
   ft::map<char,int>::iterator itlow,itup;
 
   mymap['a']=20;
@@ -14,12 +14,12 @@ int main(){
 
   itlow=mymap.lower_bound ('a');  // itlow points to b
   itup=mymap.upper_bound ('e');   // itup points to e (not d!)
-
+  
   mymap.erase(itlow,itup);        // erases [itlow,itup)
-
-  // print content:
-  for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-    std::cout << it->first << " => " << it->second << '\n';
+  ft::map<char,int>::iterator it=mymap.begin();
+  // // print content:
+  // for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+  //   std::cout << it->first << " => " << it->second << '\n';
 
 //     ft::map<char,int> mymap;
 //   char c;
