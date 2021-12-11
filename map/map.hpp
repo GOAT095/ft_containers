@@ -526,8 +526,9 @@ namespace ft{
         //erases
         size_type erase (const key_type& k)
         {
-            _size--;
+            
             _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
+            _size--;
             return (_size);
         }
         void erase (iterator position)
