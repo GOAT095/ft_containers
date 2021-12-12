@@ -602,6 +602,20 @@ namespace ft{
             }
             return (end());
         }
+
+        iterator lower_bound (const key_type& k)const
+        {
+            iterator it;
+            for(it = begin(); it != end(); it++)
+            {
+                if(it->first > k)
+                    return(it);
+                else if(it->first == k)
+                    return it;
+            }
+            return (end());
+        }
+
         iterator upper_bound (const key_type& k)
         {
             iterator it;
@@ -613,6 +627,24 @@ namespace ft{
                 {   it++; return it;}
             }
             return (end());
+        }
+        iterator upper_bound (const key_type& k) const
+        {
+            iterator it;
+
+            
+            for(it = begin(); it != end(); it++)
+            {
+                if(it->first == k)
+                {   it++; return it;}
+            }
+            return (end());
+        }
+        pair<iterator,iterator> equal_range (const key_type& k)
+        {
+            iterator it;
+            it = ft::make_pair(lower_bound(k), upper_bound(k));
+            return (it);
         }
     };
 }
