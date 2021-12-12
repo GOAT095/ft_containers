@@ -2,20 +2,39 @@
 #include <map>
 int main(){
 
-  ft::map<char,int> mymap;
+  ft::Map<char,int> foo,bar;
 
-  mymap['a']=10;
-  mymap['b']=20;
-  mymap['c']=30;
+  foo['x']=100;
+  foo['y']=200;
 
-  ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator> ret;
-  ret = mymap.equal_range('b');
+  bar['a']=11;
+  bar['b']=22;
+  bar['c']=33;
 
-  std::cout << "lower bound points to: ";
-  std::cout << ret.first->first << " => " << ret.first->second << '\n';
+  foo.swap(bar);
 
-  std::cout << "upper bound points to: ";
-  std::cout << ret.second->first << " => " << ret.second->second << '\n';
+  std::cout << "foo contains:\n";
+  for (ft::Map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  std::cout << "bar contains:\n";
+  for (ft::Map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  // ft::Map<char,int> mymap;
+
+  // mymap['a']=10;
+  // mymap['b']=20;
+  // mymap['c']=30;
+
+  // ft::pair<ft::Map<char,int>::iterator,ft::Map<char,int>::iterator> ret;
+  // ret = mymap.equal_range('b');
+
+  // std::cout << "lower bound points to: ";
+  // std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+  // std::cout << "upper bound points to: ";
+  // std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
 
   // ft::map<char,int> mymap;

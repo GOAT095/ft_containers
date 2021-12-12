@@ -11,7 +11,7 @@
 
 namespace ft{
     template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key,T> > >
-    class map
+    class Map
     {
         public:
             typedef T mapped_type;
@@ -29,7 +29,7 @@ namespace ft{
             //typedef ft::Node<
             //constractors and stuff
             //empty
-            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+            explicit Map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
             {
                 _size = 0;
                 al = alloc;
@@ -66,7 +66,7 @@ namespace ft{
                 // printTree(_Root, nullptr, false);
             }
             template <class InputIterator>
-            map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+            Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
             {
                 
                 //need insert with iters
@@ -80,7 +80,7 @@ namespace ft{
                 al = alloc;
                 _capacity = _size = diff;
             }
-            ~map(){
+            ~Map(){
                 clear();
             }
         private:
@@ -484,13 +484,15 @@ namespace ft{
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
             typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
-            
+            typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
 
         iterator begin(){return (iterator(minValueNode(_Root), _Root));}
         const_iterator begin() const{return (iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root));}
         const_iterator end() const{return(iterator(NULL, _Root));}
+        reverse_iterator rend(){return(iterator(minValueNode(_Root),_Root));}
+        const_reverse_iterator rend() const{return(const_iterator(minValueNode(_Root),_Root));}
         reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
         const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
         
@@ -558,12 +560,20 @@ namespace ft{
                 i++;
             }
         }
+        void swap (Map& x)
+        {
+            std::swap(_size, x._size);
+            std::swap(_capacity, x._capacity);
+            std::swap(_Root, x._Root);
 
+        }
+        //element access
         mapped_type& operator[] (const key_type& k)
         {
             return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second;
         }
-        //needs to be tested
+
+        //modifiers
         void clear()
         {
             erase(begin(), end());
@@ -641,10 +651,10 @@ namespace ft{
             }
             return (end());
         }
-        // pair<const_iterator,const_iterator> equal_range (const key_type& k)
-        // {
-        //     return (ft::make_pair(lower_bound(k), upper_bound(k)));
-        // }
+        pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+        {
+            return (ft::make_pair(lower_bound(k), upper_bound(k)));
+        }
         pair<iterator,iterator> equal_range (const key_type& k)
         {
             return (ft::make_pair(lower_bound(k), upper_bound(k)));
