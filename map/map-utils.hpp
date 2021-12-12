@@ -19,7 +19,7 @@ namespace ft{
         pair& operator= (const pair& pr){first = pr.first; second = pr.second; return *this;}
 
         //relational op
-       
+      
     };
         template <class T1, class T2>
         bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)

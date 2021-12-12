@@ -511,6 +511,7 @@ namespace ft{
         // this one is weird just ignore position param
         void insert (iterator position, const value_type& val)
         {
+            (void) position;
             insert(val);
         }
         template <class InputIterator>
@@ -640,11 +641,13 @@ namespace ft{
             }
             return (end());
         }
+        // pair<const_iterator,const_iterator> equal_range (const key_type& k)
+        // {
+        //     return (ft::make_pair(lower_bound(k), upper_bound(k)));
+        // }
         pair<iterator,iterator> equal_range (const key_type& k)
         {
-            iterator it;
-            it = ft::make_pair(lower_bound(k), upper_bound(k));
-            return (it);
+            return (ft::make_pair(lower_bound(k), upper_bound(k)));
         }
     };
 }
