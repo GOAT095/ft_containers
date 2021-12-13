@@ -71,11 +71,7 @@ namespace ft{
                 
                 //need insert with iters
                 difference_type diff = std::distance(last, first);
-                while (first != last)
-                {
-                    insert(_Root, first);
-                    first++;
-                }
+                this->insert(first, last);
                 kc = comp;
                 al = alloc;
                 _capacity = _size = diff;
@@ -87,6 +83,7 @@ namespace ft{
             size_t  _size;
             size_t  _capacity;
             Alloc   al;
+            value_compare _value_comp;
             key_compare kc;
 
             struct Node {
@@ -183,7 +180,7 @@ namespace ft{
             // See the diagram given above.
         Node *rightRotate(Node *y)
         {
-            Node *tmp;
+            // Node *tmp;
             Node *x = y->left;
             Node *T2 = x->right;
         
@@ -216,7 +213,7 @@ namespace ft{
         // See the diagram given above.
         Node *leftRotate(Node *x)
         {
-            Node *tmp;
+            // Node *tmp;
             Node *y = x->right;
             Node *T2 = y->left;
         
@@ -490,11 +487,11 @@ namespace ft{
         iterator begin(){return (iterator(minValueNode(_Root), _Root));}
         const_iterator begin() const{return (iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root));}
-        const_iterator end() const{return(iterator(NULL, _Root));}
+        const_iterator end() const{return(const_iterator(NULL, _Root));}
         reverse_iterator rend(){return(iterator(minValueNode(_Root),_Root));}
         const_reverse_iterator rend() const{return(const_iterator(minValueNode(_Root),_Root));}
         reverse_iterator rbegin(){return(iterator(maxValueNode(_Root),_Root));}
-        const reverse_iterator rbegin()const {return(iterator(maxValueNode(_Root),_Root));}
+        const_reverse_iterator rbegin()const {return(const_iterator(maxValueNode(_Root),_Root));}
         
         //capacity
         size_type max_size() const{return al.max_size();}
@@ -548,7 +545,7 @@ namespace ft{
                 return ;
             while (first != last)
             {
-                // ft::Vector<key_type> vec;
+                // ft::Map<key_type> vec;
                 vec.push_back(first.getNode()->data->first);
                 first++;
             }
@@ -660,4 +657,46 @@ namespace ft{
             return (ft::make_pair(lower_bound(k), upper_bound(k)));
         }
     };
+    //relational operators
+    template <class Key, class T>
+    bool operator== (const Map<Key, T>& lhs, const Map<Key, T>& rhs)
+    {
+        if (lhs.size() != rhs.size())
+            return (lhs.size() == rhs.size());
+        return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+    }
+
+    template <class Key, class T>
+    bool operator!= (const Map<Key, T>& lhs, const Map<Key, T>& rhs)
+    {
+        return(!(lhs == rhs));
+    }
+
+    template <class Key, class T>
+    bool operator<  (const Map<Key, T>& lhs, const Map<Key, T>& rhs)
+    {
+        return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+    }
+    
+    template <class Key, class T>
+    bool operator> (const Map<Key, T>& lhs, const Map<Key, T>& rhs)
+    {
+        return(rhs < lhs);
+    }
+    
+    template <class Key, class T>
+    bool operator<= (const Map<Key, T>& lhs, const Map<Key, T>& rhs)
+    {
+        if (lhs < rhs || lhs == rhs)
+            return(true);
+        return (false);
+    }
+
+    template <class Key, class T>
+    bool operator>= (const Map<Key, T>& lhs, const Map<Key, T>& rhs)
+    {
+        if (lhs > rhs || lhs == rhs)
+            return(true);
+        return (false);
+    }
 }

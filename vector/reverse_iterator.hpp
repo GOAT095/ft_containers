@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:29 by anassif           #+#    #+#             */
-/*   Updated: 2021/11/20 23:41:37 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/14 00:29:12 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ namespace ft
 
         //base is next element to the iterator    -- coz its the normal iterator not the reverse 
         //so next to reverse is (++) but (--)for the normal one(iterator_type)
-        iterator base() const{return this->_it + 1;}
+        iterator base() const{iterator tmp = _it; tmp++;return tmp;}
         template <class Iter>
         reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = --rev_it.base();}
 
