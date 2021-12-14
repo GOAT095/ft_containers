@@ -31,18 +31,18 @@ namespace ft{
             //empty
             class value_compare
             {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-            friend class map;
-            protected:
-            Compare comp;
-            value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-            public:
-            typedef bool result_type;
-            typedef value_type first_argument_type;
-            typedef value_type second_argument_type;
-            bool operator() (const value_type& x, const value_type& y) const
-            {
-                return comp(x.first, y.first);
-            }
+                protected:
+                Compare comp;
+                value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+                // value_compare(const value_compare& rhs){comp = rhs.comp;}
+                public:
+                typedef bool result_type;
+                typedef value_type first_argument_type;
+                typedef value_type second_argument_type;
+                bool operator() (const value_type& x, const value_type& y) const
+                {
+                    return comp(x.first, y.first);
+                }
             };
             // typedef value_compare value_comp;
             explicit Map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -515,7 +515,7 @@ namespace ft{
 
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
-            typedef typename ft::map_iter<const Node, const value_type, Compare> const_iterator;
+            typedef typename ft::map_iter<Node, const value_type, Compare> const_iterator;
             typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
@@ -694,6 +694,7 @@ namespace ft{
         }
         value_compare value_comp() const
         {
+            
             return (value_compare());
         }
     };
