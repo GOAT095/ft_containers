@@ -479,13 +479,13 @@ namespace ft{
 
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
-            typedef typename ft::map_iter<Node, value_type, Compare> const_iterator;
+            typedef typename ft::map_iter<const Node, value_type, Compare> const_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
             typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
 
         iterator begin(){return (iterator(minValueNode(_Root), _Root));}
-        const_iterator begin() const{return (iterator(minValueNode(_Root), _Root));}
+        const_iterator begin() const{return (const_iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root));}
         const_iterator end() const{return(const_iterator(NULL, _Root));}
         reverse_iterator rend(){return(iterator(minValueNode(_Root),_Root));}
