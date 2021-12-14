@@ -148,7 +148,7 @@ namespace ft{
                 return (tmp);
             }
 
-            operator map_iter<const NODE, const T,comp>() const{return map_iter<const NODE, const T,comp>(_p);}
+            operator map_iter<NODE, const T,comp>() const{return map_iter<NODE, const T,comp>(_p, _root);}
             friend bool	operator==(map_iter const& lhs, map_iter const& rhs) { return (lhs._p == rhs._p); }
             friend bool	operator!=(map_iter const& lhs, map_iter const& rhs) { return (lhs._p != rhs._p); }
         };

@@ -524,10 +524,10 @@ namespace ft{
         const_iterator begin() const{return (const_iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root));}
         const_iterator end() const{return(const_iterator(NULL, _Root));}
-        reverse_iterator rend(){return(reverse_iterator(minValueNode(_Root),_Root));}
-        const_reverse_iterator rend() const{return(const_reverse_iterator(minValueNode(_Root),_Root));}
-        reverse_iterator rbegin(){return(reverse_iterator(maxValueNode(_Root),_Root));}
-        const_reverse_iterator rbegin()const {return(const_reverse_iterator(maxValueNode(_Root),_Root));}
+        reverse_iterator rend(){return(reverse_iterator(begin()));}
+        const_reverse_iterator rend() const{return(const_reverse_iterator(begin()));}
+        reverse_iterator rbegin(){return(reverse_iterator(end()));}
+        const_reverse_iterator rbegin()const {return(const_reverse_iterator(end()));}
         
         //capacity
         size_type max_size() const{return al.max_size();}
