@@ -35,6 +35,7 @@ namespace ft{
             
             map_iter(){
                 _p = NULL;
+                _root = NULL;
             }
              map_iter(NODE *node, NODE *root){
                 _p = node;
