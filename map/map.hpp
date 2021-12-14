@@ -29,6 +29,22 @@ namespace ft{
             //typedef ft::Node<
             //constractors and stuff
             //empty
+            class value_compare
+            {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+            friend class map;
+            protected:
+            Compare comp;
+            value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+            public:
+            typedef bool result_type;
+            typedef value_type first_argument_type;
+            typedef value_type second_argument_type;
+            bool operator() (const value_type& x, const value_type& y) const
+            {
+                return comp(x.first, y.first);
+            }
+            };
+            // typedef value_compare value_comp;
             explicit Map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
             {
                 _size = 0;
@@ -370,6 +386,26 @@ namespace ft{
         return the node with minimum data value
         found in that tree. Note that the entire
         tree does not need to be searched. */
+        Node * minValueNode(Node* node) 
+        {
+            Node* current = node;
+        
+            /* loop down to find the leftmost leaf */
+            while (current &&current->left != NULL)
+                current = current->left;
+        
+            return current;
+        }
+        Node * maxValueNode(Node* node) 
+        {
+            Node* current = node;
+        
+            /* loop down to find the leftmost leaf */
+            while (current && current->right != NULL)
+                current = current->right;
+        
+            return current;
+        }
         Node * minValueNode(Node* node) const
         {
             Node* current = node;
@@ -380,7 +416,7 @@ namespace ft{
         
             return current;
         }
-        Node * maxValueNode(Node* node)
+        Node * maxValueNode(Node* node) const
         {
             Node* current = node;
         
@@ -479,7 +515,7 @@ namespace ft{
 
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
-            typedef typename ft::map_iter<Node, const value_type, Compare> const_iterator;
+            typedef typename ft::map_iter<const Node, const value_type, Compare> const_iterator;
             typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
             // typedef typename Alloc rebind<Node>::other node_allocator;
@@ -611,9 +647,9 @@ namespace ft{
             return (end());
         }
 
-        iterator lower_bound (const key_type& k)const
+        const_iterator lower_bound (const key_type& k)const
         {
-            iterator it;
+            const_iterator it;
             for(it = begin(); it != end(); it++)
             {
                 if(it->first > k)
@@ -636,9 +672,9 @@ namespace ft{
             }
             return (end());
         }
-        iterator upper_bound (const key_type& k) const
+        const_iterator upper_bound (const key_type& k) const
         {
-            iterator it;
+            const_iterator it;
 
             
             for(it = begin(); it != end(); it++)
@@ -655,6 +691,10 @@ namespace ft{
         pair<iterator,iterator> equal_range (const key_type& k)
         {
             return (ft::make_pair(lower_bound(k), upper_bound(k)));
+        }
+        value_compare value_comp() const
+        {
+            return (value_compare());
         }
     };
     //relational operators

@@ -28,16 +28,35 @@ namespace ft{
                 
                     return current;
                 }
-                NODE *min;
-                NODE *max;
+                NODE * minValueNode(NODE* node) const
+                {
+                    NODE* current = node;
+                
+                    /* loop down to find the rightmost leaf */
+                    while (current && current->left != NULL)
+                        current = current->left;
+                
+                    return current;
+                }
+                NODE * maxValueNode(NODE* node) const
+                {
+                    NODE* current = node;
+                
+                    /* loop down to find the leftmost leaf */
+                    while (current && current->right != NULL)
+                        current = current->right;
+                
+                    return current;
+                }
+                // NODE *min;
+                // NODE *max;
             
             public :
             
             map_iter(){
                 _p = NULL;
-                _root = NULL;
             }
-             map_iter(NODE *node, NODE *root){
+            map_iter(NODE *node, NODE *root){
                 _p = node;
                 _root = root;
             }
@@ -129,7 +148,7 @@ namespace ft{
                 return (tmp);
             }
 
-            operator map_iter<NODE, T,comp>() const{return map_iter<NODE, T,comp>(_p);}
+            operator map_iter<const NODE, const T,comp>() const{return map_iter<const NODE, const T,comp>(_p);}
             friend bool	operator==(map_iter const& lhs, map_iter const& rhs) { return (lhs._p == rhs._p); }
             friend bool	operator!=(map_iter const& lhs, map_iter const& rhs) { return (lhs._p != rhs._p); }
         };
