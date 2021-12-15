@@ -53,45 +53,14 @@ namespace ft{
                 al = alloc;
                 kc = comp;
                 _Root = NULL;
-
-                // _Root = insert(_Root, ft::pair<Key, T>(1,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(2,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(3,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(77,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(4,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(5,1));
-                // // printTree(_Root, nullptr, false);
-                // _Root = insert(_Root, ft::pair<Key, T>(11,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(10,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-1,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-2,1));   
-                // _Root = insert(_Root, ft::pair<Key, T>(-3,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-6,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-4,1));
-                // _Root = insert(_Root, ft::pair<Key, T>(-5,1));
-                // printTree(_Root, nullptr, false);
-                
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-5,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(9,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(8,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(10,1));
-                // printTree(_Root, nullptr, false);
-                // _Root = deleteNode(_Root, ft::pair<Key, T>(-2,1));
-                // printTree(_Root, nullptr, false);
             }
             template <class InputIterator>
             Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
             {
-                
-                //need insert with iters
-                difference_type diff = std::distance(last, first);
                 this->insert(first, last);
                 kc = comp;
                 al = alloc;
-                _size = diff;
+                // _size = diff;
             }
             ~Map(){
                 clear();
@@ -478,7 +447,7 @@ namespace ft{
                     //needs to be changed to free
 
                     al.destroy(temp->data);
-                    aloc.deallocate(temp, 1);
+                    aloc.destroy(temp);
                     temp= NULL;
                     
                 }
@@ -545,13 +514,17 @@ namespace ft{
             if (s == _size)
                 return(ft::make_pair(iterator(not_inserted,_Root), false));
             else
+            {   
+                _size++; 
                 return(ft::make_pair(iterator(last_insert,_Root), true));
+            }
         }
         // this one is weird just ignore position param
         void insert (iterator position, const value_type& val)
         {
             (void) position;
             insert(val);
+
         }
         template <class InputIterator>
 
@@ -561,6 +534,7 @@ namespace ft{
             {
                insert(_Root, *first);
                 first++;
+                _size++;
             }
         }
         //erases

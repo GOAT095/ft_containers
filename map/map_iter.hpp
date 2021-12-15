@@ -86,18 +86,17 @@ namespace ft{
             map_iter& operator--()
             {
                 NODE *n = _p;
-                // NODE *min = minValueNode(_root);
+                NODE *min = minValueNode(_root);
                 // NODE *max = maxValueNode(_root);
+                
                 if (_p == NULL && _end)
                 {   
                     _p = _end;
-                    // std::cout << _end->data->first<< std::endl;
                     _end = NULL;
-                    
                     return (*this);
                 }
-                // if (_p == min)
-                // {    _p = NULL; return *this;}
+                if (_p == min)
+                {return *this;}
                 // if it has left, left it is :)
                 if (n->left != NULL)
                     _p = minValueNode(n->left);
