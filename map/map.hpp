@@ -31,6 +31,7 @@ namespace ft{
             //empty
             class value_compare
             {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+                friend class map;
                 protected:
                 Compare comp;
                 value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
@@ -104,6 +105,7 @@ namespace ft{
 
             struct Node {
                 value_type *data;
+
                 Node* left;
                 Node* right;
                 Node* parent;

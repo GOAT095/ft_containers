@@ -2,19 +2,19 @@
 #include <map>
 int main(){
 
-  ft::Map<char,int> foo,bar;
-  foo['a']=100;
-  foo['b']=200;
-  bar['a']=10;
-  bar['z']=1000;
+  // ft::Map<char,int> foo,bar;
+  // foo['a']=100;
+  // foo['b']=200;
+  // bar['a']=10;
+  // bar['z']=1000;
 
-  // foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):
-  if (foo==bar) std::cout << "foo and bar are equal\n";
-  if (foo!=bar) std::cout << "foo and bar are not equal\n";
-  if (foo< bar) std::cout << "foo is less than bar\n";
-  if (foo> bar) std::cout << "foo is greater than bar\n";
-  if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-  if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+  // // foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):
+  // if (foo==bar) std::cout << "foo and bar are equal\n";
+  // if (foo!=bar) std::cout << "foo and bar are not equal\n";
+  // if (foo< bar) std::cout << "foo is less than bar\n";
+  // if (foo> bar) std::cout << "foo is greater than bar\n";
+  // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+  // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 
   // ft::Map<char,int> foo,bar;
 
@@ -125,40 +125,40 @@ int main(){
 //     std::cout << it->first << " => " << it->second << '\n';
     
 //     }
-    // ft::map<int, int> m;
-    // m.insert(ft::pair<int,int>(1,3));
-    // m.insert(ft::pair<int,int>(10,3));
-    // m.insert(ft::pair<int,int>(2,3));
-    // m.insert(ft::pair<int,int>(3,3));
-    // m.insert(ft::pair<int,int>(4,3));
-    // m.insert(ft::pair<int,int>(5,3));
-    // m.insert(ft::pair<int,int>(6,3));
-    // m.insert(ft::pair<int,int>(7,3));
-    // m.insert(ft::pair<int,int>(8,3));
-    // m.insert(ft::pair<int,int>(-1,3));
-    // m.insert(ft::pair<int,int>(-3,3));
-    // m.insert(ft::pair<int,int>(-4,3));
-    // ft::map<int, int>::iterator it = m.begin();
-    // ft::map<int, int>::iterator it2 = m.end();
-    // it2--;
-    // it2--;
-    // it2--;
-    // // std::cout << it2->first << std::endl;
-    // m.erase(it, it2);
-    // // m.printTree()
-    // it = m.begin();
-    // // std::cout << it->first << std::endl;
+    ft::Map<int, int> m;
+    m.insert(ft::pair<int,int>(1,3));
+    m.insert(ft::pair<int,int>(10,3));
+    m.insert(ft::pair<int,int>(2,3));
+    m.insert(ft::pair<int,int>(3,3));
+    m.insert(ft::pair<int,int>(4,3));
+    m.insert(ft::pair<int,int>(5,3));
+    m.insert(ft::pair<int,int>(6,3));
+    m.insert(ft::pair<int,int>(7,3));
+    m.insert(ft::pair<int,int>(8,3));
+    m.insert(ft::pair<int,int>(-1,3));
+    m.insert(ft::pair<int,int>(-3,3));
+    m.insert(ft::pair<int,int>(-4,3));
+    ft::Map<int, int>::iterator it = m.begin();
+    ft::Map<int, int>::iterator it2 = m.end();
+    it2--;
+    it2--;
+    it2--;
+    // std::cout << it2->first << std::endl;
+    m.erase(it, it2);
+    // m.printTree()
+    it = m.begin();
+    // std::cout << it->first << std::endl;
     // for (; it != m.end(); ++it){
     //     std::cout << it->first << std::endl;
     // }
-    // it = m.end();
-    // it--;
+    it = m.end();
+    it--;
     // std::cout << it->first << std::endl;
-    // for (it; it != m.begin(); --it){
-    //     std::cout << it->first << std::endl;
-    // }
-    //it++;
-    //it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;
+    for (it; it != m.begin(); --it){
+        std::cout << it->first << std::endl;
+    }
+    it++;
+    it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;
     
     
     return 0;

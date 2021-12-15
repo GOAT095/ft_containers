@@ -117,8 +117,8 @@ namespace ft{
             {
                 NODE *n = _p;
                 NODE *max = maxValueNode(_root);
-                // if (_p == NULL)
-                // { _p = max ;  return (*this);}
+                if (_p == NULL)
+                { _p = NULL ;  return (*this);}
                 if (_p == max)
                 {    _p = NULL; return *this;}
                 // if it has right right it is :)
