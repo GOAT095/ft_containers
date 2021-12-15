@@ -50,7 +50,7 @@ namespace ft{
                 _size = 0;
                 al = alloc;
                 kc = comp;
-                _capacity = 0;
+                // _capacity = 0;
                 _Root = NULL;
 
                 // _Root = insert(_Root, ft::pair<Key, T>(1,1));
@@ -109,7 +109,7 @@ namespace ft{
                 Node* parent;
                 int height;
             };
-
+            typedef typename Alloc::template rebind<Node>::other aloc;
             Node* _Root;
             Node* last_insert;
             Node* not_inserted;
