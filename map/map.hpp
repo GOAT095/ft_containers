@@ -33,7 +33,8 @@ namespace ft{
             {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
                 friend class map;
                 protected:
-                Compare comp;
+                    Compare comp;
+                public:
                 value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
                 // value_compare(const value_compare& rhs){comp = rhs.comp;}
                 public:
@@ -111,8 +112,9 @@ namespace ft{
                 Node* parent;
                 int height;
             };
-            typedef typename Alloc::template rebind<Node>::other aloc;
+            typename Alloc::template rebind<Node>::other aloc;
             Node* _Root;
+            // Node* end;
             Node* last_insert;
             Node* not_inserted;
             public:
@@ -266,7 +268,7 @@ namespace ft{
 
         Node *newNode(value_type val)
         {
-            Node* newNode = new Node();
+            Node* newNode = aloc.allocate(1);
             newNode->data = al.allocate(1);
             al.construct(newNode->data, val);
             
@@ -476,7 +478,9 @@ namespace ft{
                                 // the non-empty child
                     // al.deallocate(temp->data, 1);
                     //needs to be changed to free
+
                     al.destroy(temp->data);
+                    aloc.deallocate(temp, 1);
                     temp= NULL;
                     
                 }
@@ -524,8 +528,8 @@ namespace ft{
 
         iterator begin(){return (iterator(minValueNode(_Root), _Root));}
         const_iterator begin() const{return (const_iterator(minValueNode(_Root), _Root));}
-        iterator end(){return(iterator(NULL, _Root));}
-        const_iterator end() const{return(const_iterator(NULL, _Root));}
+        iterator end(){return(iterator(NULL, _Root, maxValueNode(_Root)));}
+        const_iterator end() const{return(const_iterator(NULL, _Root, maxValueNode(_Root)));}
         reverse_iterator rend(){return(reverse_iterator(begin()));}
         const_reverse_iterator rend() const{return(const_reverse_iterator(begin()));}
         reverse_iterator rbegin(){return(reverse_iterator(end()));}
@@ -696,8 +700,7 @@ namespace ft{
         }
         value_compare value_comp() const
         {
-            
-            return (value_compare());
+            return (value_compare(kc));
         }
     };
     //relational operators

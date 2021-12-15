@@ -8,6 +8,7 @@ namespace ft{
             private:
                 NODE *_p;
                 NODE *_root;
+                NODE *_end;
                 NODE * minValueNode(NODE* node)
                 {
                     NODE* current = node;
@@ -55,10 +56,17 @@ namespace ft{
             
             map_iter(){
                 _p = NULL;
+                _end = NULL;
             }
             map_iter(NODE *node, NODE *root){
                 _p = node;
                 _root = root;
+                _end = NULL;
+            }
+             map_iter(NODE *node, NODE *root, NODE* end){
+                _p = node;
+                _root = root;
+                _end = end;
             }
             map_iter(const map_iter& copy)
             {
@@ -68,6 +76,7 @@ namespace ft{
             {
                 _p = rhs._p;
                 _root = rhs._root;
+                _end = rhs._end;
                 return (*this);
             }
             ~map_iter(){}
@@ -77,12 +86,18 @@ namespace ft{
             map_iter& operator--()
             {
                 NODE *n = _p;
-                NODE *min = minValueNode(_root);
-                NODE *max = maxValueNode(_root);
-                if (_p == NULL)
-                { _p = max ;  return (*this);}
-                if (_p == min)
-                {    _p = NULL; return *this;}
+                // NODE *min = minValueNode(_root);
+                // NODE *max = maxValueNode(_root);
+                if (_p == NULL && _end)
+                {   
+                    _p = _end;
+                    std::cout << _end->data->first<< std::endl;
+                    _end = NULL;
+                    
+                    return (*this);
+                }
+                // if (_p == min)
+                // {    _p = NULL; return *this;}
                 // if it has left, left it is :)
                 if (n->left != NULL)
                     _p = minValueNode(n->left);
@@ -117,10 +132,13 @@ namespace ft{
             {
                 NODE *n = _p;
                 NODE *max = maxValueNode(_root);
-                if (_p == NULL)
-                { _p = NULL ;  return (*this);}
+                // if (_p == NULL)
+                // { _p = NULL ;  return (*this);}
                 if (_p == max)
-                {    _p = NULL; return *this;}
+                {    _p = NULL;
+                    _end = _p;
+                    return *this;
+                }
                 // if it has right right it is :)
                 if (n->right != NULL)
                     _p = minValueNode(n->right);
