@@ -91,7 +91,7 @@ namespace ft{
                 if (_p == NULL && _end)
                 {   
                     _p = _end;
-                    std::cout << _end->data->first<< std::endl;
+                    // std::cout << _end->data->first<< std::endl;
                     _end = NULL;
                     
                     return (*this);
@@ -121,12 +121,7 @@ namespace ft{
             {
                 return _p;
             }
-            map_iter operator++(int)
-            {
-                map_iter tmp(*this);
-                this->operator++();
-                return (tmp);
-            }
+            
             
             map_iter& operator++()
             {
@@ -137,6 +132,7 @@ namespace ft{
                 if (_p == max)
                 {    _p = NULL;
                     _end = _p;
+                    // std::cout << "1111" << std::endl;
                     return *this;
                 }
                 // if it has right right it is :)
@@ -158,6 +154,12 @@ namespace ft{
                 }
 
                 return (*this);
+            }
+            map_iter operator++(int)
+            {
+                map_iter tmp(*this);
+                this->operator++();
+                return (tmp);
             }
             map_iter operator--(int)
             {

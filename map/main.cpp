@@ -152,12 +152,12 @@ int main(){
     //     std::cout << it->first << std::endl;
     // }
     it = m.end();
-    it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;it--;
+    it--;
     // std::cout << it->first << std::endl;
     for (it; it != m.begin(); --it){
         std::cout << it->first << std::endl;
     }
-    it++;
+    // it++;
     it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;
     
     

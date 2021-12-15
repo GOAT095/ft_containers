@@ -52,7 +52,6 @@ namespace ft{
                 _size = 0;
                 al = alloc;
                 kc = comp;
-                // _capacity = 0;
                 _Root = NULL;
 
                 // _Root = insert(_Root, ft::pair<Key, T>(1,1));
@@ -92,14 +91,13 @@ namespace ft{
                 this->insert(first, last);
                 kc = comp;
                 al = alloc;
-                _capacity = _size = diff;
+                _size = diff;
             }
             ~Map(){
                 clear();
             }
         private:
             size_t  _size;
-            size_t  _capacity;
             Alloc   al;
             // value_compare _value_comp;
             key_compare kc;
@@ -602,7 +600,6 @@ namespace ft{
         void swap (Map& x)
         {
             std::swap(_size, x._size);
-            std::swap(_capacity, x._capacity);
             std::swap(_Root, x._Root);
 
         }
