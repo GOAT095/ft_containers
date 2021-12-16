@@ -88,9 +88,9 @@ namespace ft{
                 NODE *n = _p;
                 NODE *min = minValueNode(_root);
                 // NODE *max = maxValueNode(_root);
-                
+                //if points to end give it max value thats on end
                 if (_p == NULL && _end)
-                {   
+                {
                     _p = _end;
                     _end = NULL;
                     return (*this);
@@ -127,12 +127,10 @@ namespace ft{
             {
                 NODE *n = _p;
                 NODE *max = maxValueNode(_root);
-                // if (_p == NULL)
-                // { _p = NULL ;  return (*this);}
+                //if last element should point to end
                 if (_p == max)
                 {    _p = NULL;
                     _end = _p;
-                    // std::cout << "1111" << std::endl;
                     return *this;
                 }
                 // if it has right right it is :)

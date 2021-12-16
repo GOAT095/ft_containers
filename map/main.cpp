@@ -24,17 +24,37 @@ int main ()
 
   // bool(*fn_pt)(char,char) = fncomp;
   // ft::Map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
-  // std::map<char, int> first;
-    ft::Map<char, int> m_first;
+  // ft::Map<char, int> first;
+   ft::Map<char,int> mymap;
 
-    for (size_t i = 97; i < 110; i++)
-    {
-        // first[i - 97] = i;
-        m_first[i - 97] = i;
-    }
+  // first insert function version (single parameter):
+  mymap.insert ( ft::pair<char,int>('a',100) );
+  mymap.insert ( ft::pair<char,int>('z',200) );
 
-  ft::Map<char, int> m_second(m_first.begin(), m_first.end());
+  ft::pair<ft::Map<char,int>::iterator,bool> ret;
+  ret = mymap.insert ( ft::pair<char,int>('z',500) );
+  if (ret.second==false) {
+    std::cout << "element 'z' already existed";
+    std::cout << " with a value of " << ret.first->second << '\n';
+  }
 
+  // second insert function version (with hint position):
+  ft::Map<char,int>::iterator it = mymap.begin();
+  mymap.insert (it, ft::pair<char,int>('b',300));  // max efficiency inserting
+  mymap.insert (it, ft::pair<char,int>('c',400));  // no max efficiency inserting
+
+  // third insert function version (range insertion):
+  ft::Map<char,int> anothermap;
+  anothermap.insert(mymap.begin(),mymap.find('c'));
+
+  // showing contents:
+  std::cout << "mymap contains:\n";
+  for (it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  std::cout << "anothermap contains:\n";
+  for (it=anothermap.begin(); it!=anothermap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
   return 0;
 }
 // int main(){
@@ -180,19 +200,19 @@ int main ()
 //     it2--;
 //     it2--;
 //     it2--;
-//     // std::cout << it2->first << std::endl;
+//     // std::cout << it2->first << ft::endl;
 //     m.erase(it, it2);
 //     // m.printTree()
 //     it = m.begin();
-//     // std::cout << it->first << std::endl;
+//     // std::cout << it->first << ft::endl;
 //     // for (; it != m.end(); ++it){
-//     //     std::cout << it->first << std::endl;
+//     //     std::cout << it->first << ft::endl;
 //     // }
 //     it = m.end();
 //     it--;
-//     // std::cout << it->first << std::endl;
+//     // std::cout << it->first << ft::endl;
 //     for (it; it != m.begin(); --it){
-//         std::cout << it->first << std::endl;
+//         std::cout << it->first << ft::endl;
 //     }
 //     // it++;
 //     it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;it++;

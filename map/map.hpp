@@ -57,6 +57,7 @@ namespace ft{
             template <class InputIterator>
             Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
             { 
+                _size = 0;
                 al = alloc;
                 kc = comp;
                 this->insert(first, last);
@@ -334,7 +335,7 @@ namespace ft{
             if(kc(data.first, node->data->first)){
                 node->left = insert(node->left, data);
                 node->left->parent = node;
-            }else if(!kc(data.first, node->data->first)){
+            }else if(kc(node->data->first, data.first)){
                 node->right = insert(node->right, data);
                 node->right->parent = node;
             }
@@ -496,8 +497,10 @@ namespace ft{
         const_iterator begin() const{return (const_iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root, maxValueNode(_Root)));}
         const_iterator end() const{return(const_iterator(NULL, _Root, maxValueNode(_Root)));}
+
         reverse_iterator rend(){return(reverse_iterator(begin()));}
         const_reverse_iterator rend() const{return(const_reverse_iterator(begin()));}
+        
         reverse_iterator rbegin(){return(reverse_iterator(end()));}
         const_reverse_iterator rbegin()const {return(const_reverse_iterator(end()));}
         
@@ -531,9 +534,8 @@ namespace ft{
         {
             while (first != last)
             {
-               _Root = insert(_Root, *first);
+               insert(*first);
                 first++;
-                // _size++;
             }
         }
         //erases
@@ -574,6 +576,7 @@ namespace ft{
         {
             std::swap(_size, x._size);
             std::swap(_Root, x._Root);
+            std::swap(kc, x.kc);
 
         }
         //element access
@@ -596,8 +599,7 @@ namespace ft{
         size_type count(const key_type& k) const
         {
             if(search(_Root, k))
-            {  
-                // std::cout << "v"<<search(_Root, k)->data->first << std::endl;
+            {
                 return 1;
             }
             return 0;

@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:29 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/14 22:32:14 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/17 00:14:43 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,18 @@ namespace ft
 
         reverse_iterator(): _it(iterator()){}
 
-        explicit reverse_iterator(iterator it) : _it(--it) {}
+        explicit reverse_iterator(iterator it) : _it(it) {}
 
         //base is next element to the iterator    -- coz its the normal iterator not the reverse 
         //so next to reverse is (++) but (--)for the normal one(iterator_type)
-        iterator base() const{iterator tmp = _it; tmp++;return tmp;}
+        iterator base() const{return _it;}
         template <class Iter>
-        reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = --rev_it.base();}
+        reverse_iterator (const reverse_iterator<Iter>& rev_it){this->_it = rev_it.base();}
 
         
         // +1 is because the reverse_iterators constructor does a --_it
-        reverse_iterator operator+ (difference_type n) const{ return(reverse_iterator(_it - n + 1));}
-        reverse_iterator operator- (difference_type n) const{ return(reverse_iterator(_it + n + 1));}
+        reverse_iterator operator+ (difference_type n) const{ return(reverse_iterator(_it - n));}
+        reverse_iterator operator- (difference_type n) const{ return(reverse_iterator(_it + n));}
 
         
 
@@ -96,11 +96,11 @@ namespace ft
         reverse_iterator& operator+= (difference_type n){_it -= n ; return *this;}
         reverse_iterator& operator-= (difference_type n){_it += n ; return *this;}
 
-        reference	operator*() const {return (*_it);}
+        reference	operator*() const {iterator tmp = _it; tmp--; return (*tmp);}
         //must return reference to the pointer so it doesnt create another one
         pointer operator->() const{return &(operator*());}
 
-        reference operator[] (difference_type n) const{return (base()[-n-1]);}
+        reference operator[] (difference_type n) const{return (base()[-n - 1]);}
         
 
         operator reverse_iterator<const iterator>() const {
