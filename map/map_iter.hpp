@@ -98,11 +98,12 @@ namespace ft{
                 if (_p == min)
                 {return *this;}
                 // if it has left, left it is :)
+                
                 if (n->left != NULL)
                     _p = minValueNode(n->left);
             
                 // if doesnt have right you need to get it from parents
-                else if (n->right == NULL)
+                else if (n->left == NULL)
                 {
                     NODE* p = n->parent;
                     while (p != NULL && n == p->left)
@@ -167,7 +168,7 @@ namespace ft{
                 return (tmp);
             }
 
-            operator map_iter<NODE, const T,comp>() const{return map_iter<NODE, const T,comp>(_p, _root);}
+            operator map_iter<NODE, const T,comp>() const{return map_iter<NODE, const T,comp>(_p, _root, _end);}
             friend bool	operator==(map_iter const& lhs, map_iter const& rhs) { return (lhs._p == rhs._p); }
             friend bool	operator!=(map_iter const& lhs, map_iter const& rhs) { return (lhs._p != rhs._p); }
         };

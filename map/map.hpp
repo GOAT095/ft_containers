@@ -56,11 +56,10 @@ namespace ft{
             }
             template <class InputIterator>
             Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            {
-                this->insert(first, last);
-                kc = comp;
+            { 
                 al = alloc;
-                // _size = diff;
+                kc = comp;
+                this->insert(first, last);
             }
             ~Map(){
                 clear();
@@ -515,7 +514,7 @@ namespace ft{
                 return(ft::make_pair(iterator(not_inserted,_Root), false));
             else
             {   
-                _size++; 
+                // _size++; 
                 return(ft::make_pair(iterator(last_insert,_Root), true));
             }
         }
@@ -532,9 +531,9 @@ namespace ft{
         {
             while (first != last)
             {
-               insert(_Root, *first);
+               _Root = insert(_Root, *first);
                 first++;
-                _size++;
+                // _size++;
             }
         }
         //erases

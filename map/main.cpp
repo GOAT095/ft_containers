@@ -9,21 +9,31 @@ struct classcomp {
 
 int main ()
 {
-  ft::Map<char,int> first;
+  // ft::Map<char,int> first;
 
-  first['a']=10;
-  first['b']=30;
-  first['c']=50;
-  first['d']=70;
+  // first['a']=10;
+  // first['b']=30;
+  // first['c']=50;
+  // first['d']=70;
 
-  ft::Map<char,int> second (first.begin(),first.end());
+  // ft::Map<char,int> second (first.begin(),first.end());
 
-  ft::Map<char,int> third (second);
+  // ft::Map<char,int> third (second);
 
-  ft::Map<char,int,classcomp> fourth;                 // class as Compare
+  // ft::Map<char,int,classcomp> fourth;                 // class as Compare
 
-  bool(*fn_pt)(char,char) = fncomp;
-  ft::Map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+  // bool(*fn_pt)(char,char) = fncomp;
+  // ft::Map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+  // std::map<char, int> first;
+    ft::Map<char, int> m_first;
+
+    for (size_t i = 97; i < 110; i++)
+    {
+        // first[i - 97] = i;
+        m_first[i - 97] = i;
+    }
+
+  ft::Map<char, int> m_second(m_first.begin(), m_first.end());
 
   return 0;
 }
