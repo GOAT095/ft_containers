@@ -46,13 +46,25 @@ namespace ft{
                     return comp(x.first, y.first);
                 }
             };
-            // typedef value_compare value_comp;
             explicit Map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
             {
                 _size = 0;
                 al = alloc;
                 kc = comp;
                 _Root = NULL;
+            }
+            Map (const Map& x)
+            {
+                clear();
+                _size = x._size;
+                _Root = NULL;
+                const_iterator beg = x.begin();
+                const_iterator end = x.end();
+                while(beg != end)
+                {
+                    insert(*beg);
+                    beg++;
+                }
             }
             template <class InputIterator>
             Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -451,8 +463,10 @@ namespace ft{
                     al.destroy(temp->data);
                     al.deallocate(temp->data, 1);
                     aloc.destroy(temp);
-                    aloc.deallocate(temp, 1);}
+                    aloc.deallocate(temp, 1);
                     temp= NULL;
+                    }
+                    
                     
                     if(_size)
                         _size--;
