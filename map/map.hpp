@@ -464,6 +464,7 @@ namespace ft{
                     // Delete the inorder successor
                     root->right = deleteNode(root->right, *temp->data);
                 }
+                _size--;
                 
             }
 
@@ -543,13 +544,11 @@ namespace ft{
         {
             
             _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
-            _size--;
             return (_size);
         }
         void erase (iterator position)
         {
-            _Root = deleteNode(_Root, *(position.getNode()->data));
-            _size--;
+            erase(position->first);
         }
         void erase (iterator first, iterator last)
         {
@@ -568,7 +567,7 @@ namespace ft{
             {
                 
                 erase(vec[i]);
-                // std::cout << vec[i] << ">" << _size << std::endl;
+                std::cout << vec[i] << ">" << _size << std::endl;
                 i++;
             }
         }

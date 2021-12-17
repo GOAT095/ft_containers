@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/13 22:24:09 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/17 01:01:31 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ namespace ft
             }
             if (_size == 0)
 				for (size_type i = 0; i < n ; i++)
-					al.construct(&_arr[i], val);
+					_arr[i] = val;
             else
             {
                 for (size_type i = _size - 1 ; i >= start ; i--)
