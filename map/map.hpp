@@ -453,7 +453,6 @@ namespace ft{
                     aloc.destroy(temp);
                     aloc.deallocate(temp, 1);}
                     temp= NULL;
-                    // aloc.deallocate(temp, 1);
                     
                     if(_size)
                         _size--;
@@ -498,7 +497,6 @@ namespace ft{
             typedef typename ft::map_iter<Node, const value_type, Compare> const_iterator;
             typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
-            // typedef typename Alloc rebind<Node>::other node_allocator;
 
         iterator begin(){return (iterator(minValueNode(_Root), _Root));}
         const_iterator begin() const{return (const_iterator(minValueNode(_Root), _Root));}
