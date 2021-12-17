@@ -9,8 +9,8 @@ struct classcomp {
 
 int main ()
 {
-    std::map<char,int> mymap;
-  std::map<char,int>::iterator it;
+    ft::Map<char,int> mymap;
+    ft::Map<char,int>::iterator it;
 
   // insert some values:
   mymap['a']=10;
@@ -25,8 +25,8 @@ int main ()
 
   mymap.erase ('c');                  // erasing by key
 
-  it=mymap.find ('e');
-  mymap.erase ( it, mymap.end() );    // erasing by range
+  // it=mymap.find ('e');
+  // mymap.erase(it, mymap.end());    // erasing by range
 
   // show content:
   for (it=mymap.begin(); it!=mymap.end(); ++it)

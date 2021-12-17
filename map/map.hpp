@@ -243,7 +243,7 @@ namespace ft{
             newNode->right = NULL;
             newNode->height = 1;
             newNode->parent = NULL;
-            _size++;
+            
             return (newNode);
         }
         Node  *balance_tree_delete(Node *node, value_type data)
@@ -330,6 +330,7 @@ namespace ft{
                 Node *n = newNode(data);
                 node = n;
                 last_insert = n;
+                _size++;
                 return node;
             }
             if(kc(data.first, node->data->first)){
@@ -448,8 +449,9 @@ namespace ft{
 
                     al.destroy(temp->data);
                     aloc.destroy(temp);
+                    aloc.deallocate(temp, 1);
                     temp= NULL;
-                    
+                    // _size--;
                 }
                 else
                 {
@@ -464,7 +466,6 @@ namespace ft{
                     // Delete the inorder successor
                     root->right = deleteNode(root->right, *temp->data);
                 }
-                _size--;
                 
             }
 
@@ -544,7 +545,9 @@ namespace ft{
         {
             
             _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
+            _size--;
             return (_size);
+            
         }
         void erase (iterator position)
         {
@@ -567,7 +570,7 @@ namespace ft{
             {
                 
                 erase(vec[i]);
-                std::cout << vec[i] << ">" << _size << std::endl;
+                // std::cout << vec[i] << ">" << _size << std::endl;
                 i++;
             }
         }
