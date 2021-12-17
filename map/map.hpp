@@ -439,19 +439,24 @@ namespace ft{
                     
                     else // One child case
                     {
-                       *root = *temp;
+                       std::swap(*root, *temp);
                        root->parent = tmp;
 
                     } // Copy the contents of
                                 // the non-empty child
                     // al.deallocate(temp->data, 1);
                     //needs to be changed to free
-
+                    if (temp != NULL)
+                   {
                     al.destroy(temp->data);
+                    al.deallocate(temp->data, 1);
                     aloc.destroy(temp);
-                    aloc.deallocate(temp, 1);
+                    aloc.deallocate(temp, 1);}
                     temp= NULL;
-                    // _size--;
+                    // aloc.deallocate(temp, 1);
+                    
+                    if(_size)
+                        _size--;
                 }
                 else
                 {
@@ -543,10 +548,13 @@ namespace ft{
         //erases
         size_type erase (const key_type& k)
         {
-            
+            size_type s = _size;
+            // printTree(_Root, nullptr, false);
             _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
-            _size--;
-            return (_size);
+            // printTree(_Root, nullptr, false);
+             if (s == _size)
+                return 0;
+            return (1);
             
         }
         void erase (iterator position)
@@ -617,6 +625,7 @@ namespace ft{
         iterator lower_bound (const key_type& k)
         {
             iterator it;
+
             for(it = begin(); it != end(); it++)
             {
                 if(it->first > k)
@@ -630,6 +639,7 @@ namespace ft{
         const_iterator lower_bound (const key_type& k)const
         {
             const_iterator it;
+
             for(it = begin(); it != end(); it++)
             {
                 if(it->first > k)

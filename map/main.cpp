@@ -9,30 +9,18 @@ struct classcomp {
 
 int main ()
 {
-    ft::Map<char,int> mymap;
-    ft::Map<char,int>::iterator it;
+{
 
-  // insert some values:
-  mymap['a']=10;
-  mymap['b']=20;
-  mymap['c']=30;
-  mymap['d']=40;
-  mymap['e']=50;
-  mymap['f']=60;
-
-  it=mymap.find('b');
-  mymap.erase (it);                   // erasing by iterator
-
-  mymap.erase ('c');                  // erasing by key
-
-  // it=mymap.find ('e');
-  // mymap.erase(it, mymap.end());    // erasing by range
-
-  // show content:
-  for (it=mymap.begin(); it!=mymap.end(); ++it)
-    std::cout << it->first << " => " << it->second << '\n';
-  std::cout << ">" << mymap.size() << std::endl;
-  
+            /*------------------ std::maps ---------------------*/
+            std::map<int, std::string> m1;
+            ft::Map<int, std::string> ft_m1;
+            for (size_t i = 0; i < 1e6; i++)
+            {
+                ft_m1.insert(ft::make_pair(i, "string2"));
+            }
+            //ft_m1.erase(ft_m1.begin(), ft_m1.end());
+    }
+            system("leaks a.out");
 }
 // int main(){
 
