@@ -458,16 +458,14 @@ namespace ft{
                                 // the non-empty child
                     // al.deallocate(temp->data, 1);
                     //needs to be changed to free
-                    if (temp != NULL)
-                   {
+                //     if (temp != NULL)
+                //    {
                     al.destroy(temp->data);
-                    al.deallocate(temp->data, 1);
                     aloc.destroy(temp);
+                    // al.deallocate(temp->data, 1);
                     aloc.deallocate(temp, 1);
                     temp= NULL;
-                    }
-                    
-                    
+                    // }
                     if(_size)
                         _size--;
                 }
@@ -488,7 +486,7 @@ namespace ft{
             }
 
             // If the tree had only one node
-            // then return
+            // // then return
             if (root == NULL)
                 return root;
             return(balance_tree_delete(root, data));
