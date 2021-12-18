@@ -9,18 +9,39 @@ struct classcomp {
 
 int main ()
 {
-{
+  {
 
-            /*------------------ std::maps ---------------------*/
-            std::map<int, std::string> m1;
+            /*------------------ ft::Maps ---------------------*/
+            ft::Map<int, std::string> m1;
             ft::Map<int, std::string> ft_m1;
-            for (size_t i = 0; i < 1e6; i++)
+            for (size_t i = 0; i < 10; i++)
             {
                 ft_m1.insert(ft::make_pair(i, "string2"));
             }
+            ft_m1.printTree(ft_m1.getRoot(), NULL, false);
+            std::cout << ft_m1.getmin()->data->first << std::endl;
+            std::cout << ft_m1.getmax()->data->first << std::endl;
             //ft_m1.erase(ft_m1.begin(), ft_m1.end());
     }
-            system("leaks a.out");
+            // system("leaks a.out");
+
+  // ft::Map<char,int> mymap;
+  // ft::Map<char,int>::iterator itlow,itup;
+
+  // mymap['a']=20;
+  // mymap['b']=40;
+  // mymap['c']=60;
+  // mymap['d']=80;
+  // mymap['e']=100;
+
+  // itlow=mymap.lower_bound ('b');  // itlow points to b
+  // itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+  // mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+  // // print content:
+  // for (ft::Map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+  //   std::cout << it->first << " => " << it->second << '\n';
 }
 // int main(){
 

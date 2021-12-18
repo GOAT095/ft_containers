@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:23 by anassif           #+#    #+#             */
-/*   Updated: 2021/11/20 23:41:33 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/18 19:58:53 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ namespace ft{
     template <class TT, class Containerr>
     friend bool operator>= (const Stack<T,Containerr>& lhs, const Stack<TT,Containerr>& rhs)
     {return (lhs._container >= rhs._container);}  
-        protected:
-            container_type _container;
+    
+    protected:
+        container_type _container;
     };
    
 }

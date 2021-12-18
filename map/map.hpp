@@ -80,7 +80,6 @@ namespace ft{
         private:
             size_t  _size;
             Alloc   al;
-            // value_compare _value_comp;
             key_compare kc;
 
             struct Node {
@@ -96,6 +95,8 @@ namespace ft{
             // Node* end;
             Node* last_insert;
             Node* not_inserted;
+            Node* _min;
+            Node* _max;
             public:
             struct Trunk
             {
@@ -120,6 +121,14 @@ namespace ft{
             Node    *getRoot()
             {
                 return _Root;
+            }
+            Node    *getmin()
+            {
+                return _min;
+            }
+            Node    *getmax()
+            {
+                return _max;
             }
             void printTree(Node* root, Trunk *prev, bool isLeft)
             {
@@ -343,6 +352,16 @@ namespace ft{
                 node = n;
                 last_insert = n;
                 _size++;
+                if(_size == 1)
+                {_min = n;
+                _max = n;}
+                else
+                {
+                    if(kc(n->data->first, _min->data->first))
+                        _min = n;
+                    if(kc(_max->data->first,n->data->first))
+                        _max = n;
+                }
                 return node;
             }
             if(kc(data.first, node->data->first)){
@@ -400,6 +419,20 @@ namespace ft{
         
             return current;
         }
+        Node* inOrderSuccessor(struct Node* n)
+        {
+            // step 1 of the above algorithm
+            if (n->right != NULL)
+                return minValueNode(n->right);
+        
+            // step 2 of the above algorithm
+            Node* p = n->parent;
+            while (p != NULL && n == p->right) {
+                n = p;
+                p = p->parent;
+            }
+            return p;
+        }
         Node * maxValueNode(Node* node) const
         {
             Node* current = node;
@@ -456,14 +489,13 @@ namespace ft{
 
                     } // Copy the contents of
                                 // the non-empty child
-                    // al.deallocate(temp->data, 1);
                     //needs to be changed to free
                 //     if (temp != NULL)
                 //    {
-                    al.destroy(temp->data);
-                    aloc.destroy(temp);
+                    // al.destroy(temp->data);
                     // al.deallocate(temp->data, 1);
-                    aloc.deallocate(temp, 1);
+                    // aloc.destroy(temp);
+                    // aloc.deallocate(temp, 1);
                     temp= NULL;
                     // }
                     if(_size)
@@ -503,7 +535,42 @@ namespace ft{
             }
             return node;
         }
-
+        Node *bound(Node *root, key_type k)
+        {
+            Node *current = root;
+            Node *parent = root;
+            while(current)
+            {
+                if(kc(k, current->data->first))
+                {
+                    parent = current;
+                    current = current->left;
+                }
+                else if (kc(current->data->first, k))
+                    current = current->right;
+                else
+                    return current;
+            }
+            return parent;
+        }
+        Node *bound(Node *root, key_type k) const
+        {
+            Node *current = root;
+            Node *parent = root;
+            while(current)
+            {
+                if(kc(k, current->data->first))
+                {
+                    parent = current;
+                    current = current->left;
+                }
+                else if (kc(current->data->first, k))
+                    current = current->right;
+                else
+                    return current;
+            }
+            return parent;
+        }
         public:
             typedef typename ft::map_iter<Node, value_type, Compare> iterator;
             typedef typename ft::map_iter<Node, const value_type, Compare> const_iterator;
@@ -634,55 +701,29 @@ namespace ft{
         }
         iterator lower_bound (const key_type& k)
         {
-            iterator it;
-
-            for(it = begin(); it != end(); it++)
-            {
-                if(it->first > k)
-                    return(it);
-                else if(it->first == k)
-                    return it;
-            }
-            return (end());
+            return(iterator(bound(_Root, k), _Root));
         }
 
-        const_iterator lower_bound (const key_type& k)const
+        const_iterator lower_bound (const key_type& k) const
         {
-            const_iterator it;
-
-            for(it = begin(); it != end(); it++)
-            {
-                if(it->first > k)
-                    return(it);
-                else if(it->first == k)
-                    return it;
-            }
-            return (end());
+            return(const_iterator(bound(_Root, k), _Root));
         }
 
         iterator upper_bound (const key_type& k)
         {
-            iterator it;
-
-            
-            for(it = begin(); it != end(); it++)
+            if ()
             {
-                if(it->first == k)
-                {   it++; return it;}
+                /* code */
             }
-            return (end());
+            
+            return end();   
         }
         const_iterator upper_bound (const key_type& k) const
         {
-            const_iterator it;
-
-            
-            for(it = begin(); it != end(); it++)
-            {
-                if(it->first == k)
-                {   it++; return it;}
-            }
-            return (end());
+            const_iterator it(bound(_Root, k), _Root);
+            // if (it->first == k)
+            //     return((const_iterator(bound(_Root, k), _Root))++);
+            return end();   
         }
         pair<const_iterator,const_iterator> equal_range (const key_type& k) const
         {

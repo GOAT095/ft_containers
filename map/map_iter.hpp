@@ -110,11 +110,9 @@ namespace ft{
                     {
                         n = p;
                         p = p->parent;
-                        
                     }
                     _p = p;
                 }
-                
                 return (*this);
             }
             NODE *getNode() const
@@ -138,7 +136,6 @@ namespace ft{
                     _p = minValueNode(n->right);
 
                 // if doesnt have right you need to get it from parents
-                
                 else if (n->right == NULL)
                 {   
                     NODE* p = n->parent;
