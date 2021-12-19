@@ -496,7 +496,8 @@ namespace ft{
                     
                     else // One child case
                     {
-                       std::swap(*root, *temp);
+                    //    std::swap(*root, *temp);
+                        *root = *temp;
                        root->parent = tmp;
 
                     } // Copy the contents of
@@ -507,6 +508,7 @@ namespace ft{
                     // al.deallocate(temp->data, 1);
                     // aloc.destroy(temp);
                     // aloc.deallocate(temp, 1);
+                    delete (temp);
                     temp= NULL;
                     }
                     if(_size)
