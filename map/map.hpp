@@ -55,8 +55,8 @@ namespace ft{
             }
             Map (const Map& x)
             {
-                clear();
-                _size = x._size;
+                // _size = x._size;
+                _size = 0;
                 _Root = NULL;
                 const_iterator beg = x.begin();
                 const_iterator end = x.end();
@@ -66,9 +66,23 @@ namespace ft{
                     beg++;
                 }
             }
+            Map& operator= (const Map& x)
+            {
+                if(_size != 0)
+                    clear();
+                const_iterator beg = x.begin();
+                const_iterator end = x.end();
+                while(beg != end)
+                {
+                    insert(*beg);
+                    beg++;
+                }
+                return(*this);
+            }
             template <class InputIterator>
             Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            { 
+            {
+                _Root = NULL;
                 _size = 0;
                 al = alloc;
                 kc = comp;
@@ -95,8 +109,8 @@ namespace ft{
             // Node* end;
             Node* last_insert;
             Node* not_inserted;
-            Node* _min;
-            Node* _max;
+            // Node* _min;
+            // Node* _max;
             public:
             struct Trunk
             {
@@ -122,14 +136,14 @@ namespace ft{
             {
                 return _Root;
             }
-            Node    *getmin()
-            {
-                return _min;
-            }
-            Node    *getmax()
-            {
-                return _max;
-            }
+            // Node    *getmin()
+            // {
+            //     return _min;
+            // }
+            // Node    *getmax()
+            // {
+            //     return _max;
+            // }
             void printTree(Node* root, Trunk *prev, bool isLeft)
             {
                 if (root == nullptr) {
@@ -344,26 +358,24 @@ namespace ft{
         }
 
         Node  *insert(Node *node,const value_type& data){
-                
-            //node is root here
-            //need a rebind and allocation
             if(node == NULL){
                 Node *n = newNode(data);
                 node = n;
                 last_insert = n;
                 _size++;
-                if(_size == 1)
-                {_min = n;
-                _max = n;}
-                else
-                {
-                    if(kc(n->data->first, _min->data->first))
-                        _min = n;
-                    if(kc(_max->data->first,n->data->first))
-                        _max = n;
-                }
+                // if(_size == 1)
+                // {_min = n;
+                // _max = n;}
+                // else
+                // {
+                //     if(kc(n->data->first, _min->data->first))
+                //         _min = n;
+                //     if(kc(_max->data->first,n->data->first))
+                //         _max = n;
+                // }
                 return node;
             }
+            if(node && node->data){
             if(kc(data.first, node->data->first)){
                 node->left = insert(node->left, data);
                 node->left->parent = node;
@@ -375,7 +387,7 @@ namespace ft{
             else{
                 not_inserted = node;
                 return node;
-            }
+            }}
             /* 3. Get the balance factor of this ancestor
                 node to check whether this node became
                 unbalanced */
@@ -394,7 +406,7 @@ namespace ft{
             Node* current = node;
         
             /* loop down to find the leftmost leaf */
-            while (current &&current->left != NULL)
+            while (current && current->left != NULL)
                 current = current->left;
         
             return current;
@@ -489,15 +501,14 @@ namespace ft{
 
                     } // Copy the contents of
                                 // the non-empty child
-                    //needs to be changed to free
-                //     if (temp != NULL)
-                //    {
+                    if (temp != NULL)
+                   {
                     // al.destroy(temp->data);
                     // al.deallocate(temp->data, 1);
                     // aloc.destroy(temp);
                     // aloc.deallocate(temp, 1);
                     temp= NULL;
-                    // }
+                    }
                     if(_size)
                         _size--;
                 }
@@ -577,8 +588,8 @@ namespace ft{
             typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
 
-        iterator begin(){return (iterator(minValueNode(_Root), _Root));}
-        const_iterator begin() const{return (const_iterator(minValueNode(_Root), _Root));}
+        iterator begin(){ return (iterator(minValueNode(_Root), _Root));}
+        const_iterator begin() const{ return (const_iterator(minValueNode(_Root), _Root));}
         iterator end(){return(iterator(NULL, _Root, maxValueNode(_Root)));}
         const_iterator end() const{return(const_iterator(NULL, _Root, maxValueNode(_Root)));}
 
@@ -600,10 +611,7 @@ namespace ft{
             if (s == _size)
                 return(ft::make_pair(iterator(not_inserted,_Root), false));
             else
-            {   
-                // _size++; 
                 return(ft::make_pair(iterator(last_insert,_Root), true));
-            }
         }
         // this one is weird just ignore position param
         void insert (iterator position, const value_type& val)
@@ -619,6 +627,7 @@ namespace ft{
             while (first != last)
             {
                insert(*first);
+            //    std::cout << "here " << std::endl;
                 first++;
             }
         }
@@ -711,19 +720,23 @@ namespace ft{
 
         iterator upper_bound (const key_type& k)
         {
-            if ()
-            {
-                /* code */
-            }
-            
-            return end();   
+            Node *n = bound(_Root, k);
+            iterator it = iterator(n, _Root);
+            if(!kc(n->data->first,k) && !kc(k, n->data->first))
+                return(++it);
+            else
+                return(end());
+            return(it);
         }
         const_iterator upper_bound (const key_type& k) const
         {
-            const_iterator it(bound(_Root, k), _Root);
-            // if (it->first == k)
-            //     return((const_iterator(bound(_Root, k), _Root))++);
-            return end();   
+           Node *n = bound(_Root, k);
+            iterator it = iterator(n, _Root);
+            if(!kc(n->data->first,k) && !kc(k, n->data->first))
+                return(++it);
+            else
+                return(end());
+            return(it);
         }
         pair<const_iterator,const_iterator> equal_range (const key_type& k) const
         {
