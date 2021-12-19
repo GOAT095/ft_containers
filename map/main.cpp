@@ -9,27 +9,29 @@ struct classcomp {
 
 int main ()
 {
-  // {
+  {
 
-  //           /*------------------ ft::Maps ---------------------*/
-  //           std::map<int, std::string> m1;
-  //           ft::Map<int, std::string> ft_m1;
-  //           for (size_t i = 0; i < 1e6; i++)
-  //           {
-  //               m1.insert(std::make_pair(i, "string2"));
-  //               ft_m1.insert(ft::make_pair(i, "string2"));
-  //           }
+            /*------------------ ft::Maps ---------------------*/
+            std::map<int, std::string> m1;
+            ft::Map<int, std::string> ft_m1;
+            for (size_t i = 0; i < 1e6; i++)
+            {
+                m1.insert(std::make_pair(i, "string2"));
+                ft_m1.insert(ft::make_pair(i, "string2"));
+            }
 
-  //           m1.rbegin();
-  //           m1.rend();
-  //           /*-----------------------------------------------------*/
-  //           /*------------------ ft::Maps ---------------------*/
-  //           ft_m1.rbegin();
-  //           ft_m1.rend();
-  //           // / for (ft::Map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-  //           //   pr
-  //           // system("leaks a.out");
-  // }
+            m1.rbegin();
+            m1.rend();
+            /*-----------------------------------------------------*/
+            /*------------------ ft::Maps ---------------------*/
+            ft_m1.rbegin();
+            ft_m1.rend();
+            // / for (ft::Map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+            //   pr
+            system("leaks a.out");
+  }
+  return 0;
+}
   // std::map<int, std::string> m1;
   //       ft::Map<int, std::string> ft_m1;
 
@@ -58,13 +60,6 @@ int main ()
   //       for (ft::Map<int, std::string>::const_reverse_iterator rit = ft_m2.rbegin(); rit != ft_m2.rend(); ++rit) // fill c_ft_res from const ft_m1
   //           c_ft_res += rit->second;
 
-        int arr[] = {12, 82, 37, 64, 15};
-        // ft::Map<int, int> end_test;
-        ft::Map<int, int, classcomp> fourth;  // class as Compare
-        for(size_t i = 0; i < 5; ++i)
-            fourth.insert(ft::make_pair(arr[i], i));
-        for (ft::Map<int,int, classcomp>::iterator it=fourth.begin(); it!=fourth.end(); ++it)
-       std::cout << it->first << " => " << it->second << '\n';
         // ft::Map<int, int>::reverse_iterator rit = fourth.rend();
         // rit--;
   // ft::Map<char,int> mymap;
@@ -84,7 +79,7 @@ int main ()
   // // print content:
   // for (ft::Map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
   //   std::cout << it->first << " => " << it->second << '\n';
-}
+
 // int main(){
 
 //   // ft::Map<char,int> foo,bar;
