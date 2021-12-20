@@ -724,20 +724,16 @@ namespace ft{
         {
             Node *n = bound(_Root, k);
             iterator it = iterator(n, _Root);
-            if(!kc(n->data->first,k) && !kc(k, n->data->first))
+            if(it != end() && !kc(n->data->first,k) && !kc(k, n->data->first))
                 return(++it);
-            else
-                return(end());
             return(it);
         }
         const_iterator upper_bound (const key_type& k) const
         {
            Node *n = bound(_Root, k);
             iterator it = iterator(n, _Root);
-            if(!kc(n->data->first,k) && !kc(k, n->data->first))
+            if(it != end() && !kc(n->data->first,k) && !kc(k, n->data->first))
                 return(++it);
-            else
-                return(end());
             return(it);
         }
         pair<const_iterator,const_iterator> equal_range (const key_type& k) const
