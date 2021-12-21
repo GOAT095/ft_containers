@@ -55,7 +55,6 @@ namespace ft{
             }
             Map (const Map& x)
             {
-                // _size = x._size;
                 _size = 0;
                 _Root = NULL;
                 const_iterator beg = x.begin();
@@ -283,13 +282,13 @@ namespace ft{
             // there are 4 cases
         
             // Left Left Case
-            
+            // std::cout << "dawdawdawdawdawd\n";
             if (balance > 1 && kc(data.first, node->left->data->first))
                 return rightRotate(node);
         
             // Right Right Case
             if (balance < -1 && !kc(data.first, node->right->data->first))
-                return leftRotate(node);
+              {return leftRotate(node);}
         
             // Left Right Case
             if (balance > 1 && !kc(data.first, node->left->data->first))
@@ -353,16 +352,6 @@ namespace ft{
                 node = n;
                 last_insert = n;
                 _size++;
-                // if(_size == 1)
-                // {_min = n;
-                // _max = n;}
-                // else
-                // {
-                //     if(kc(n->data->first, _min->data->first))
-                //         _min = n;
-                //     if(kc(_max->data->first,n->data->first))
-                //         _max = n;
-                // }
                 return node;
             }
             if(node && node->data){
@@ -460,9 +449,10 @@ namespace ft{
                 // node with only one child or no child
                 if( (root->left == NULL) || (root->right == NULL) )
                 {
-                    Node *temp = newNode(data);
+                    Node *temp;
                     Node *tmp = root->parent;
                     temp = root->left ? root->left : root->right;
+                    root->left = root->left ? root->left = NULL : root->right = NULL; 
                     // No child case
                     if (temp == NULL)
                     {
@@ -472,23 +462,21 @@ namespace ft{
                     
                     else // One child case
                     {
-                    //    std::swap(*root, *temp);
-                       *root = *temp;
+                       std::swap(*root, *temp);
                        root->parent = tmp;
 
-                    } // Copy the contents of
-                                // the non-empty child
-                    if (temp != NULL)
-                   {
-                    // al.destroy(temp->data);
-                    // al.deallocate(temp->data, 1);
-                    // aloc.destroy(temp);
-                    // aloc.deallocate(temp, 1);
-                    delete (temp);
-                    temp= NULL;
                     }
-                    if(_size)
+                   
+                    // delete(temp->data);
+                    // delete (temp);
+                    
+                    if(_size) 
                         _size--;
+                    al.destroy(temp->data);
+                    aloc.destroy(temp);
+                    al.deallocate(temp->data, 1);
+                    aloc.deallocate(temp, 1);
+                    temp= NULL;
                 }
                 else
                 {
@@ -498,19 +486,19 @@ namespace ft{
         
                     // Copy the inorder successor's
                     // data to this node
-                    root->data = temp->data;
+                     root->data = temp->data;
                     
                     // Delete the inorder successor
                     root->right = deleteNode(root->right, *temp->data);
                 }
-                
             }
 
             // If the tree had only one node
             // // then return
             if (root == NULL)
                 return root;
-            return(balance_tree_delete(root, data));
+            root = balance_tree_delete(root, data);
+            return(root);
         }
         Node* search(Node *node, const key_type& first)const 
         {
@@ -612,6 +600,7 @@ namespace ft{
         size_type erase (const key_type& k)
         {
             size_type s = _size;
+            //  printTree(_Root, nullptr, false);
             _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
             // printTree(_Root, nullptr, false);
              if (s == _size)
