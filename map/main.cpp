@@ -30,7 +30,7 @@ int main ()
   //           //   pr
   //           system("leaks a.out");
   // }
-    std::map<int, std::string> m1;
+        std::map<int, std::string> m1;
         ft::Map<int, std::string> ft_m1;
 
         for (size_t i = 0; i < 10; i++)
@@ -38,10 +38,25 @@ int main ()
             m1.insert(std::make_pair(i, "string2"));
             ft_m1.insert(ft::make_pair(i, "string2"));
         }
+        std::map<int, std::string>::iterator itt= m1.begin();
+        itt--;
 
         std::map<int, std::string> const m2(m1.rbegin(), m1.rend());
+        // std::cout << m1.rbegin()->first << std::endl;
         ft::Map<int, std::string> const ft_m2(ft_m1.rbegin(), ft_m1.rend());
 
+
+        ft::Map<int, std::string>::const_iterator itttt;// =  ft_m2.begin();
+        std::map<int, std::string>::const_iterator itttt2;// =  ft_m2.begin();
+        for (itttt =  ft_m2.begin(); itttt != ft_m2.end() ; itttt++)
+        {
+          std::cout << itttt->first << std::endl;
+        }
+        for (itttt2 =  m2.begin(); itttt2 != m2.end() ; itttt2++)
+        {
+          std::cout << itttt2->first << std::endl;
+        }
+        // std::cout << ft_m1.rbegin()->first << std::endl;
         /*-----------------------------------------------------*/
         /*------------------ ft::Maps ---------------------*/
         /*----------------------------------------------------*/
@@ -50,23 +65,26 @@ int main ()
         /*----------------------------------------------------*/
         for (std::map<int, std::string>::reverse_iterator it = m1.rbegin(); it != m1.rend(); ++it) // fill res from m1
             res += it->second;
+        // std::cout << res << std::endl;
+
         for (std::map<int, std::string>::const_reverse_iterator rit = m2.rbegin(); rit != m2.rend(); ++rit) // fill c_res from const m1
             c_res += rit->second;
+        // std::cout << c_res << std::endl;
 
         for (ft::Map<int, std::string>::reverse_iterator it = ft_m1.rbegin(); it != ft_m1.rend(); ++it) // fill ft_res from ft_m1
-            ft_res += it->second;
+        {   ft_res += it->second; std::cout << it->first << std::endl;} 
+        // std::cout << ft_res << std::endl;
+        std::cout << std::endl;
         for (ft::Map<int, std::string>::const_reverse_iterator rit = ft_m2.rbegin(); rit != ft_m2.rend(); ++rit) // fill c_ft_res from const ft_m1
-            c_ft_res += rit->second;
+        {    c_ft_res += rit->second; std::cout << rit->first << std::endl;}
+        // std::cout << c_ft_res << std::endl;
+
         int arr[] = {12, 82, 37, 64, 15};
         ft::Map<int, int> end_test;
         for(size_t i = 0; i < 5; ++i)
             end_test.insert(ft::make_pair(arr[i], i));
         ft::Map<int, int>::reverse_iterator rit = end_test.rend();
         rit--;
-        for (size_t i = 0; i < 10; i++)
-        {
-            std::cout << rit->first << std::endl;
-        }
   return 0;
 }
   // std::map<int, std::string> m1;

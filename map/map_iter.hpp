@@ -86,7 +86,7 @@ namespace ft{
             map_iter& operator--()
             {
                 NODE *n = _p;
-                NODE *min = minValueNode(_root);
+                // NODE *min = minValueNode(_root);
                 // NODE *max = maxValueNode(_root);
                 //if points to end give it max value thats on end
                 if (_p == NULL && _end)
@@ -95,12 +95,12 @@ namespace ft{
                     _end = NULL;
                     return (*this);
                 }
-                if (_p == min)
-                {return *this;}
+                // if (_p == min)
+                // {return *this;}
                 // if it has left, left it is :)
                 
                 if (n->left != NULL)
-                    _p = minValueNode(n->left);
+                    _p = maxValueNode(n->left);
             
                 // if doesnt have right you need to get it from parents
                 else if (n->left == NULL)

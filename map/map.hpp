@@ -70,6 +70,7 @@ namespace ft{
             {
                 if(_size != 0)
                     clear();
+                
                 const_iterator beg = x.begin();
                 const_iterator end = x.end();
                 while(beg != end)
@@ -106,11 +107,8 @@ namespace ft{
             };
             typename Alloc::template rebind<Node>::other aloc;
             Node* _Root;
-            // Node* end;
             Node* last_insert;
             Node* not_inserted;
-            // Node* _min;
-            // Node* _max;
             public:
             struct Trunk
             {
@@ -136,14 +134,6 @@ namespace ft{
             {
                 return _Root;
             }
-            // Node    *getmin()
-            // {
-            //     return _min;
-            // }
-            // Node    *getmax()
-            // {
-            //     return _max;
-            // }
             void printTree(Node* root, Trunk *prev, bool isLeft)
             {
                 if (root == nullptr) {
@@ -431,20 +421,6 @@ namespace ft{
         
             return current;
         }
-        Node* inOrderSuccessor(struct Node* n)
-        {
-            // step 1 of the above algorithm
-            if (n->right != NULL)
-                return minValueNode(n->right);
-        
-            // step 2 of the above algorithm
-            Node* p = n->parent;
-            while (p != NULL && n == p->right) {
-                n = p;
-                p = p->parent;
-            }
-            return p;
-        }
         Node * maxValueNode(Node* node) const
         {
             Node* current = node;
@@ -497,7 +473,7 @@ namespace ft{
                     else // One child case
                     {
                     //    std::swap(*root, *temp);
-                        *root = *temp;
+                       *root = *temp;
                        root->parent = tmp;
 
                     } // Copy the contents of
@@ -592,6 +568,7 @@ namespace ft{
 
         iterator begin(){ return (iterator(minValueNode(_Root), _Root));}
         const_iterator begin() const{ return (const_iterator(minValueNode(_Root), _Root));}
+
         iterator end(){return(iterator(NULL, _Root, maxValueNode(_Root)));}
         const_iterator end() const{return(const_iterator(NULL, _Root, maxValueNode(_Root)));}
 
@@ -623,13 +600,11 @@ namespace ft{
 
         }
         template <class InputIterator>
-
         void insert (InputIterator first, InputIterator last)
         {
             while (first != last)
             {
                insert(*first);
-            //    std::cout << "here " << std::endl;
                 first++;
             }
         }
@@ -637,7 +612,6 @@ namespace ft{
         size_type erase (const key_type& k)
         {
             size_type s = _size;
-            // printTree(_Root, nullptr, false);
             _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
             // printTree(_Root, nullptr, false);
              if (s == _size)

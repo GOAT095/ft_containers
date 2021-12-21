@@ -8,7 +8,7 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/anassif/Desktop/ft_containers_tests/map.out",
+            "program": "/Users/anassif/Desktop/ft_containers/map/a.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
