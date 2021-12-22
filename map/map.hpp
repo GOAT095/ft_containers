@@ -98,7 +98,6 @@ namespace ft{
 
             struct Node {
                 value_type *data;
-
                 Node* left;
                 Node* right;
                 Node* parent;
@@ -108,68 +107,68 @@ namespace ft{
             Node* _Root;
             Node* last_insert;
             Node* not_inserted;
-            public:
-            struct Trunk
-            {
-                Trunk *prev;
-                std::string str;
+            // public:
+            // struct Trunk
+            // {
+            //     Trunk *prev;
+            //     std::string str;
             
-                Trunk(Trunk *prev, std::string str)
-                {
-                    this->prev = prev;
-                    this->str = str;
-                }
-            };
-            void showTrunks(Trunk *p)
-            {
-                if (p == nullptr) {
-                    return;
-                }
+            //     Trunk(Trunk *prev, std::string str)
+            //     {
+            //         this->prev = prev;
+            //         this->str = str;
+            //     }
+            // };
+            // void showTrunks(Trunk *p)
+            // {
+            //     if (p == nullptr) {
+            //         return;
+            //     }
             
-                showTrunks(p->prev);
-                std::cout << p->str;
-            }
-            Node    *getRoot()
-            {
-                return _Root;
-            }
-            void printTree(Node* root, Trunk *prev, bool isLeft)
-            {
-                if (root == nullptr) {
-                    return;
-                }
+            //     showTrunks(p->prev);
+            //     std::cout << p->str;
+            // }
+            // Node    *getRoot()
+            // {
+            //     return _Root;
+            // }
+            // void printTree(Node* root, Trunk *prev, bool isLeft)
+            // {
+            //     if (root == nullptr) {
+            //         return;
+            //     }
             
-                std::string prev_str = "    ";
-                Trunk *trunk = new Trunk(prev, prev_str);
+            //     std::string prev_str = "    ";
+            //     Trunk *trunk = new Trunk(prev, prev_str);
             
-                printTree(root->right, trunk, true);
+            //     printTree(root->right, trunk, true);
             
-                if (!prev) {
-                    trunk->str = "———";
-                }
-                else if (isLeft)
-                {
-                    trunk->str = ".——|";
-                    prev_str = "   |";
-                }
-                else {
-                    trunk->str = "`——|";
-                    prev->str = prev_str;
-                }
+            //     if (!prev) {
+            //         trunk->str = "———";
+            //     }
+            //     else if (isLeft)
+            //     {
+            //         trunk->str = ".——|";
+            //         prev_str = "   |";
+            //     }
+            //     else {
+            //         trunk->str = "`——|";
+            //         prev->str = prev_str;
+            //     }
             
-                showTrunks(trunk);
-                std::cout << root->data->first;
-                if (root->parent)
-                    std::cout << "p:"<< root->parent->data->first <<std::endl;
-                else
-                    std::cout <<std::endl;
-                if (prev) {
-                    prev->str = prev_str;
-                }
-                trunk->str = "   |";
+            //     showTrunks(trunk);
+            //     std::cout << root->data->first;
+            //     if (root->parent)
+            //         std::cout << "p:"<< root->parent->data->first <<std::endl;
+            //     else
+            //         std::cout <<std::endl;
+            //     if (prev) {
+            //         prev->str = prev_str;
+            //     }
+            //     trunk->str = "   |";
             
-                printTree(root->left, trunk, false);
-            }
+            //     printTree(root->left, trunk, false);
+            // }
             private:
             //node stuff
 
@@ -272,9 +271,8 @@ namespace ft{
         }
         Node  *balance_tree_delete(Node *node, value_type data)
         {
-            //UPDATE HEIGHT OF THE CURRENT NODE
-            node->height = 1 + max(height(node->left),
-                                height(node->right));
+            // UPDATE HEIGHT OF THE CURRENT NODE
+            node->height = 1 + max(height(node->left), height(node->right));
 
             int balance = getBalance(node);
         
@@ -403,7 +401,7 @@ namespace ft{
         Node * minValueNode(Node* node) const
         {
             Node* current = node;
-        
+            
             /* loop down to find the leftmost leaf */
             while (current &&current->left != NULL)
                 current = current->left;
@@ -449,21 +447,26 @@ namespace ft{
                 // node with only one child or no child
                 if( (root->left == NULL) || (root->right == NULL) )
                 {
-                    Node *temp;
-                    Node *tmp = root->parent;
+                    Node *temp = NULL;;
+                    // Node *tmp = root->parent;
                     temp = root->left ? root->left : root->right;
-                    root->left = root->left ? root->left = NULL : root->right = NULL; 
+                    // root->left = root->left ? root->left = NULL : root->right = NULL; 
                     // No child case
+
+                    if (temp == root->left)
+                        root->left = NULL;
+                    else if (temp == root->right)
+                        root->right = NULL;
                     if (temp == NULL)
                     {
                         temp = root;
                         root = NULL;
                     }
-                    
                     else // One child case
                     {
-                       std::swap(*root, *temp);
-                       root->parent = tmp;
+                    //    std::swap(*root, *temp);
+                         al.construct(root->data, *temp->data);
+                    //    root->parent = tmp;
 
                     }
                    
@@ -486,9 +489,11 @@ namespace ft{
         
                     // Copy the inorder successor's
                     // data to this node
-                     root->data = temp->data;
+                    //  root->data=  temp->data;
+                     al.construct(root->data, *temp->data);
                     
                     // Delete the inorder successor
+                    
                     root->right = deleteNode(root->right, *temp->data);
                 }
             }

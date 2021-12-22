@@ -9,44 +9,28 @@ struct classcomp {
 
 int main ()
 {
-  
-std::map<char, int> m;
-        ft::Map<char, int> ft_m;
-        std::map<char, int>::iterator it;
-        ft::Map<char, int>::iterator ft_it;
+  {
 
-        // insert some values:
-        ft_m['a'] = 10;
-        ft_m['b'] = 20;
-        ft_m['c'] = 30;
-        ft_m['d'] = 40;
-        ft_m['e'] = 50;
-        ft_m['f'] = 60;
-
-        m['a'] = 10;
-        m['b'] = 20;
-        m['c'] = 30;
-        m['d'] = 40;
-        m['e'] = 50;
-        m['f'] = 60;
-
-        it = m.find('b');
-        ft_it = ft_m.find('b');
-
-        m.erase(it);       // erasing by iterator
-        ft_m.erase(ft_it); // erasing by iterator
-
-        int ret = m.erase('c');       // erasing by key
-        int ft_ret = ft_m.erase('c'); // erasing by key
-
-
-        it = m.find('e');
-        ft_it = ft_m.find('e');
-
-
-        m.erase(it, m.end());          // erasing by range
-        ft_m.erase(ft_it, ft_m.end()); // erasing by range
-
+            /*------------------ ft::Maps ---------------------*/
+            std::map<int, std::string> m1;
+            ft::Map<int, std::string> ft_m1;
+            for (size_t i = 0; i < 1e6; i++)
+            {
+                m1.insert(std::make_pair(i, "string2"));
+                ft_m1.insert(ft::make_pair(i, "string2"));
+            }
+            ft_m1.erase(0);
+            // ft_m1.erase(2);
+            // m1.rbegin();
+            // m1.rend();
+            // /*-----------------------------------------------------*/
+            // /*------------------ ft::Maps ---------------------*/
+            // ft_m1.rbegin();
+            // ft_m1.rend();
+            // / for (ft::Map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+            //   pr
+  }
+      //  system("leaks a.out");
   return 0;
 }
   // std::map<int, std::string> m1;

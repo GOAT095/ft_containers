@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:23 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/18 19:58:53 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/22 00:34:00 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ namespace ft{
     class Stack
     {
         public:
-        
-           
-
             typedef size_t size_type;
             typedef Container container_type;
             typedef T value_type;
