@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/22 00:33:48 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/23 00:05:09 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,8 @@ namespace ft
         void insert (iterator position, size_type n, const value_type& val)
         {
             size_type start =  position - begin();
+            if(_size == 0)
+                reserve(n);
             if (_size + n > _capacity)
             {
 				if (n > _size)

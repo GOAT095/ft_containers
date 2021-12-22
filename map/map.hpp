@@ -107,68 +107,68 @@ namespace ft{
             Node* _Root;
             Node* last_insert;
             Node* not_inserted;
-            // public:
-            // struct Trunk
-            // {
-            //     Trunk *prev;
-            //     std::string str;
+            public:
+            struct Trunk
+            {
+                Trunk *prev;
+                std::string str;
             
-            //     Trunk(Trunk *prev, std::string str)
-            //     {
-            //         this->prev = prev;
-            //         this->str = str;
-            //     }
-            // };
-            // void showTrunks(Trunk *p)
-            // {
-            //     if (p == nullptr) {
-            //         return;
-            //     }
+                Trunk(Trunk *prev, std::string str)
+                {
+                    this->prev = prev;
+                    this->str = str;
+                }
+            };
+            void showTrunks(Trunk *p)
+            {
+                if (p == nullptr) {
+                    return;
+                }
             
-            //     showTrunks(p->prev);
-            //     std::cout << p->str;
-            // }
-            // Node    *getRoot()
-            // {
-            //     return _Root;
-            // }
-            // void printTree(Node* root, Trunk *prev, bool isLeft)
-            // {
-            //     if (root == nullptr) {
-            //         return;
-            //     }
+                showTrunks(p->prev);
+                std::cout << p->str;
+            }
+            Node    *getRoot()
+            {
+                return _Root;
+            }
+            void printTree(Node* root, Trunk *prev, bool isLeft)
+            {
+                if (root == nullptr) {
+                    return;
+                }
             
-            //     std::string prev_str = "    ";
-            //     Trunk *trunk = new Trunk(prev, prev_str);
+                std::string prev_str = "    ";
+                Trunk *trunk = new Trunk(prev, prev_str);
             
-            //     printTree(root->right, trunk, true);
+                printTree(root->right, trunk, true);
             
-            //     if (!prev) {
-            //         trunk->str = "———";
-            //     }
-            //     else if (isLeft)
-            //     {
-            //         trunk->str = ".——|";
-            //         prev_str = "   |";
-            //     }
-            //     else {
-            //         trunk->str = "`——|";
-            //         prev->str = prev_str;
-            //     }
+                if (!prev) {
+                    trunk->str = "———";
+                }
+                else if (isLeft)
+                {
+                    trunk->str = ".——|";
+                    prev_str = "   |";
+                }
+                else {
+                    trunk->str = "`——|";
+                    prev->str = prev_str;
+                }
             
-            //     showTrunks(trunk);
-            //     std::cout << root->data->first;
-            //     if (root->parent)
-            //         std::cout << "p:"<< root->parent->data->first <<std::endl;
-            //     else
-            //         std::cout <<std::endl;
-            //     if (prev) {
-            //         prev->str = prev_str;
-            //     }
-            //     trunk->str = "   |";
+                showTrunks(trunk);
+                std::cout << root->data->first;
+                if (root->parent)
+                    std::cout << "p:"<< root->parent->data->first <<std::endl;
+                else
+                    std::cout <<std::endl;
+                if (prev) {
+                    prev->str = prev_str;
+                }
+                trunk->str = "   |";
             
-            //     printTree(root->left, trunk, false);
-            // }
+                printTree(root->left, trunk, false);
+            }
             private:
             //node stuff
 
@@ -195,7 +195,7 @@ namespace ft{
             Node *T2 = x->right;
         
             // Perform rotation
-            // if (!x){return y;}
+            
             // just to fix seg fault not working
 
             
@@ -280,32 +280,30 @@ namespace ft{
             // there are 4 cases
         
             // Left Left Case
-            // std::cout << "dawdawdawdawdawd\n";
-            if (balance > 1 && kc(data.first, node->left->data->first))
+            if (node->left && balance > 1 && kc(data.first, node->left->data->first))
                 return rightRotate(node);
-        
-            // Right Right Case
-            if (balance < -1 && !kc(data.first, node->right->data->first))
-              {return leftRotate(node);}
-        
-            // Left Right Case
-            if (balance > 1 && !kc(data.first, node->left->data->first))
+            if (node->left && balance > 1 && !kc(data.first, node->left->data->first))
             {
                 if (node->left->left) //just right rotate node 
                     return rightRotate(node);
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
+            // Right Right Case
+            if (node->left && balance < -1 && !kc(data.first, node->right->data->first))
+              {return leftRotate(node);}
+        
+            // Left Right Case
+            
         
             // Right Left Case
             if (balance < -1 && kc(data.first, node->right->data->first))
             {
-                if (node->right->right) //just left rotate node 
+                if (node->right && node->right->right) //just left rotate node 
                     return leftRotate(node);
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
-            // _Root->parent = _Root; 
             return (node);
         }
         Node  *balance_tree(Node *node, value_type data)
@@ -452,7 +450,6 @@ namespace ft{
                     temp = root->left ? root->left : root->right;
                     // root->left = root->left ? root->left = NULL : root->right = NULL; 
                     // No child case
-
                     if (temp == root->left)
                         root->left = NULL;
                     else if (temp == root->right)
@@ -475,9 +472,9 @@ namespace ft{
                     
                     if(_size) 
                         _size--;
-                    al.destroy(temp->data);
-                    aloc.destroy(temp);
+                    // al.destroy(temp->data);
                     al.deallocate(temp->data, 1);
+                    // aloc.destroy(temp);
                     aloc.deallocate(temp, 1);
                     temp= NULL;
                 }
@@ -608,7 +605,7 @@ namespace ft{
             //  printTree(_Root, nullptr, false);
             _Root = deleteNode(_Root, ft::make_pair(k,mapped_type()));
             // printTree(_Root, nullptr, false);
-             if (s == _size)
+            if (s == _size)
                 return 0;
             return (1);
             

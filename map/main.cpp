@@ -12,11 +12,9 @@ int main ()
   {
 
             /*------------------ ft::Maps ---------------------*/
-            std::map<int, std::string> m1;
             ft::Map<int, std::string> ft_m1;
-            for (size_t i = 0; i < 1e6; i++)
+            for (size_t i = 0; i < 10; i++)
             {
-                m1.insert(std::make_pair(i, "string2"));
                 ft_m1.insert(ft::make_pair(i, "string2"));
             }
             ft_m1.erase(0);
@@ -30,7 +28,7 @@ int main ()
             // / for (ft::Map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
             //   pr
   }
-      //  system("leaks a.out");
+       system("leaks a");
   return 0;
 }
   // std::map<int, std::string> m1;
