@@ -1,8 +1,9 @@
 #include "Vector.hpp"
-
+#include <vector>
 int main()
 {
-    ft::Vector<int> myvector (3,100);
+  
+  ft::Vector<int> myvector (3,100);
   ft::Vector<int>::iterator it;
 
   it = myvector.begin();
@@ -10,7 +11,7 @@ int main()
 
   myvector.insert (it,2,300);
 
-//   "it" no longer valid, get a new one:
+  // "it" no longer valid, get a new one:
   it = myvector.begin();
 
   ft::Vector<int> anothervector (2,400);
@@ -23,6 +24,5 @@ int main()
   for (it=myvector.begin(); it<myvector.end(); it++)
     std::cout << ' ' << *it;
   std::cout << '\n';
-
   return 0;
 }

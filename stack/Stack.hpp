@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:23 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/22 00:34:00 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/24 00:22:21 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ namespace ft{
     template <class T, class Container = ft::Vector<T> >
     class Stack
     {
-        public:
+        public: 
             typedef size_t size_type;
             typedef Container container_type;
             typedef T value_type;

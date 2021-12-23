@@ -638,7 +638,7 @@ namespace ft{
             std::swap(kc, x.kc);
 
         }
-        //element access
+        //element access 
         mapped_type& operator[] (const key_type& k)
         {
             return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second;

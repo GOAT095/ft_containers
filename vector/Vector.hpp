@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/23 21:04:11 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/24 00:26:06 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ namespace ft
         void insert (iterator position, size_type n, const value_type& val)
         {
             size_type start =  position - begin();
+            // std::cout << start << std::endl;
             if(_size == 0)
                 reserve(n);
             if (_size + n > _capacity)
@@ -265,10 +266,12 @@ namespace ft
 					al.construct(&_arr[i], val);
             else
             {
-                for (size_type i = _size - 1 ; i >= start ; i--)
-					al.construct(&_arr[i + n], _arr[i]);
+                for (size_type i = _size ; i >= start ; i--)
+                    al.construct(&_arr[i  - 1 + n], _arr[i  - 1]);
+                // al.construct(&_arr[n], _arr[start]);
                 for (size_type i = 0; i < n; i++)
                     al.construct(&_arr[start + i], val);
+                
             }
             _size += n;
         }
@@ -298,8 +301,8 @@ namespace ft
             }
             else
             {
-                for (size_type i = _size - 1 ; i >= start  ; i--)
-					al.construct(&_arr[i + dist], _arr[i]);
+                for (size_type i = _size; i >=start  ; i--)
+                    al.construct(&_arr[i  - 1 + dist], _arr[i - 1]);
                 size_type i = 0;
                 while (first != last)
                 {
@@ -307,11 +310,6 @@ namespace ft
                     first++;
                     i++;
                 }
-                // for (size_type i = 0; i < dist; i++)
-                // {
-                //     al.construct(&_arr[start + i], *first);
-                //     first++;
-                // }
             }
             _size += dist;
         }
@@ -331,21 +329,22 @@ namespace ft
 		}
         //this one erases all the elements from first to last
         iterator 		erase (iterator first, iterator last) {
-			
-			//needs to be fixed !!!
             size_type dist = last - first;
 			size_type start = first - begin();
-            size_type distt = dist;
+            size_type lastt = last - begin();
 
             
-			for (size_type i = 0; i < dist ; i++)
+            for(size_type i = start; i < lastt; i++)
             {
-				al.construct(&_arr[start + i], _arr[start + distt]);
-                distt++;
+                al.destroy(&_arr[i]);
             }
-            distt = dist;
-			for (size_type i = 0 ; i < dist ; i++)
-			{	al.destroy(&_arr[start + distt]); distt++;}
+            size_type j = 0;
+            for(size_type i = lastt; i < _size; i++)
+            {
+                al.construct(&_arr[start + j], _arr[lastt]);
+                j++;
+                lastt++;
+            }
             _size -= dist;
 			return (first);
 		}
