@@ -17,7 +17,7 @@ int main()
   myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
   int myarray [] = { 501,502,503 };
-//   myvector.insert (myvector.begin(), myarray, myarray+3);
+  myvector.insert (myvector.begin(), myarray, myarray+3);
 
   std::cout << "myvector contains:";
   for (it=myvector.begin(); it<myvector.end(); it++)
