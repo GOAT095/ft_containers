@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/23 00:05:09 by anassif          ###   ########.fr       */
+/*   Updated: 2021/12/23 04:14:24 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ namespace ft
         }
         //this one puts the range between first and last starting from the position
         template <class InputIterator>
-        void insert (iterator position, InputIterator first, InputIterator last)
+        void insert (iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = InputIterator())
         {
             size_type dist = last - first;
             size_type start =  position - begin();
