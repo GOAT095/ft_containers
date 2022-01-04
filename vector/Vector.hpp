@@ -6,7 +6,7 @@
 /*   By: anassif <anassif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 04:04:09 by anassif           #+#    #+#             */
-/*   Updated: 2021/12/24 00:26:06 by anassif          ###   ########.fr       */
+/*   Updated: 2022/01/04 21:33:09 by anassif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ namespace ft
         // and destroys old content if its outside the distance of the range
         // size get updated to the distance between range so it fits
         template <class InputIterator>
-        void assign (InputIterator first, InputIterator last)
+        void assign (InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = InputIterator())
         {
             size_type dis = last - first;
             size_type position = 0;
